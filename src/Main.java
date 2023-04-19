@@ -3,6 +3,13 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
+//    arr[y][x]
+//    {
+//        {},
+//        {},
+//        {},
+//    }
+
 public class Main {
     public static Scanner scanner;
     public static Random rnd;
