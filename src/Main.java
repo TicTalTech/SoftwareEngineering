@@ -14,6 +14,12 @@ public class Main {
     public static Scanner scanner;
     public static Random rnd;
 
+    public static final int EMPTY = 0;
+    public static final int HIT = 1;
+    public static final int SHIP = 2;
+    public static final int MISS = 3;
+
+
     public static void battleshipGame() {
         // TODO: Add your code here (and add more methods).
     }
