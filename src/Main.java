@@ -21,16 +21,34 @@ public class Main {
 
 
     public static void battleshipGame() {
-        // TODO: Add your code here (and add more methods).
+
     }
+public static void printBoard(int arr[][])
+{
+    System.out.print("  ");
+    for(int i=0;i<arr[0].length;++i)
+        System.out.print(i+" ");
+    System.out.println();
+        for(int i=0;i<arr.length;++i){
+            System.out.print(i+" ");
+            for(int j=0; j<arr[0].length;++j)
+            {
+                if(arr[i][j] == EMPTY || arr[i][j] == MISS)
+                    System.out.print("- ");
+                if(arr[i][j] == HIT)
+                    System.out.print("x ");
+                if(arr[i][j] == SHIP)
+                    System.out.print("# ");
+            }
+            System.out.println();
+        }
 
-
-    public static void main(String[] args) throws IOException {
+}    public static void main(String[] args) throws IOException {
         String path = args[0];
-        scanner = new Scanner(new File(path));
+        Scanner scanner = new Scanner(System.in);
+        //scanner = new Scanner(new File(path));
         int numberOfGames = scanner.nextInt();
         scanner.nextLine();
-
         System.out.println("Total of " + numberOfGames + " games.");
 
         for (int i = 1; i <= numberOfGames; i++) {
