@@ -2,12 +2,11 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
-
 //    arr[y][x]
 //    {
-//        {},
-//        {},
-//        {},
+//        {1, 2},
+//        {3, 4},
+//        {5, 6},
 //    }
 
 public class Main {
@@ -18,62 +17,75 @@ public class Main {
     public static final int HIT = 1;
     public static final int SHIP = 2;
     public static final int MISS = 3;
+
+    public static final int HIT_TEMP = 4;
+
     public static final int HORIZONTAL = 0;
     public static final int VERTICAL = 1;
 
 
     public static void battleshipGame() {
-
+        runGame();
     }
 
     /**
      * the method sets up the board with all the ships
      */
-    public static void setUpBoard() {
+    public static int[][][] setUpBoard() {
         System.out.println("Enter the board size");
         String size = scanner.nextLine();
         int index = size.indexOf('X');
         String row, col;
         row = col = "";
-        for (int i = 0; i < index; ++i)
+        for (int i = 0; i < index; i++) {
             row = row + size.charAt(i);
-        for (int i = index + 1; i < size.length(); ++i)
+        }
+        for (int i = index + 1; i < size.length(); i++) {
             col = col + size.charAt(i);
+        }
         int numRows = Integer.parseInt(row);
         int numCols = Integer.parseInt(col);
         int max;
-        if (numRows < numCols)
+        if (numRows < numCols) {
             max = numCols;
-        else
+        } else {
             max = numRows;
-        System.out.println("Enter the battleships sizes");
-        int[] ships = Ships(numRows, numCols);
-        int[][] board = new int[numRows][numCols];
-        for (int i = 0; i < numRows; ++i)
-            for (int j = 0; j < numCols; ++j)
-                board[i][j] = EMPTY;
-        int[][] board2 = new int[numRows][numCols];
-        for (int i = 0; i < numRows; ++i)
-            for (int j = 0; j < numCols; ++j)
-                board2[i][j] = EMPTY;
-        int[] ships2 = new int[max + 1];
-        for (int i = 0; i < max + 1; ++i) {
-            ships2[i] = ships[i];
         }
-        shipPlacement(board, ships);
-        computerBoard(ships2, board2);
+        System.out.println("Enter the battleships sizes");
+        int[] playerShips = shipsCount(numRows, numCols);
+        int[][] playerBoard = new int[numRows][numCols];
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                playerBoard[i][j] = EMPTY;
+            }
+        }
+        int[][] agentBoard = new int[numRows][numCols];
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                agentBoard[i][j] = EMPTY;
+            }
+        }
+        int[] agentShips = new int[max + 1];
+        for (int i = 0; i < max + 1; i++) {
+            agentShips[i] = playerShips[i];
+        }
+        placePlayerShips(playerBoard, playerShips.clone());
+        createComputerBoard(agentShips, agentBoard.clone());
+        return new int[][][]{playerBoard, agentBoard, new int[][]{playerShips}, new int[][]{agentShips}};
     }
 
     /**
-     * @param oreintation a number representing the oreintation
+     * @param orientation a number representing the orientation
      * @param player      if player is true then were checking the players board otherwise were checking the computers board
-     * @return returns true if the oreintation is a one or zero otherwise it returns false and prints a message
+     * @return returns true if the orientation is a one or zero otherwise it returns false and prints a message
      */
-    public static boolean checkOrientation(int oreintation, boolean player) {
-        if (oreintation == VERTICAL || oreintation == HORIZONTAL)
+    public static boolean checkOrientation(int orientation, boolean player) {
+        if (orientation == VERTICAL || orientation == HORIZONTAL) {
             return true;
-        if (player)
+        }
+        if (player) {
             System.out.println("Illegal orientation, try again!");
+        }
         return false;
     }
 
@@ -86,10 +98,12 @@ public class Main {
      * if it's the players board
      */
     public static boolean checkTile(int[][] board, int x, int y, boolean player) {
-        if (x < board.length && y < board[0].length)
+        if (x < board.length && y < board[0].length) {
             return true;
-        if (player)
+        }
+        if (player) {
             System.out.println("Illegal tile, try again!");
+        }
         return false;
     }
 
@@ -98,24 +112,27 @@ public class Main {
      * @param x           the row number of where the ship starts
      * @param y           the column number of where the ship starts
      * @param size        the size of the ship
-     * @param oreintation the oreintation of the ship
+     * @param orientation the orientation of the ship
      * @param player      if player is true then were checking the players board otherwise were checking the computers board
      * @return returns true if the ship is within the boundaries of the board otherwise it returns false
      * and prints a message if it's the players board
      */
-    public static boolean checkBoundaries(int[][] board, int x, int y, int size, int oreintation, boolean player) {
-        if (oreintation == HORIZONTAL)
+    public static boolean checkBoundaries(int[][] board, int x, int y, int size, int orientation, boolean player) {
+        if (orientation == HORIZONTAL) {
             if (y + size - 1 >= board[0].length) {
-                if (player)
+                if (player) {
                     System.out.println("Battleship exceeds the boundaries of the board, try again!");
+                }
                 return false;
             }
-        if (oreintation == VERTICAL)
+        }
+        if (orientation == VERTICAL) {
             if (x + size - 1 >= board.length) {
                 if (player)
                     System.out.println("Battleship exceeds the boundaries of the board, try again!");
                 return false;
             }
+        }
         return true;
     }
 
@@ -124,21 +141,21 @@ public class Main {
      * @param x           the row number of where the ship starts
      * @param y           the column number of where the ship starts
      * @param size        the size of the ship
-     * @param oreintation the oreintation of the ship
+     * @param orientation the orientation of the ship
      * @param player      if player is true then were checking the players board otherwise were checking the computers board
      * @return returns true if the ship is not overlapping another ship if it is then
      * it returns false and prints a message if it's the players board
      */
-    public static boolean checkOverlap(int[][] board, int x, int y, int size, int oreintation, boolean player) {
-        for (int i = 0; i < size; ++i) {
-            if (oreintation == HORIZONTAL) {
+    public static boolean checkOverlap(int[][] board, int x, int y, int size, int orientation, boolean player) {
+        for (int i = 0; i < size; i++) {
+            if (orientation == HORIZONTAL) {
                 if (board[x][y + i] != EMPTY) {
                     if (player)
                         System.out.println("Battleship overlaps another battleship, try again!");
                     return false;
                 }
             }
-            if (oreintation == VERTICAL) {
+            if (orientation == VERTICAL) {
                 if (board[x + i][y] != EMPTY) {
                     if (player)
                         System.out.println("Battleship overlaps another battleship, try again!");
@@ -154,15 +171,15 @@ public class Main {
      * @param x           the row number of where the ship starts
      * @param y           the column number of where the ship starts
      * @param size        the size of the ship
-     * @param oreintation the oreintation of the ship
+     * @param orientation the orientation of the ship
      * @param player      if player is true then were checking the players board otherwise were checking the computers board
      * @return returns true if there is no adjacent ship otherwise it returns false and prints a message
      * if it's the players board
      */
-    public static boolean checkAdjacent(int[][] board, int x, int y, int size, int oreintation, boolean player) {
+    public static boolean checkAdjacent(int[][] board, int x, int y, int size, int orientation, boolean player) {
         boolean flag = true;
         for (int i = 0; i < size; ++i) {
-            if (oreintation == HORIZONTAL) {
+            if (orientation == HORIZONTAL) {
                 if (x - 1 >= 0) {
                     if (board[x - 1][y + i] != EMPTY) {
                         flag = false;
@@ -174,7 +191,7 @@ public class Main {
                     }
                 }
             }
-            if (oreintation == VERTICAL) {
+            if (orientation == VERTICAL) {
                 if (y - 1 >= 0) {
                     if (board[x + i][y - 1] != EMPTY) {
                         flag = false;
@@ -188,7 +205,7 @@ public class Main {
             }
         }
         //checks the 3 squares on both sides of the ship
-        if (oreintation == HORIZONTAL) {
+        if (orientation == HORIZONTAL) {
             if (x - 1 >= 0 && y - 1 >= 0) {
                 if (board[x - 1][y - 1] != EMPTY)
                     flag = false;
@@ -215,7 +232,7 @@ public class Main {
             }
 
         }
-        if (oreintation == VERTICAL) {
+        if (orientation == VERTICAL) {
             if (x - 1 >= 0 && y - 1 >= 0) {
                 if (board[x - 1][y - 1] != EMPTY)
                     return false;
@@ -252,9 +269,10 @@ public class Main {
     /**
      * @param board A 2d array representing the board
      * @param ships an array of ships where the value of ships[i] is the number of ships that are the size of i
+     *              <p>
      *              the method places the ships on the board
      */
-    public static void shipPlacement(int[][] board, int[] ships) {
+    public static void placePlayerShips(int[][] board, int[] ships) {
         int x, y, orientation;
         String x1, y1;
         x1 = y1 = "";
@@ -270,7 +288,7 @@ public class Main {
                     String s = scanner.nextLine();
                     int index = s.indexOf(',');
                     for (int i = 0; i < index; ++i)
-                        x1 += s.charAt(i);
+                        x1 = x1 + s.charAt(i);
                     x = Integer.parseInt(x1);
                     s = s.replaceFirst(",", "f");
                     int index2 = s.indexOf(',');
@@ -322,9 +340,10 @@ public class Main {
     /**
      * @param ships an array where the value of ships[i] is the number of ships with a length of i
      * @param board a 2d array representing the board
+     *              <p>
      *              the method creates a board for the computer
      */
-    public static void computerBoard(int[] ships, int[][] board) {
+    public static void createComputerBoard(int[] ships, int[][] board) {
         int x, y, orientation;
         boolean bOrientation, bTile, bBoundary, bOverlap, bAdjacent;
         bOrientation = bTile = bBoundary = bOverlap = bAdjacent = false;
@@ -375,7 +394,7 @@ public class Main {
      * @param col Number of columns of the board
      * @return returns an array where the value of arr[i] is the number of ships with a length of i
      */
-    public static int[] Ships(int row, int col) {
+    public static int[] shipsCount(int row, int col) {
         String ships = scanner.nextLine();
         int max;
         if (row < col)
@@ -417,7 +436,7 @@ public class Main {
      *
      * @param arr a 2d array representing the board
      */
-    public static void printBoard(int arr[][]) {
+    public static void printBoard(int[][] arr) {
         int rows = arr.length;
         rows = rows - 1;
         int digits = 0;
@@ -469,10 +488,196 @@ public class Main {
 
     }
 
+    public static boolean isTileInsideBoard(int x, int y, int[][] board) {
+        return x >= 0 && y >= 0 && y < board.length && x < board[0].length;
+    }
+
+    public static boolean isTileAlreadyHit(int x, int y, int[][] board) {
+        return board[y][x] == Main.HIT || board[y][x] == Main.MISS;
+    }
+
+    public static boolean isLegalHitCoordinates(int x, int y, int[][] board) {
+        return isTileInsideBoard(x, y, board) == true && isTileAlreadyHit(x, y, board) == false;
+    }
+
+    public static int[] inputCoordinatedFromPlayer() {
+        String input = scanner.nextLine();
+        String[] split = input.split(", ");
+        int[] intSplit = {Integer.parseInt(split[0]), Integer.parseInt(split[1])};
+        return intSplit;
+    }
+
+
+    public static boolean isShipDrowned(int x, int y, int[][] board) {
+        boolean value = isShipDrownedRecur(x, y, board);
+        resetBoardHitConstant(board);
+        return value;
+    }
+
+    public static boolean isShipDrownedRecur(int x, int y, int[][] board) {
+
+        if (isTileInsideBoard(x, y, board) == false) {
+            return false;
+        }
+        if (board[y][x] == Main.SHIP) {
+            return false;
+        }
+
+        if (board[y][x] == Main.EMPTY) {
+            return true;
+        }
+        if (board[y][x] == Main.HIT_TEMP) {
+            return true;
+        }
+        if (board[y][x] == Main.HIT) {
+            board[y][x] = Main.HIT_TEMP;
+        } else {
+            // TODO - check if get here
+            System.out.println("ERROR - not supposed to get here: isShipDrowned");
+        }
+        return isShipDrowned(x + 1, y, board) &&
+                isShipDrowned(x - 1, y, board) &&
+                isShipDrowned(x, y + 1, board) &&
+                isShipDrowned(x, y - 1, board);
+    }
+
+    public static void resetBoardHitConstant(int[][] board) {
+        for (int y = 0; y < board.length; y++) {
+            for (int x = 0; x < board[0].length; x++) {
+                if (board[y][x] == Main.HIT_TEMP) {
+                    board[y][x] = Main.HIT;
+                }
+            }
+        }
+    }
+
+    public static int calculateShipSizeRecur(int x, int y, int[][] board) {
+        if (isTileInsideBoard(x, y, board) == false) {
+            return 0;
+        }
+        if (board[y][x] == Main.EMPTY) {
+            return 0;
+        }
+        if (board[y][x] == Main.HIT_TEMP) {
+            return 0;
+        }
+
+        if (board[y][x] == Main.HIT) {
+            board[y][x] = Main.HIT_TEMP;
+        } else {
+            // TODO - check if get here
+            System.out.println("ERROR - not supposed to get here: isShipDrowned");
+        }
+        return 1 +
+                calculateShipSizeRecur(x + 1, y, board) +
+                calculateShipSizeRecur(x - 1, y, board) +
+                calculateShipSizeRecur(x, y + 1, board) +
+                calculateShipSizeRecur(x, y - 1, board);
+    }
+
+    public static int calculateShipSize(int x, int y, int[][] board) {
+        int value = calculateShipSizeRecur(x, y, board);
+        resetBoardHitConstant(board);
+        return value;
+    }
+
+    public static int sum(int[] count) {
+        int sum = 0;
+        for (int val : count) {
+            sum += val;
+        }
+        return sum;
+    }
+
+    public static void printHitResults(int x, int y, int[][] board, int[] shipsCount) {
+        if (board[y][x] == Main.EMPTY) {
+            System.out.println("That is a miss!");
+            board[y][x] = Main.MISS;
+        } else if (board[y][x] == Main.SHIP) {
+            board[y][x] = Main.HIT;
+            if (isShipDrowned(x, y, board) == true) {
+                int shipSize = calculateShipSize(x, y, board);
+                shipsCount[shipSize]--;
+                System.out.println("The computer's battleship has been drowned, "
+                        + sum(shipsCount) + " more battleships to go!");
+            } else {
+                System.out.println("That is a hit!");
+            }
+        }
+    }
+
+    public static void agentTurn(int[][] playerBoard, int[] playerShipsCount) {
+        int x = -1, y = -1;
+        do {
+            x = rnd.nextInt(playerBoard.length);
+            y = rnd.nextInt(playerBoard[0].length);
+
+        } while (isLegalHitCoordinates(x, y, playerBoard) == false);
+        System.out.println("The computer attacked (" + x + ", " + y + ")");
+        printHitResults(x, y, playerBoard, playerShipsCount);
+        System.out.println("Your current game board:");
+        Main.printBoard(playerBoard);
+    }
+
+    public static boolean isGameOver(int[] playerShipsCount, int[] agentShipsCount) {
+        int numberOfPlayerShips = sum(playerShipsCount);
+        int numberOfAgentShips = sum(agentShipsCount);
+        if (numberOfPlayerShips == 0) {
+            System.out.println("You lost ):");
+            return true;
+        } else if (numberOfAgentShips == 0) {
+            System.out.println("You won the game!");
+            return true;
+        }
+        return false;
+
+    }
+
+    public static void playerTurn(int[][] agentBoard, int[] agentShipsCount) {
+        System.out.println("Your current guessing:");
+        Main.printBoard(agentBoard);
+        int x = -1, y = -1;
+        boolean foundCordsFlag = false;
+        while (foundCordsFlag == false) {
+            System.out.println("Enter tile to attack");
+
+            int[] coordinates = inputCoordinatedFromPlayer();
+            x = coordinates[0];
+            y = coordinates[1];
+            if (isTileInsideBoard(x, y, agentBoard) == false) {
+                System.out.println("Illegal tile, try again!");
+            } else if (isTileAlreadyHit(x, y, agentBoard) == true) {
+                System.out.println("Tile already attacked, try again!");
+            } else {
+                foundCordsFlag = true;
+            }
+        }
+        printHitResults(x, y, agentBoard, agentShipsCount);
+
+    }
+
+    public static void runGame() {
+        int[][][] boards = setUpBoard();
+        int[][] playerBoard = boards[0];
+        int[][] agentBoard = boards[1];
+        int[] playerShipsCount = boards[2][0];
+        int[] agentShipsCount = boards[3][0];
+
+        int turnNumber = 0;
+
+        while (isGameOver(playerShipsCount, agentShipsCount) == false) {
+            if (turnNumber % 2 == 0) {
+                playerTurn(agentBoard, agentShipsCount);
+            } else {
+                agentTurn(playerBoard, playerShipsCount);
+            }
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         String path = args[0];
-        //scanner = new Scanner(new File(path));
-        setUpBoard();
+        //scanner = new Scanner(new File(path))
+
         int numberOfGames = scanner.nextInt();
         scanner.nextLine();
         System.out.println("Total of " + numberOfGames + " games.");
