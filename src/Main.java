@@ -11,7 +11,6 @@ import java.util.Scanner;
 //    }
 
 public class Main {
-    //public static Scanner scanner;
     public static Random rnd;
     public static Scanner scanner = new Scanner(System.in);
 
@@ -271,7 +270,7 @@ public class Main {
                     String s = scanner.nextLine();
                     int index = s.indexOf(',');
                     for (int i = 0; i < index; ++i)
-                        x1 = x1 + s.charAt(i);
+                        x1 += s.charAt(i);
                     x = Integer.parseInt(x1);
                     s = s.replaceFirst(",", "f");
                     int index2 = s.indexOf(',');
@@ -383,7 +382,6 @@ public class Main {
             max = col;
         else
             max = row;
-        int length = ships.length();
         int[] arr = new int[max + 1];
         int index = ships.indexOf('X');
         int size, num;
@@ -424,7 +422,6 @@ public class Main {
         rows = rows - 1;
         int digits = 0;
         int digits2 = 0;
-        int index = 0;
         String s = "";
         while (rows > 0) {
             rows /= 10;
