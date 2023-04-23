@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
+
 //    arr[y][x]
 //    {
 //        {},
@@ -18,6 +19,9 @@ public class Main {
     public static final int HIT = 1;
     public static final int SHIP = 2;
     public static final int MISS = 3;
+    public static final int HORIZONTAL = 0;
+    public static final int VERTICAL = 1;
+
 
 
     public static void battleshipGame() {
@@ -68,7 +72,7 @@ public class Main {
      * @param player if player is true then were checking the players board otherwise were checking the computers board
      */
     public static boolean checkOrientation(int oreintation,boolean player){
-        if(oreintation == 1 || oreintation == 0)
+        if(oreintation == VERTICAL || oreintation == HORIZONTAL)
             return true;
         if(player)
         System.out.println("Illegal orientation, try again!");
@@ -104,13 +108,13 @@ public class Main {
      * and prints a message if it's the players board
      */
     public static boolean checkBoundaries(int[][] board,int x, int y,int size, int oreintation, boolean player){
-        if(oreintation == 0)
+        if(oreintation == HORIZONTAL)
             if(y+size-1 >= board[0].length){
                 if(player)
                     System.out.println("Battleship exceeds the boundaries of the board, try again!");
                 return false;
             }
-            if(oreintation == 1)
+            if(oreintation == VERTICAL)
                 if(x+size-1 >= board.length){
                     if(player)
                         System.out.println("Battleship exceeds the boundaries of the board, try again!");
@@ -132,13 +136,13 @@ public class Main {
      */
     public static boolean checkOverlap(int[][] board,int x, int y,int size, int oreintation,boolean player){
         for(int i=0;i<size;++i){
-            if(oreintation == 0){
+            if(oreintation == HORIZONTAL){
             if(board[x][y+i] != EMPTY){
                 if(player)
                     System.out.println("Battleship overlaps another battleship, try again!");
                 return false;}
             }
-            if(oreintation == 1) {
+            if(oreintation == VERTICAL) {
                 if (board[x+i][y] != EMPTY) {
                     if(player)
                         System.out.println("Battleship overlaps another battleship, try again!");
@@ -163,7 +167,7 @@ public class Main {
     public static boolean checkAdjacent(int[][] board,int x, int y,int size, int oreintation,boolean player){
         boolean flag=true;
         for(int i=0;i<size;++i){
-            if(oreintation == 0){
+            if(oreintation == HORIZONTAL){
                 if(x-1>=0){
                 if(board[x-1][y+i] != EMPTY){
                     flag = false;
@@ -175,7 +179,7 @@ public class Main {
                     }
                 }
             }
-            if(oreintation == 1) {
+            if(oreintation == VERTICAL) {
                 if(y-1>=0){
                 if (board[x+i][y-1] != EMPTY) {
                     flag = false;
@@ -188,7 +192,7 @@ public class Main {
             }
         }
         //checks the 3 squares on both sides of the ship
-        if(oreintation == 0)
+        if(oreintation == HORIZONTAL)
         {
             if(x-1>=0 && y-1>=0){
                 if(board[x-1][y-1]!=EMPTY)
@@ -216,7 +220,7 @@ public class Main {
             }
 
         }
-        if(oreintation == 1){
+        if(oreintation == VERTICAL){
             if(x-1>=0 && y-1>=0){
              if(board[x-1][y-1] != EMPTY)
                  return false;
@@ -302,9 +306,9 @@ public class Main {
                 }
                 if(bAdjacent){
                 for(int i=0;i<shipSize;++i){
-                    if(orientation == 0)
+                    if(orientation == HORIZONTAL)
                     board[x][y+i] = SHIP;
-                    if(orientation == 1)
+                    if(orientation == VERTICAL)
                         board[x+i][y] = SHIP;
                 }
             System.out.println("Your current game board:");
@@ -353,9 +357,9 @@ public class Main {
                     bAdjacent = checkAdjacent(board,x,y,shipSize,orientation,false);
                     if(bAdjacent){
                         for(int i=0;i<shipSize;++i){
-                            if(orientation == 0)
+                            if(orientation == HORIZONTAL)
                                 board[x][y+i] = SHIP;
-                            if(orientation == 1)
+                            if(orientation == VERTICAL)
                                 board[x+i][y] = SHIP;
                         }
                         ships[shipSize]--;
