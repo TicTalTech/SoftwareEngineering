@@ -2,7 +2,7 @@ package HW0;
 
 public class Test {
     public static final int E = 0; // EMPTY
-    public static final int _ = 0; // EMPTY
+    public static final int e = 0; // EMPTY
 
     public static final int H = 1; // HIT
     public static final int S = 2; // SHIP
@@ -17,11 +17,11 @@ public class Test {
     public static int[] count2 = {0, 0, 0, 1, 1};
 
     public static int[][] board2 = {
-            {S, S, S, _, _},
-            {_, _, _, H, _},
-            {_, H, _, S, _},
-            {_, H, _, S, _},
-            {_, H, _, S, _}};
+            {S, S, S, e, e},
+            {e, e, e, H, e},
+            {e, H, e, S, e},
+            {e, H, e, S, e},
+            {e, H, e, S, e}};
     public static int[][] board3 = {
             {H, H, H, H, H},
             {E, E, E, E, E},

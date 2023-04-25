@@ -26,7 +26,13 @@ public class Main {
     public static final int HORIZONTAL = 0;
     public static final int VERTICAL = 1;
 
-
+    public static void print1dIntArray(int[] arr, String description) {
+        System.out.print(description + ": ");
+        for (int val : arr) {
+            System.out.print(val + ", ");
+        }
+        System.out.println();
+    }
     public static void battleshipGame() {
         int[][][] boards = setUpBoard();
 
@@ -34,6 +40,9 @@ public class Main {
         int[][] agentBoard = boards[1];
         int[] playerShipsCount = boards[2][0];
         int[] agentShipsCount = boards[3][0];
+//        print1dIntArray(playerShipsCount, "playerShipsCount");
+//        print1dIntArray(agentShipsCount, "agentShipsCount");
+
 
         int turnNumber = 0;
 
@@ -89,7 +98,7 @@ public class Main {
             agentShips[i] = playerShips[i];
         }
         placePlayerShips(playerBoard, playerShips.clone());
-        createComputerBoard(agentShips, agentBoard.clone());
+        createComputerBoard(agentBoard, agentShips.clone());
         return new int[][][]{playerBoard, agentBoard, new int[][]{playerShips}, new int[][]{agentShips}};
     }
 
@@ -362,7 +371,7 @@ public class Main {
      *              <p>
      *              the method creates a board for the computer
      */
-    public static void createComputerBoard(int[] ships, int[][] board) {
+    public static void createComputerBoard(int[][] board, int[] ships) {
         int x, y, orientation;
         boolean bOrientation, bTile, bBoundary, bOverlap, bAdjacent;
         bOrientation = bTile = bBoundary = bOverlap = bAdjacent = false;
@@ -685,8 +694,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         String path = args[0];
-//        scanner = new Scanner(new File(path));
-        scanner = new Scanner(System.in);
+        scanner = new Scanner(new File(path));
+//        scanner = new Scanner(System.in);
 
         int numberOfGames = scanner.nextInt();
         scanner.nextLine();
