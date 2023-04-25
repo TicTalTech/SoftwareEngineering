@@ -1,3 +1,5 @@
+package HW0;
+
 public class Test {
     public static final int E = 0; // EMPTY
     public static final int _ = 0; // EMPTY
