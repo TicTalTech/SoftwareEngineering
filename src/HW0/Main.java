@@ -480,6 +480,8 @@ public class Main {
             s = s + " ";
             digits3--;
         }
+        if(arr.length == 1)
+        s = s + " ";
         s = s + " ";
         System.out.print(s);
         s = "";
@@ -654,8 +656,8 @@ public class Main {
             x = rnd.nextInt(playerBoard[0].length);
 
         } while (!isLegalHitCoordinates(x, y, playerBoard));
-        System.out.println("The computer attacked (" + x + ", " + y + ")");
-        printHitResults(x, y, playerBoard, playerShipsCount);
+        System.out.println("The computer attacked (" + y + ", " + x + ")");
+        printHitResults(x, y, playerBoard, playerShipsCount, false);
         System.out.println("Your current game board:");
         printBoard(playerBoard, 'X', '#', '–');
     }
