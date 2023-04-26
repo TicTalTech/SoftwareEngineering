@@ -264,27 +264,27 @@ public class Main {
         if (orientation == VERTICAL) {
             if (x - 1 >= 0 && y - 1 >= 0) {
                 if (board[x - 1][y - 1] != EMPTY)
-                    return false;
+                    flag = false;
             }
             if (x - 1 >= 0 && y + 1 < board[0].length) {
                 if (board[x - 1][y + 1] != EMPTY)
-                    return false;
+                    flag = false;
             }
             if (x - 1 >= 0) {
                 if (board[x - 1][y] != EMPTY)
-                    return false;
+                    flag = false;
             }
             if (x + size < board.length && y - 1 >= 0) {
                 if (board[x + size][y - 1] != EMPTY)
-                    return false;
+                    flag = false;
             }
             if (x + size < board.length && y + 1 < board[0].length) {
                 if (board[x + size][y + 1] != EMPTY)
-                    return false;
+                    flag = false;
             }
             if (x + size < board.length) {
                 if (board[x + size][y] != EMPTY)
-                    return false;
+                    flag = false;
             }
         }
         if (!flag) {
@@ -347,6 +347,9 @@ public class Main {
                         continue;
                     }
                     bAdjacent = checkAdjacent(board, x, y, shipSize, orientation, true);
+                    if (!bAdjacent) {
+                        bOrientation = bTile = bBoundary = bOverlap = bAdjacent = false;
+                    }
                 }
                 if (bAdjacent) {
                     for (int i = 0; i < shipSize; ++i) {
@@ -355,6 +358,7 @@ public class Main {
                         if (orientation == VERTICAL)
                             board[x + i][y] = SHIP;
                     }
+
                     System.out.println("Your current game board:");
                     printBoard(board, 'X', '#', '_');
                     ships[shipSize]--;
@@ -480,8 +484,8 @@ public class Main {
             s = s + " ";
             digits3--;
         }
-        if(arr.length == 1)
-        s = s + " ";
+        if (arr.length == 1)
+            s = s + " ";
         s = s + " ";
         System.out.print(s);
         s = "";
@@ -728,6 +732,4 @@ public class Main {
         System.out.println("All games are over.");
     }
 }
-
-
 
