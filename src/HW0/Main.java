@@ -309,7 +309,7 @@ public class Main {
         boolean bOrientation, bTile, bBoundary, bOverlap, bAdjacent;
         bOrientation = bTile = bBoundary = bOverlap = bAdjacent = false;
         System.out.println("Your current game board:");
-        printBoard(board);
+        printBoard(board, 'X', '#', '_');
         for (int shipSize = 1; shipSize < ships.length; ++shipSize) {
             while (ships[shipSize] > 0) {
                 System.out.println("Enter location and orientation for battleship of size " + shipSize);
@@ -356,7 +356,7 @@ public class Main {
                             board[x + i][y] = SHIP;
                     }
                     System.out.println("Your current game board:");
-                    printBoard(board);
+                    printBoard(board, 'X', '#', '_');
                     ships[shipSize]--;
                 }
                 bOrientation = bTile = bBoundary = bOverlap = bAdjacent = false;
@@ -379,7 +379,6 @@ public class Main {
         for (int shipSize = 1; shipSize < ships.length; ++shipSize) {
             while (ships[shipSize] > 0) {
                 while (!bOrientation && !bTile && !bBoundary && !bOverlap && !bAdjacent) {
-                    // TODO - b.len and b[0].len are opposite
                     x = rnd.nextInt(board.length);
                     y = rnd.nextInt(board[0].length);
                     orientation = rnd.nextInt(2);
@@ -466,7 +465,7 @@ public class Main {
      *
      * @param arr a 2d array representing the board
      */
-    public static void printBoard(int[][] arr) {
+    public static void printBoard(int[][] arr, char hit, char ship, char miss) {
         int rows = arr.length;
         rows = rows - 1;
         int digits = 0;
@@ -506,12 +505,14 @@ public class Main {
             digits3 = digits;
             digits2 = 0;
             for (int j = 0; j < arr[0].length; ++j) {
-                if (arr[i][j] == EMPTY || arr[i][j] == MISS)
+                if (arr[i][j] == EMPTY)
                     System.out.print("– ");
                 if (arr[i][j] == HIT)
-                    System.out.print("X ");
+                    System.out.print(hit + " ");
                 if (arr[i][j] == SHIP)
-                    System.out.print("# ");
+                    System.out.print(ship + " ");
+                if (arr[i][j] == MISS)
+                    System.out.print(miss + " ");
             }
             System.out.println();
         }
@@ -647,7 +648,7 @@ public class Main {
         System.out.println("The computer attacked (" + x + ", " + y + ")");
         printHitResults(x, y, playerBoard, playerShipsCount);
         System.out.println("Your current game board:");
-        Main.printBoard(playerBoard);
+        printBoard(playerBoard, 'X', '#', '–');
     }
 
     /**
@@ -663,7 +664,7 @@ public class Main {
             return true;
         } else if (numberOfAgentShips == 0) {
             System.out.println("For making sure, computer game board");
-            printBoard(agentBoard);
+            printBoard(agentBoard, 'X', '#', '_');
             System.out.println("You won the game!");
             return true;
         }
@@ -673,7 +674,7 @@ public class Main {
 
     public static void playerTurn(int[][] agentBoard, int[] agentShipsCount) {
         System.out.println("Your current guessing board:");
-        Main.printBoard(agentBoard);
+        Main.printBoard(agentBoard, 'V', '–', 'X');
         int x = -1, y = -1;
         boolean foundCoordsFlag = false;
         while (!foundCoordsFlag) {
@@ -691,14 +692,13 @@ public class Main {
             }
         }
         printHitResults(x, y, agentBoard, agentShipsCount);
-
     }
 
 
     public static void main(String[] args) throws IOException {
         String path = args[0];
-        scanner = new Scanner(new File(path));
-//        scanner = new Scanner(System.in);
+//        scanner = new Scanner(new File(path));
+        scanner = new Scanner(System.in);
 
         int numberOfGames = scanner.nextInt();
         scanner.nextLine();
