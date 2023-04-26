@@ -33,6 +33,7 @@ public class Main {
         }
         System.out.println();
     }
+
     public static void battleshipGame() {
         int[][][] boards = setUpBoard();
 
@@ -46,7 +47,7 @@ public class Main {
 
         int turnNumber = 0;
 
-        while (!isGameOver(playerShipsCount, agentShipsCount)) {
+        while (!isGameOver(playerShipsCount, agentShipsCount, agentBoard)) {
             if (turnNumber % 2 == 0) {
                 playerTurn(agentBoard, agentShipsCount);
             } else {
@@ -126,7 +127,7 @@ public class Main {
      * if it's the players board
      */
     public static boolean checkTile(int[][] board, int x, int y, boolean player) {
-        if (x < board.length && y < board[0].length) {
+        if (x < board.length && y < board[0].length && x >= 0 && y >= 0) {
             return true;
         }
         if (player) {
@@ -508,7 +509,7 @@ public class Main {
                 if (arr[i][j] == EMPTY || arr[i][j] == MISS)
                     System.out.print("– ");
                 if (arr[i][j] == HIT)
-                    System.out.print("x ");
+                    System.out.print("X ");
                 if (arr[i][j] == SHIP)
                     System.out.print("# ");
             }
@@ -654,13 +655,15 @@ public class Main {
      * @param agentShipsCount
      * @return
      */
-    public static boolean isGameOver(int[] playerShipsCount, int[] agentShipsCount) {
+    public static boolean isGameOver(int[] playerShipsCount, int[] agentShipsCount, int[][] agentBoard) {
         int numberOfPlayerShips = sum(playerShipsCount);
         int numberOfAgentShips = sum(agentShipsCount);
         if (numberOfPlayerShips == 0) {
             System.out.println("You lost ):");
             return true;
         } else if (numberOfAgentShips == 0) {
+            System.out.println("For making sure, computer game board");
+            printBoard(agentBoard);
             System.out.println("You won the game!");
             return true;
         }
@@ -669,12 +672,12 @@ public class Main {
     }
 
     public static void playerTurn(int[][] agentBoard, int[] agentShipsCount) {
-        System.out.println("Your current guessing:");
+        System.out.println("Your current guessing board:");
         Main.printBoard(agentBoard);
         int x = -1, y = -1;
         boolean foundCoordsFlag = false;
         while (!foundCoordsFlag) {
-            System.out.println("Enter tile to attack");
+            System.out.println("Enter a tile to attack");
 
             int[] coordinates = inputCoordinatedFromPlayer();
             x = coordinates[0];
