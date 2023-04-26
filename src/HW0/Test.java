@@ -66,9 +66,9 @@ public class Test {
     }
 
     public static void test_printHitResults() {
-        Main.printHitResults(0, 0, board1, count1);
+//        Main.printHitResults(0, 0, board1, count1);
 //        Main.printBoard(board1);
-        Main.printHitResults(0, 0, board2, count2);
+//        Main.printHitResults(0, 0, board2, count2);
 //        Main.printBoard(board2);
 
     }

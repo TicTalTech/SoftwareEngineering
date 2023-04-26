@@ -516,7 +516,7 @@ public class Main {
             }
             System.out.println();
         }
-
+        System.out.println();
     }
 
     public static boolean isTileInsideBoard(int x, int y, int[][] board) {
@@ -553,7 +553,7 @@ public class Main {
             return false;
         }
 
-        if (board[y][x] == Main.EMPTY) {
+        if (board[y][x] == Main.EMPTY || board[y][x] == Main.MISS) {
             return true;
         }
         if (board[y][x] == Main.HIT_TEMP) {
@@ -587,7 +587,7 @@ public class Main {
         if (!isTileInsideBoard(x, y, board)) {
             return 0;
         }
-        if (board[y][x] == Main.EMPTY) {
+        if (board[y][x] == Main.EMPTY || board[y][x] == Main.MISS) {
             return 0;
         }
         if (board[y][x] == Main.HIT_TEMP) {
@@ -598,7 +598,7 @@ public class Main {
             board[y][x] = Main.HIT_TEMP;
         } else {
             // TODO - check if get here
-            System.out.println("ERROR - not supposed to get here: isShipDrowned");
+            System.out.println("ERROR - not supposed to get here: calculateShipSizeRecur");
         }
         return 1 +
                 calculateShipSizeRecur(x + 1, y, board) +
@@ -621,19 +621,28 @@ public class Main {
         return sum;
     }
 
-    public static void printHitResults(int x, int y, int[][] board, int[] shipsCount) {
+    public static void printHitResults(int x, int y, int[][] board, int[] shipsCount, boolean isPlayer) {
         if (board[y][x] == Main.EMPTY) {
             System.out.println("That is a miss!");
             board[y][x] = Main.MISS;
         } else if (board[y][x] == Main.SHIP) {
             board[y][x] = Main.HIT;
+            System.out.println("That is a hit!");
+
             if (isShipDrowned(x, y, board)) {
                 int shipSize = calculateShipSize(x, y, board);
                 shipsCount[shipSize]--;
-                System.out.println("The computer's battleship has been drowned, "
-                        + sum(shipsCount) + " more battleships to go!");
-            } else {
-                System.out.println("That is a hit!");
+                if (isPlayer) {
+                    System.out.println("The computer's battleship has been drowned, "
+                            + sum(shipsCount) + " more battleships to go!");
+                } else {
+                    System.out.println("Your battleship has been drowned, you have left "
+                            + sum(shipsCount) + " more battleships!");
+                }
+            }
+            if (isPlayer) {
+                System.out.println("For making sure, computer game board");
+                printBoard(board, 'X', '#', '–');
             }
         }
     }
@@ -641,8 +650,8 @@ public class Main {
     public static void agentTurn(int[][] playerBoard, int[] playerShipsCount) {
         int x = -1, y = -1;
         do {
-            x = rnd.nextInt(playerBoard[0].length);
             y = rnd.nextInt(playerBoard.length);
+            x = rnd.nextInt(playerBoard[0].length);
 
         } while (!isLegalHitCoordinates(x, y, playerBoard));
         System.out.println("The computer attacked (" + x + ", " + y + ")");
@@ -663,8 +672,8 @@ public class Main {
             System.out.println("You lost ):");
             return true;
         } else if (numberOfAgentShips == 0) {
-            System.out.println("For making sure, computer game board");
-            printBoard(agentBoard, 'X', '#', '_');
+//            System.out.println("For making sure, computer game board");
+//            printBoard(agentBoard, 'X', '#', '_');
             System.out.println("You won the game!");
             return true;
         }
@@ -677,12 +686,12 @@ public class Main {
         Main.printBoard(agentBoard, 'V', '–', 'X');
         int x = -1, y = -1;
         boolean foundCoordsFlag = false;
+        System.out.println("Enter a tile to attack");
         while (!foundCoordsFlag) {
-            System.out.println("Enter a tile to attack");
 
             int[] coordinates = inputCoordinatedFromPlayer();
-            x = coordinates[0];
-            y = coordinates[1];
+            y = coordinates[0];
+            x = coordinates[1];
             if (!isTileInsideBoard(x, y, agentBoard)) {
                 System.out.println("Illegal tile, try again!");
             } else if (isTileAlreadyHit(x, y, agentBoard)) {
@@ -691,14 +700,14 @@ public class Main {
                 foundCoordsFlag = true;
             }
         }
-        printHitResults(x, y, agentBoard, agentShipsCount);
+        printHitResults(x, y, agentBoard, agentShipsCount, true);
     }
 
 
     public static void main(String[] args) throws IOException {
         String path = args[0];
-//        scanner = new Scanner(new File(path));
-        scanner = new Scanner(System.in);
+        scanner = new Scanner(new File(path));
+//        scanner = new Scanner(System.in);
 
         int numberOfGames = scanner.nextInt();
         scanner.nextLine();
