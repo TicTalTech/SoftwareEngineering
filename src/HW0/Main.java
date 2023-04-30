@@ -466,6 +466,7 @@ public class Main {
 
     /**
      * the method prints the board
+     *
      * @param arr a 2d array representing the board
      */
     public static void printBoard(int[][] arr, char hit, char ship, char miss) {
@@ -509,7 +510,7 @@ public class Main {
             s = "";
             digits3 = digits;
             digits2 = 0;
-            for (int j = 0; j < arr[0].length; ++j) {
+            for (int j = 0; j < arr[0].length - 1; ++j) {
                 if (arr[i][j] == EMPTY)
                     System.out.print("– ");
                 if (arr[i][j] == HIT)
@@ -519,14 +520,24 @@ public class Main {
                 if (arr[i][j] == MISS)
                     System.out.print(miss + " ");
             }
+            if (arr[i][arr[0].length - 1] == EMPTY)
+                System.out.print("–");
+            if (arr[i][arr[0].length - 1] == HIT)
+                System.out.print(hit);
+            if (arr[i][arr[0].length - 1] == SHIP)
+                System.out.print(ship);
+            if (arr[i][arr[0].length - 1] == MISS)
+                System.out.print(miss);
+
+
             System.out.println();
         }
         System.out.println();
     }
 
     /**
-     * @param x the x hit position
-     * @param y the y hit position
+     * @param x     the x hit position
+     * @param y     the y hit position
      * @param board the relevant board (player/agent)
      * @return true if the tile is inside the board
      */
@@ -535,9 +546,8 @@ public class Main {
     }
 
     /**
-     *
-     * @param x the x hit position
-     * @param y the y hit position
+     * @param x     the x hit position
+     * @param y     the y hit position
      * @param board the relevant board (player/agent)
      * @return true if the tile is already hit
      */
@@ -547,8 +557,9 @@ public class Main {
 
     /**
      * checks if the position is legal
-     * @param x the x hit position
-     * @param y the y hit position
+     *
+     * @param x     the x hit position
+     * @param y     the y hit position
      * @param board the agent board
      * @return true if the position is legal
      */
@@ -558,6 +569,7 @@ public class Main {
 
     /**
      * in charge of getting hit coordinates from user (player)
+     *
      * @return the coordinates as a length 2 array
      */
     public static int[] inputCoordinatedFromPlayer() {
@@ -568,8 +580,9 @@ public class Main {
 
     /**
      * (wrapper) recursively checks if there are un-drowned ship squares
-     * @param x an x position that is part of the ship
-     * @param y a y position that is part of the ship
+     *
+     * @param x     an x position that is part of the ship
+     * @param y     a y position that is part of the ship
      * @param board the relevant board (player/agent)
      * @return if found ship
      */
@@ -581,8 +594,9 @@ public class Main {
 
     /**
      * (inner) recursively checks if there are un-drowned ship squares
-     * @param x an x position that is part of the ship
-     * @param y a y position that is part of the ship
+     *
+     * @param x     an x position that is part of the ship
+     * @param y     a y position that is part of the ship
      * @param board the relevant board (player/agent)
      * @return if found ship until now
      */
@@ -619,6 +633,7 @@ public class Main {
 
     /**
      * used by the recursive methods wrappers to reset the board to the start position
+     *
      * @param board the relevant board (player/agent)
      */
     public static void resetBoardHitConstant(int[][] board) {
@@ -633,8 +648,9 @@ public class Main {
 
     /**
      * (inner) recursively checks the size of the ship (the ship needs to be already sank)
-     * @param x an x position that is part of the ship
-     * @param y a y position that is part of the ship
+     *
+     * @param x     an x position that is part of the ship
+     * @param y     a y position that is part of the ship
      * @param board the relevant board (player/agent)
      * @return the already found size
      */
@@ -664,8 +680,9 @@ public class Main {
 
     /**
      * (wrapper) recursively checks the size of the ship (the ship needs to be already sank)
-     * @param x an x position that is part of the ship
-     * @param y a y position that is part of the ship
+     *
+     * @param x     an x position that is part of the ship
+     * @param y     a y position that is part of the ship
      * @param board the relevant board (player/agent)
      * @return the size of the ship
      */
@@ -676,7 +693,6 @@ public class Main {
     }
 
     /**
-     *
      * @param count arr of integers needed to be summed
      * @return the sum of the arr
      */
@@ -689,12 +705,11 @@ public class Main {
     }
 
     /**
-     *
-     * @param x x position of the hit
-     * @param y y position of the hit
-     * @param board the relevant board (player/agent)
+     * @param x          x position of the hit
+     * @param y          y position of the hit
+     * @param board      the relevant board (player/agent)
      * @param shipsCount the relevant ships count (player/agent)
-     * @param isPlayer true if refers to the player and false if refer to the agent
+     * @param isPlayer   true if refers to the player and false if refer to the agent
      */
     public static void printHitResults(int x, int y, int[][] board, int[] shipsCount, boolean isPlayer) {
         if (board[y][x] == Main.EMPTY) {
@@ -724,7 +739,8 @@ public class Main {
 
     /**
      * in charge of executing the agent(computer) turn
-     * @param playerBoard the board containing the player ships
+     *
+     * @param playerBoard      the board containing the player ships
      * @param playerShipsCount a count of how many ships the player has from each type
      */
     public static void agentTurn(int[][] playerBoard, int[] playerShipsCount) {
@@ -742,8 +758,9 @@ public class Main {
 
     /**
      * checks if the game has ended
+     *
      * @param playerShipsCount a count of how many ships the player has from each type
-     * @param agentShipsCount a count of how many ships the computer has from each type
+     * @param agentShipsCount  a count of how many ships the computer has from each type
      * @return return true if the game is over
      */
     public static boolean isGameOver(int[] playerShipsCount, int[] agentShipsCount) {
@@ -764,7 +781,8 @@ public class Main {
 
     /**
      * a method in charge of executing the player turn
-     * @param agentBoard the board of the agent (computer)
+     *
+     * @param agentBoard      the board of the agent (computer)
      * @param agentShipsCount a count of how many ships the agents has from each type
      */
     public static void playerTurn(int[][] agentBoard, int[] agentShipsCount) {
