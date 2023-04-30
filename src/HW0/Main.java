@@ -47,7 +47,7 @@ public class Main {
 
         int turnNumber = 0;
 
-        while (!isGameOver(playerShipsCount, agentShipsCount, agentBoard)) {
+        while (!isGameOver(playerShipsCount, agentShipsCount)) {
             if (turnNumber % 2 == 0) {
                 playerTurn(agentBoard, agentShipsCount);
             } else {
@@ -466,7 +466,6 @@ public class Main {
 
     /**
      * the method prints the board
-     *
      * @param arr a 2d array representing the board
      */
     public static void printBoard(int[][] arr, char hit, char ship, char miss) {
@@ -525,31 +524,68 @@ public class Main {
         System.out.println();
     }
 
+    /**
+     * @param x the x hit position
+     * @param y the y hit position
+     * @param board the relevant board (player/agent)
+     * @return true if the tile is inside the board
+     */
     public static boolean isTileInsideBoard(int x, int y, int[][] board) {
         return x >= 0 && y >= 0 && y < board.length && x < board[0].length;
     }
 
+    /**
+     *
+     * @param x the x hit position
+     * @param y the y hit position
+     * @param board the relevant board (player/agent)
+     * @return true if the tile is already hit
+     */
     public static boolean isTileAlreadyHit(int x, int y, int[][] board) {
         return board[y][x] == Main.HIT || board[y][x] == Main.MISS;
     }
 
+    /**
+     * checks if the position is legal
+     * @param x the x hit position
+     * @param y the y hit position
+     * @param board the agent board
+     * @return true if the position is legal
+     */
     public static boolean isLegalHitCoordinates(int x, int y, int[][] board) {
         return isTileInsideBoard(x, y, board) && !isTileAlreadyHit(x, y, board);
     }
 
+    /**
+     * in charge of getting hit coordinates from user (player)
+     * @return the coordinates as a length 2 array
+     */
     public static int[] inputCoordinatedFromPlayer() {
         String input = scanner.nextLine();
         String[] split = input.split(", ");
         return new int[]{Integer.parseInt(split[0]), Integer.parseInt(split[1])};
     }
 
-
+    /**
+     * (wrapper) recursively checks if there are un-drowned ship squares
+     * @param x an x position that is part of the ship
+     * @param y a y position that is part of the ship
+     * @param board the relevant board (player/agent)
+     * @return if found ship
+     */
     public static boolean isShipDrowned(int x, int y, int[][] board) {
         boolean value = isShipDrownedRecur(x, y, board);
         resetBoardHitConstant(board);
         return value;
     }
 
+    /**
+     * (inner) recursively checks if there are un-drowned ship squares
+     * @param x an x position that is part of the ship
+     * @param y a y position that is part of the ship
+     * @param board the relevant board (player/agent)
+     * @return if found ship until now
+     */
     public static boolean isShipDrownedRecur(int x, int y, int[][] board) {
 
         if (!isTileInsideBoard(x, y, board)) {
@@ -569,16 +605,22 @@ public class Main {
             board[y][x] = Main.HIT_TEMP;
         } else {
             // TODO - check if get here
-            System.out.println("ERROR - not supposed to get here: isShipDrowned");
+//            System.out.println("ERROR - not supposed to get here: isShipDrowned");
         }
 
-        boolean right = isShipDrownedRecur(x + 1, y, board);
-        boolean left = isShipDrownedRecur(x - 1, y, board);
-        boolean down = isShipDrownedRecur(x, y + 1, board);
-        boolean up = isShipDrownedRecur(x, y - 1, board);
-        return right && left && down && up;
+//        boolean right = isShipDrownedRecur(x + 1, y, board);
+//        boolean left = isShipDrownedRecur(x - 1, y, board);
+//        boolean down = isShipDrownedRecur(x, y + 1, board);
+//        boolean up = isShipDrownedRecur(x, y - 1, board);
+//        return right && left && down && up;
+        return isShipDrownedRecur(x + 1, y, board) && isShipDrownedRecur(x - 1, y, board) &&
+                isShipDrownedRecur(x, y + 1, board) && isShipDrownedRecur(x, y - 1, board);
     }
 
+    /**
+     * used by the recursive methods wrappers to reset the board to the start position
+     * @param board the relevant board (player/agent)
+     */
     public static void resetBoardHitConstant(int[][] board) {
         for (int y = 0; y < board.length; y++) {
             for (int x = 0; x < board[0].length; x++) {
@@ -589,6 +631,13 @@ public class Main {
         }
     }
 
+    /**
+     * (inner) recursively checks the size of the ship (the ship needs to be already sank)
+     * @param x an x position that is part of the ship
+     * @param y a y position that is part of the ship
+     * @param board the relevant board (player/agent)
+     * @return the already found size
+     */
     public static int calculateShipSizeRecur(int x, int y, int[][] board) {
         if (!isTileInsideBoard(x, y, board)) {
             return 0;
@@ -604,7 +653,7 @@ public class Main {
             board[y][x] = Main.HIT_TEMP;
         } else {
             // TODO - check if get here
-            System.out.println("ERROR - not supposed to get here: calculateShipSizeRecur");
+//            System.out.println("ERROR - not supposed to get here: calculateShipSizeRecur");
         }
         return 1 +
                 calculateShipSizeRecur(x + 1, y, board) +
@@ -613,12 +662,24 @@ public class Main {
                 calculateShipSizeRecur(x, y - 1, board);
     }
 
+    /**
+     * (wrapper) recursively checks the size of the ship (the ship needs to be already sank)
+     * @param x an x position that is part of the ship
+     * @param y a y position that is part of the ship
+     * @param board the relevant board (player/agent)
+     * @return the size of the ship
+     */
     public static int calculateShipSize(int x, int y, int[][] board) {
         int value = calculateShipSizeRecur(x, y, board);
         resetBoardHitConstant(board);
         return value;
     }
 
+    /**
+     *
+     * @param count arr of integers needed to be summed
+     * @return the sum of the arr
+     */
     public static int sum(int[] count) {
         int sum = 0;
         for (int val : count) {
@@ -627,6 +688,14 @@ public class Main {
         return sum;
     }
 
+    /**
+     *
+     * @param x x position of the hit
+     * @param y y position of the hit
+     * @param board the relevant board (player/agent)
+     * @param shipsCount the relevant ships count (player/agent)
+     * @param isPlayer true if refers to the player and false if refer to the agent
+     */
     public static void printHitResults(int x, int y, int[][] board, int[] shipsCount, boolean isPlayer) {
         if (board[y][x] == Main.EMPTY) {
             System.out.println("That is a miss!");
@@ -653,6 +722,11 @@ public class Main {
         }
     }
 
+    /**
+     * in charge of executing the agent(computer) turn
+     * @param playerBoard the board containing the player ships
+     * @param playerShipsCount a count of how many ships the player has from each type
+     */
     public static void agentTurn(int[][] playerBoard, int[] playerShipsCount) {
         int x = -1, y = -1;
         do {
@@ -667,11 +741,12 @@ public class Main {
     }
 
     /**
-     * @param playerShipsCount - an array containing the number
-     * @param agentShipsCount
-     * @return
+     * checks if the game has ended
+     * @param playerShipsCount a count of how many ships the player has from each type
+     * @param agentShipsCount a count of how many ships the computer has from each type
+     * @return return true if the game is over
      */
-    public static boolean isGameOver(int[] playerShipsCount, int[] agentShipsCount, int[][] agentBoard) {
+    public static boolean isGameOver(int[] playerShipsCount, int[] agentShipsCount) {
         int numberOfPlayerShips = sum(playerShipsCount);
         int numberOfAgentShips = sum(agentShipsCount);
         if (numberOfPlayerShips == 0) {
@@ -687,6 +762,11 @@ public class Main {
 
     }
 
+    /**
+     * a method in charge of executing the player turn
+     * @param agentBoard the board of the agent (computer)
+     * @param agentShipsCount a count of how many ships the agents has from each type
+     */
     public static void playerTurn(int[][] agentBoard, int[] agentShipsCount) {
         System.out.println("Your current guessing board:");
         Main.printBoard(agentBoard, 'V', '–', 'X');
