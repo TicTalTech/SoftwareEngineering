@@ -506,8 +506,9 @@ public class Main {
         System.out.print(s);
         s = "";
         digits3 = digits;
-        for (int i = 0; i < arr[0].length; ++i)
+        for (int i = 0; i < arr[0].length - 1; ++i)
             System.out.print(i + " ");
+        System.out.print(arr[0].length - 1);
         System.out.println();
         for (int i = 0; i < arr.length; ++i) {
             int index2 = i;
