@@ -737,10 +737,6 @@ public class Main {
                             + sum(shipsCount) + " more battleships!");
                 }
             }
-            if (isPlayer) {
-                System.out.println("For making sure, computer game board");
-                printBoard(board, 'X', '#', '–');
-            }
         }
     }
 
