@@ -108,7 +108,7 @@ public class Main {
      *
      * @param orientation a number representing the orientation
      * @param player      if player is true then were checking the players board otherwise were checking the computers board
-     * @return returns true if the orientation is a one or zero otherwise it returns false and prints a message if its
+     * @return returns true if the orientation is a one or zero otherwise it returns false and prints a message if it's
      * checking the players board
      */
     public static boolean checkOrientation(int orientation, boolean player) {
@@ -633,16 +633,8 @@ public class Main {
         }
         if (board[y][x] == Main.HIT) {
             board[y][x] = Main.HIT_TEMP;
-        } else {
-            // TODO - check if get here
-//            System.out.println("ERROR - not supposed to get here: isShipDrowned");
         }
 
-//        boolean right = isShipDrownedRecur(x + 1, y, board);
-//        boolean left = isShipDrownedRecur(x - 1, y, board);
-//        boolean down = isShipDrownedRecur(x, y + 1, board);
-//        boolean up = isShipDrownedRecur(x, y - 1, board);
-//        return right && left && down && up;
         return isShipDrownedRecur(x + 1, y, board) && isShipDrownedRecur(x - 1, y, board) &&
                 isShipDrownedRecur(x, y + 1, board) && isShipDrownedRecur(x, y - 1, board);
     }
@@ -683,10 +675,8 @@ public class Main {
 
         if (board[y][x] == Main.HIT) {
             board[y][x] = Main.HIT_TEMP;
-        } else {
-            // TODO - check if get here
-//            System.out.println("ERROR - not supposed to get here: calculateShipSizeRecur");
         }
+
         return 1 +
                 calculateShipSizeRecur(x + 1, y, board) +
                 calculateShipSizeRecur(x - 1, y, board) +
@@ -760,7 +750,7 @@ public class Main {
      * @param playerShipsCount a count of how many ships the player has from each type
      */
     public static void agentTurn(int[][] playerBoard, int[] playerShipsCount) {
-        int x = -1, y = -1;
+        int x, y;
         do {
             y = rnd.nextInt(playerBoard.length);
             x = rnd.nextInt(playerBoard[0].length);
@@ -786,8 +776,7 @@ public class Main {
             System.out.println("You lost ):");
             return true;
         } else if (numberOfAgentShips == 0) {
-//            System.out.println("For making sure, computer game board");
-//            printBoard(agentBoard, 'X', '#', '_');
+
             System.out.println("You won the game!");
             return true;
         }
@@ -827,7 +816,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         String path = args[0];
         scanner = new Scanner(new File(path));
-//        scanner = new Scanner(System.in);
 
         int numberOfGames = scanner.nextInt();
         scanner.nextLine();
