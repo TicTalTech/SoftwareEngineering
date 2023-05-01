@@ -104,9 +104,12 @@ public class Main {
     }
 
     /**
+     * checks if the Oreintation that was inputted is valid
+     *
      * @param orientation a number representing the orientation
      * @param player      if player is true then were checking the players board otherwise were checking the computers board
-     * @return returns true if the orientation is a one or zero otherwise it returns false and prints a message
+     * @return returns true if the orientation is a one or zero otherwise it returns false and prints a message if its
+     * checking the players board
      */
     public static boolean checkOrientation(int orientation, boolean player) {
         if (orientation == VERTICAL || orientation == HORIZONTAL) {
@@ -119,6 +122,8 @@ public class Main {
     }
 
     /**
+     * checks if the tile that was inputted is valid
+     *
      * @param board  A 2d array representing the board
      * @param x      the row number of where the ship starts
      * @param y      the column number of where the ship starts
@@ -137,6 +142,8 @@ public class Main {
     }
 
     /**
+     * checks if the ship that was inputted goes outside the boards boundaries
+     *
      * @param board       A 2d array representing the board
      * @param x           the row number of where the ship starts
      * @param y           the column number of where the ship starts
@@ -166,12 +173,15 @@ public class Main {
     }
 
     /**
+     * checks if the ship that was inputted overlaps with another ship
+     *
      * @param board       A 2d array representing the board
      * @param x           the row number of where the ship starts
      * @param y           the column number of where the ship starts
      * @param size        the size of the ship
      * @param orientation the orientation of the ship
-     * @param player      if player is true then were checking the players board otherwise were checking the computers board
+     * @param player      if player is true then were checking the players board otherwise were
+     *                    checking the computers board
      * @return returns true if the ship is not overlapping another ship if it is then
      * it returns false and prints a message if it's the players board
      */
@@ -196,6 +206,8 @@ public class Main {
     }
 
     /**
+     * checks if the ship that was inputted is adjacent to another ship
+     *
      * @param board       A 2d array representing the board
      * @param x           the row number of where the ship starts
      * @param y           the column number of where the ship starts
@@ -296,10 +308,11 @@ public class Main {
     }
 
     /**
+     * the method places the players ships on the board
+     *
      * @param board A 2d array representing the board
      * @param ships an array of ships where the value of ships[i] is the number of ships that are the size of i
      *              <p>
-     *              the method places the ships on the board
      */
     public static void placePlayerShips(int[][] board, int[] ships) {
         int x, y, orientation;
@@ -371,10 +384,11 @@ public class Main {
     }
 
     /**
+     * the method creates a board for the computer with the ships placed on it
+     *
      * @param ships an array where the value of ships[i] is the number of ships with a length of i
      * @param board a 2d array representing the board
      *              <p>
-     *              the method creates a board for the computer
      */
     public static void createComputerBoard(int[][] board, int[] ships) {
         int x, y, orientation;
@@ -423,6 +437,8 @@ public class Main {
     }
 
     /**
+     * creates and array representing the number of ships of each length
+     *
      * @param row Number of rows of the board
      * @param col Number of columns of the board
      * @return returns an array where the value of arr[i] is the number of ships with a length of i
