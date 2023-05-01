@@ -95,16 +95,14 @@ public class Main {
             }
         }
         int[] agentShips = new int[max + 1];
-        for (int i = 0; i < max + 1; i++) {
-            agentShips[i] = playerShips[i];
-        }
+        System.arraycopy(playerShips, 0, agentShips, 0, max + 1);
         placePlayerShips(playerBoard, playerShips.clone());
         createComputerBoard(agentBoard, agentShips.clone());
         return new int[][][]{playerBoard, agentBoard, new int[][]{playerShips}, new int[][]{agentShips}};
     }
 
     /**
-     * checks if the Oreintation that was inputted is valid
+     * checks if the Orientation that was inputted is valid
      *
      * @param orientation a number representing the orientation
      * @param player      if player is true then were checking the players board otherwise were checking the computers board
