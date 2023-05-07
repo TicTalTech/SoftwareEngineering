@@ -9,6 +9,10 @@ public class Board {
 
     private Tile[][] tiles;
 
+    private int emptyX;
+    private int emptyY;
+
+
     public Board(String s) {
         int value;
         String valueS = "";
@@ -56,6 +60,22 @@ public class Board {
     @Override
     public int hashCode() {
         return Arrays.deepHashCode(tiles);
+    }
+
+    public int getEmptyX() {
+        return emptyX;
+    }
+
+    public void setEmptyX(int emptyX) {
+        this.emptyX = emptyX;
+    }
+
+    public int getEmptyY() {
+        return emptyY;
+    }
+
+    public void setEmptyY(int emptyY) {
+        this.emptyY = emptyY;
     }
 
 }

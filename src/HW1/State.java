@@ -3,12 +3,15 @@ package HW1;
 public class State {
     private Board board;
 
+
     public State result(Action action) {
         // TODO - implement
         return null;
     }
 
     public Action[] actions() {
+        Action[] actions = new Action[4];
+        
         // TODO - implement
         return null;
     }

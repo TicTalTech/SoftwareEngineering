@@ -1,20 +1,20 @@
 package HW1;
 
 public class Node {
+    private State state;
+    private Node parent;
+    private Action action;
 
     public Node getParent() {
-        // TODO - implement
-        return null;
+        return this.parent;
     }
 
     public Action getAction() {
-        // TODO - implement
-        return null;
+        return this.action;
     }
 
     public State getState() {
-        // TODO - implement
-        return null;
+        return this.state;
     }
 
     public Node[] expand() {
