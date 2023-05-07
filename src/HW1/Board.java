@@ -4,8 +4,10 @@ import java.util.Arrays;
 
 
 public class Board {
-    final char EMPTY = '_';
-    private Tile[][] board;
+    final int EMPTY = 0;
+    final char EMPTY_CHAR = '_';
+
+    private Tile[][] tiles;
 
     public Board(String s) {
         int value;
@@ -14,25 +16,32 @@ public class Board {
         int row = 0;
         int col = 0;
         for (int i = 0; i < s.length(); ++i) {
+            if (s.charAt(i) == EMPTY_CHAR) {
+                tiles[row][col] = new Tile(EMPTY);
+                col++;
+                continue;
+            }
             if (s.charAt(i) == ' ') {
                 value = Integer.parseInt(valueS);
                 valueS = "";
-                board[row][col] = new Tile(value);
+                tiles[row][col] = new Tile(value);
                 col++;
+                continue;
             }
             if (s.charAt(i) == '|') {
                 value = Integer.parseInt(valueS);
                 valueS = "";
-                board[row][col] = new Tile(value);
+                tiles[row][col] = new Tile(value);
                 row++;
                 col = 0;
+                continue;
             }
             valueS += s.charAt(i);
         }
     }
 
     public Tile[][] getBoard() {
-        return board;
+        return tiles;
     }
 
     @Override
