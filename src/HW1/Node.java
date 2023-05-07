@@ -6,6 +6,9 @@ public class Node {
     private Action action;
 
     public Node(State state, Node parent, Action action) {
+        this.state = state;
+        this.parent = parent;
+        this.action = action;
     }
 
     public Node getParent() {
@@ -21,12 +24,12 @@ public class Node {
     }
 
     public Node[] expand() {
-        Action[] arr = state.actions();
-        Node[] expanded = new Node[arr.length];
-        for (int i = 0; i < arr.length; ++i) {
-            //  expanded[i] = new Node();
+        Action[] actions = state.actions();
+        Node[] expanded = new Node[actions.length];
+        for (int i = 0; i < actions.length; ++i) {
+            expanded[i] = new Node(state.result(actions[i]), this, actions[i]);
         }
-        return null;
+        return expanded;
     }
 
     public int heuristicValue() {
