@@ -31,7 +31,7 @@ public class State {
             numberOfActions++;
         }
         // move up action
-        if (board.getEmptyY() != board.getTiles()[0].length - 1) {
+        if (board.getEmptyX() != board.getTiles()[0].length - 1) {
             actions[3] = new Action(board.getTiles()[board.getEmptyY()][board.getEmptyX() + 1], Direction.LEFT);
             numberOfActions++;
         }
