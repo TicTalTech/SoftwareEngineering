@@ -2,6 +2,21 @@ package HW1;
 
 public class State {
 
+    public State result(Action action) {
+        // TODO - implement
+        return null;
+    }
+
+    public Action[] actions() {
+        // TODO - implement
+        return null;
+    }
+
+    public boolean isGoal() {
+        // TODO - implement
+        return false;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof State)) {
