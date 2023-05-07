@@ -1,6 +1,15 @@
 package HW1;
 
 public class Tile {
+    private final int value;
+
+    public Tile(int value) {
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
 
     @Override
     public boolean equals(Object other) {
