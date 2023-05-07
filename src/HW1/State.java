@@ -53,8 +53,20 @@ public class State {
     }
 
     public boolean isGoal() {
-        // TODO - implement
-        return false;
+        int num = 1;
+        for (int i = 0; i < board.getBoard().length; ++i) {
+            for (int j = 0; j < board.getBoard()[0].length; ++j) {
+                if (i != board.getBoard().length - 1 || j != board.getBoard()[0].length - 1) {
+                    if (board.getBoard()[i][j].getValue() != num)
+                        return false;
+                    num++;
+                } else {
+                    if (board.getBoard()[i][j].getValue() != board.EMPTY)
+                        return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
