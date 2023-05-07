@@ -1,6 +1,7 @@
 package HW1;
 
 public class State {
+    private Board board;
 
     public State result(Action action) {
         // TODO - implement
