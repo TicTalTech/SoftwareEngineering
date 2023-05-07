@@ -12,6 +12,10 @@ public class State {
         return null;
     }
 
+    public Board getBoard() {
+        return board;
+    }
+
     public Action[] actions() {
         Action[] actions = new Action[4];
         int numberOfActions = 0;
