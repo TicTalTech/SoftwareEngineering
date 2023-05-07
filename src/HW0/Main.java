@@ -5,13 +5,6 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
-//    arr[y][x]
-//    {
-//        {1, 2},
-//        {3, 4},
-//        {5, 6},
-//    }
-
 public class Main {
     public static Random rnd;
     public static Scanner scanner;
@@ -26,14 +19,9 @@ public class Main {
     public static final int HORIZONTAL = 0;
     public static final int VERTICAL = 1;
 
-    public static void print1dIntArray(int[] arr, String description) {
-        System.out.print(description + ": ");
-        for (int val : arr) {
-            System.out.print(val + ", ");
-        }
-        System.out.println();
-    }
-
+    /**
+     * this method runs the game
+     */
     public static void battleshipGame() {
         int[][][] boards = setUpBoard();
 
@@ -41,9 +29,6 @@ public class Main {
         int[][] agentBoard = boards[1];
         int[] playerShipsCount = boards[2][0];
         int[] agentShipsCount = boards[3][0];
-//        print1dIntArray(playerShipsCount, "playerShipsCount");
-//        print1dIntArray(agentShipsCount, "agentShipsCount");
-
 
         int turnNumber = 0;
 

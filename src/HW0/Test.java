@@ -66,10 +66,10 @@ public class Test {
     }
 
     public static void test_printHitResults() {
-//        Main.printHitResults(0, 0, board1, count1);
-//        Main.printBoard(board1);
-//        Main.printHitResults(0, 0, board2, count2);
-//        Main.printBoard(board2);
+//        HW0.Main.printHitResults(0, 0, board1, count1);
+//        HW0.Main.printBoard(board1);
+//        HW0.Main.printHitResults(0, 0, board2, count2);
+//        HW0.Main.printBoard(board2);
 
     }
 
