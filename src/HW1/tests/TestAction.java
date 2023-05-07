@@ -6,7 +6,7 @@ import HW1.Tile;
 
 public class TestAction {
     public static void main(String[] args) {
-        Action action1 = new Action(new Tile(), Direction.UP);
+        Action action1 = new Action(new Tile(7), Direction.UP);
         System.out.println(action1);
     }
 }

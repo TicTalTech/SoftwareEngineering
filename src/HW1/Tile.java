@@ -11,6 +11,10 @@ public class Tile {
         return value;
     }
 
+    public String toString() {
+        return String.valueOf(value);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof Tile)) {
