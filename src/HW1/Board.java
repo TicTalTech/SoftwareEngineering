@@ -15,21 +15,42 @@ public class Board {
 
     public Board(String s) {
         int value;
+        int numOfRows = 0;
+        int numOfCols = 0;
+        int index = 0;
+        while (s.charAt(index) != '|') {
+            if (s.charAt(index) == ' ')
+                numOfCols++;
+            index++;
+        }
+        index = 0;
+        while (index < s.length()) {
+            if (s.charAt(index) == '|')
+                numOfRows++;
+            index++;
+        }
+        numOfRows++;
+        numOfCols++;
+        tiles = new Tile[numOfRows][numOfCols];
         String valueS = "";
         char digit;
         int row = 0;
         int col = 0;
-        for (int i = 0; i < s.length(); ++i) {
+        for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == EMPTY_CHAR) {
                 tiles[row][col] = new Tile(EMPTY);
+                emptyY = row;
+                emptyX = col;
                 col++;
                 continue;
             }
             if (s.charAt(i) == ' ') {
-                value = Integer.parseInt(valueS);
-                valueS = "";
-                tiles[row][col] = new Tile(value);
-                col++;
+                if (valueS != "") {
+                    value = Integer.parseInt(valueS);
+                    valueS = "";
+                    tiles[row][col] = new Tile(value);
+                    col++;
+                }
                 continue;
             }
             if (s.charAt(i) == '|') {
@@ -41,6 +62,10 @@ public class Board {
                 continue;
             }
             valueS += s.charAt(i);
+        }
+        if (s.charAt(s.length() - 1) != EMPTY_CHAR) {
+            value = Integer.parseInt(valueS);
+            tiles[row][col] = new Tile(value);
         }
     }
 
