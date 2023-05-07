@@ -54,9 +54,11 @@ public class Board {
                 continue;
             }
             if (s.charAt(i) == '|') {
-                value = Integer.parseInt(valueS);
-                valueS = "";
-                tiles[row][col] = new Tile(value);
+                if (valueS != "") {
+                    value = Integer.parseInt(valueS);
+                    valueS = "";
+                    tiles[row][col] = new Tile(value);
+                }
                 row++;
                 col = 0;
                 continue;

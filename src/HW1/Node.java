@@ -5,6 +5,9 @@ public class Node {
     private Node parent;
     private Action action;
 
+    public Node(State state, Node parent, Action action) {
+    }
+
     public Node getParent() {
         return this.parent;
     }
@@ -18,7 +21,11 @@ public class Node {
     }
 
     public Node[] expand() {
-        
+        Action[] arr = state.actions();
+        Node[] expanded = new Node[arr.length];
+        for (int i = 0; i < arr.length; ++i) {
+            //  expanded[i] = new Node();
+        }
         return null;
     }
 
