@@ -6,10 +6,12 @@ public class TestBoard {
     public static void printBoard(Board b) {
         for (int i = 0; i < b.getTiles().length; ++i) {
             for (int j = 0; j < b.getTiles()[0].length; ++j) {
-                System.out.print(" " + b.getBoard()[i][j].getValue());
+                int value = b.getBoard()[i][j].getValue();
+                System.out.print(" " + (value == 0 ? "_" : value));
             }
-            System.out.println("");
+            System.out.println();
         }
+        System.out.println();
     }
 
     public static void main(String[] args) {

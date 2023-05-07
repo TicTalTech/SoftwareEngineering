@@ -7,9 +7,32 @@ public class State {
         this.board = board;
     }
 
+    public State(State other) {
+        this.board = new Board(other.board);
+    }
+
     public State result(Action action) {
-        // TODO - implement
-        return null;
+        State newState = new State(this);
+        switch (action.getDirection()) {
+            case UP:
+                newState.board.switchTiles(
+                        action.getTileX(), action.getTileY(), action.getTileX(), action.getTileY() - 1);
+                break;
+            case DOWN:
+                newState.board.switchTiles(
+                        action.getTileX(), action.getTileY(), action.getTileX(), action.getTileY() + 1);
+                break;
+            case RIGHT:
+                newState.board.switchTiles(
+                        action.getTileX(), action.getTileY(), action.getTileX() + 1, action.getTileY());
+                break;
+            case LEFT:
+                newState.board.switchTiles(
+                        action.getTileX(), action.getTileY(), action.getTileX() - 1, action.getTileY());
+                break;
+
+        }
+        return newState;
     }
 
     public Board getBoard() {
@@ -19,24 +42,33 @@ public class State {
     public Action[] actions() {
         Action[] actions = new Action[4];
         int numberOfActions = 0;
+        int x, y;
         // move up action
         if (board.getEmptyY() != board.getTiles().length - 1) {
-            actions[0] = new Action(board.getTiles()[board.getEmptyY() + 1][board.getEmptyX()], Direction.UP);
+            x = board.getEmptyX();
+            y = board.getEmptyY() + 1;
+            actions[0] = new Action(board.getTiles()[y][x], Direction.UP, x, y);
             numberOfActions++;
         }
         // move down action
         if (board.getEmptyY() != 0) {
-            actions[1] = new Action(board.getTiles()[board.getEmptyY() - 1][board.getEmptyX()], Direction.DOWN);
+            x = board.getEmptyX();
+            y = board.getEmptyY() - 1;
+            actions[1] = new Action(board.getTiles()[y][x], Direction.DOWN, x, y);
             numberOfActions++;
         }
         // move right action
         if (board.getEmptyX() != 0) {
-            actions[2] = new Action(board.getTiles()[board.getEmptyY()][board.getEmptyX() - 1], Direction.RIGHT);
+            x = board.getEmptyX() - 1;
+            y = board.getEmptyY();
+            actions[2] = new Action(board.getTiles()[y][x], Direction.RIGHT, x, y);
             numberOfActions++;
         }
         // move up action
         if (board.getEmptyX() != board.getTiles()[0].length - 1) {
-            actions[3] = new Action(board.getTiles()[board.getEmptyY()][board.getEmptyX() + 1], Direction.LEFT);
+            x = board.getEmptyX() + 1;
+            y = board.getEmptyY();
+            actions[3] = new Action(board.getTiles()[y][x], Direction.LEFT, x, y);
             numberOfActions++;
         }
         Action[] condensedActions = new Action[numberOfActions];

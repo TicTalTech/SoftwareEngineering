@@ -4,13 +4,24 @@ import java.util.Arrays;
 
 
 public class Board {
-    final int EMPTY = 0;
-    final char EMPTY_CHAR = '_';
+    public static final int EMPTY = 0;
+    public static final char EMPTY_CHAR = '_';
 
     private Tile[][] tiles;
 
     private int emptyX;
     private int emptyY;
+
+    public Board(Board other) {
+        tiles = new Tile[other.tiles.length][other.tiles[0].length];
+        for (int y = 0; y < tiles.length; y++) {
+            for (int x = 0; x < tiles[0].length; x++) {
+                tiles[y][x] = new Tile(other.tiles[y][x]);
+            }
+        }
+        emptyX = other.emptyX;
+        emptyY = other.emptyY;
+    }
 
 
     public Board(String s) {
@@ -69,6 +80,12 @@ public class Board {
             value = Integer.parseInt(valueS);
             tiles[row][col] = new Tile(value);
         }
+    }
+
+    public void switchTiles(int x1, int y1, int x2, int y2) {
+        Tile temp = tiles[y1][x1];
+        tiles[y1][x1] = tiles[y2][x2];
+        tiles[y2][x2] = temp;
     }
 
     public Tile[][] getBoard() {
