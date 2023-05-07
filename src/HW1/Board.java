@@ -103,4 +103,8 @@ public class Board {
         this.emptyY = emptyY;
     }
 
+    public Tile[][] getTiles() {
+        return tiles;
+    }
+
 }
