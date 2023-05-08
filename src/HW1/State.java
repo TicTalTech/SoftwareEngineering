@@ -17,18 +17,24 @@ public class State {
             case UP:
                 newState.board.switchTiles(
                         action.getTileX(), action.getTileY(), action.getTileX(), action.getTileY() - 1);
+                newState.board.setEmptyY(action.getTileY());
                 break;
             case DOWN:
                 newState.board.switchTiles(
                         action.getTileX(), action.getTileY(), action.getTileX(), action.getTileY() + 1);
+                newState.board.setEmptyY(action.getTileY());
+
                 break;
             case RIGHT:
                 newState.board.switchTiles(
                         action.getTileX(), action.getTileY(), action.getTileX() + 1, action.getTileY());
+                newState.board.setEmptyX(action.getTileX());
                 break;
             case LEFT:
                 newState.board.switchTiles(
                         action.getTileX(), action.getTileY(), action.getTileX() - 1, action.getTileY());
+                newState.board.setEmptyX(action.getTileX());
+
                 break;
 
         }
