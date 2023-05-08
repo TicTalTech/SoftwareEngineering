@@ -33,7 +33,7 @@ public class Node {
         return expanded;
     }
 
-    private int[] findNumberInBoard(Board board, int value) {
+    public static int[] findNumberInBoard(Board board, int value) {
         int height = board.getBoard().length;
         int width = board.getBoard()[0].length;
         for (int y = 0; y < height; y++) {
@@ -50,6 +50,7 @@ public class Node {
 //        return heuristicValueManhattanDistance();
 //        return heuristicValueManhattanDistanceConsiderEmpty();
         return heuristicValueRecur(this, 5);
+//        return smartManhattanDistance(this.getState().getBoard());
     }
 
     public static int heuristicValueRecur(Node node, int depth) {
@@ -57,7 +58,8 @@ public class Node {
             return -depth;
         }
         if (depth == 1) {
-            return node.heuristicValueManhattanDistanceConsiderEmpty();
+            return Node.smartManhattanDistance(node.getState().getBoard());
+//            return node.heuristicValueManhattanDistanceConsiderEmpty();
         }
 
         Node[] children = node.expand();
@@ -70,10 +72,14 @@ public class Node {
         return MathUtil.min(scores);
     }
 
-    public int heuristicValueManhattanDistance() {
+    public static int smartManhattanDistance(Board board) {
+        return board.getManhattanScore();
+    }
+
+    public static int heuristicValueManhattanDistance(Board board) {
         int sumDistance = 0;
-        int height = state.getBoard().getBoard().length;
-        int width = state.getBoard().getBoard()[0].length;
+        int height = board.getBoard().length;
+        int width = board.getBoard()[0].length;
         for (int wantedY = 0; wantedY < height; wantedY++) {
             for (int wantedX = 0; wantedX < width; wantedX++) {
                 int targetNumber = wantedY * width + wantedX + 1;
@@ -81,7 +87,7 @@ public class Node {
                 if (wantedX == width - 1 && wantedY == height - 1) {
                     targetNumber = Board.EMPTY;
                 }
-                int[] realPosition = findNumberInBoard(state.getBoard(), targetNumber);
+                int[] realPosition = Node.findNumberInBoard(board, targetNumber);
                 int manhattanDistance = MathUtil.abs(wantedX - realPosition[0]) + MathUtil.abs(wantedY - realPosition[1]);
                 sumDistance += manhattanDistance;
             }
