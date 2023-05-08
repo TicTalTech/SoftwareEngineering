@@ -46,7 +46,10 @@ public class Node {
     }
 
     public int heuristicValue() {
-        // TODO - implement
+        return heuristicValueManhattanDistance();
+    }
+
+    public int heuristicValueManhattanDistance() {
         int sumDistance = 0;
         int height = state.getBoard().getBoard().length;
         int width = state.getBoard().getBoard()[0].length;
