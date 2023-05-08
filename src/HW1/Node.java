@@ -61,8 +61,29 @@ public class Node {
                     targetNumber = Board.EMPTY;
                 }
                 int[] realPosition = findNumberInBoard(state.getBoard(), targetNumber);
-                int manhattanDistance = MathUtil.abs(wantedX - realPosition[0]) + MathUtil.abs(wantedX - realPosition[0]);
+                int manhattanDistance = MathUtil.abs(wantedX - realPosition[0]) + MathUtil.abs(wantedY - realPosition[1]);
                 sumDistance += manhattanDistance;
+            }
+        }
+        return sumDistance;
+    }
+
+    public int heuristicValueManhattanDistanceConsiderEmpty() {
+        int sumDistance = 0;
+        int height = state.getBoard().getBoard().length;
+        int width = state.getBoard().getBoard()[0].length;
+        int[] emptyPosition = findNumberInBoard(state.getBoard(), Board.EMPTY);
+        for (int wantedY = 0; wantedY < height; wantedY++) {
+            for (int wantedX = 0; wantedX < width; wantedX++) {
+                int targetNumber = wantedY * width + wantedX + 1;
+                //if it is the empty tile (target)
+                if (wantedY == width - 1 && wantedY == height - 1) {
+                    targetNumber = Board.EMPTY;
+                }
+                int[] realPosition = findNumberInBoard(state.getBoard(), targetNumber);
+                int manhattanDistance = MathUtil.abs(wantedX - realPosition[0]) + MathUtil.abs(wantedX - realPosition[0]);
+                int manhattanDistanceToZero = MathUtil.abs(emptyPosition[0] - realPosition[0]) + MathUtil.abs(emptyPosition[1] - realPosition[1]);
+                sumDistance += (manhattanDistance + manhattanDistanceToZero);
             }
         }
         return sumDistance;
