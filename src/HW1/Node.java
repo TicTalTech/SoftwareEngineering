@@ -26,7 +26,7 @@ public class Node {
     public Node[] expand() {
         Action[] actions = state.actions();
         Node[] expanded = new Node[actions.length];
-        for (int i = 0; i < actions.length; ++i) {
+        for (int i = 0; i < actions.length; i++) {
             expanded[i] = new Node(state.result(actions[i]), this, actions[i]);
         }
         return expanded;
