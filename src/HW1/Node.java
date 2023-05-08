@@ -95,7 +95,7 @@ public class Node {
         return sumDistance;
     }
 
-    public int linear_conflicts() {
+    public int linear_conflicts_rows() {
         int lengthOfRows = state.getBoard().getTiles()[0].length;
         int numOfRows = state.getBoard().getTiles().length;
         Tile[][] board = state.getBoard().getTiles();
@@ -150,6 +150,66 @@ public class Node {
             }
             for (int i = 0; i < lengthOfRows; ++i)
                 for (int j = 0; j < lengthOfRows; ++j)
+                    conflicts[i][j] = 0;
+            for (int i = 0; i < numOfConflicts.length; ++i)
+                numOfConflicts[i] = 0;
+        }
+        return 2 * counter;
+    }
+
+    public int linear_conflicts_cols() {
+        int lengthOfCols = state.getBoard().getTiles().length;
+        int numOfCols = state.getBoard().getTiles()[0].length;
+        Tile[][] board = state.getBoard().getTiles();
+        int max = 0;
+        Boolean empty = false;
+        int maxIndex = 0;
+        int counter = 0;
+        int numOfConflicts[] = new int[lengthOfCols];
+        int conflicts[][] = new int[lengthOfCols][lengthOfCols];
+        for (int col = 0; col < numOfCols; ++col) {
+            for (int i = 0; i < lengthOfCols; ++i) {
+                for (int j = i; j < lengthOfCols; ++j) {
+                    if (board[i][col].getValue() % numOfCols == col + 1
+                            && board[j][col].getValue() % numOfCols == col + 1
+                            && board[j][col].getValue() < board[i][col].getValue()) {
+                        conflicts[i][j]++;
+                        conflicts[j][i]++;
+                        numOfConflicts[i]++;
+                        numOfConflicts[j]++;
+                    }
+                }
+            }
+            empty = false;
+            while (!empty) {
+                empty = true;
+                for (int i = 0; i < lengthOfCols; ++i) {
+                    if (numOfConflicts[i] != 0)
+                        empty = false;
+                }
+                if (empty)
+                    break;
+
+                for (int i = 0; i < lengthOfCols; ++i) {
+                    if (numOfConflicts[i] >= max) {
+                        max = numOfConflicts[i];
+                        maxIndex = i;
+                    }
+                }
+                for (int i = 0; i < lengthOfCols; ++i) {
+                    conflicts[maxIndex][i] = 0;
+                    if (conflicts[i][maxIndex] > 0) {
+                        conflicts[i][maxIndex]--;
+                        numOfConflicts[i]--;
+                    }
+                }
+                numOfConflicts[maxIndex] = 0;
+                maxIndex = 0;
+                max = 0;
+                counter++;
+            }
+            for (int i = 0; i < lengthOfCols; ++i)
+                for (int j = 0; j < lengthOfCols; ++j)
                     conflicts[i][j] = 0;
             for (int i = 0; i < numOfConflicts.length; ++i)
                 numOfConflicts[i] = 0;
