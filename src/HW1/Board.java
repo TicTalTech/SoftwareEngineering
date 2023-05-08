@@ -43,8 +43,7 @@ public class Board {
         numOfRows++;
         numOfCols++;
         tiles = new Tile[numOfRows][numOfCols];
-        String valueS = "";
-        char digit;
+        StringBuilder valueS = new StringBuilder();
         int row = 0;
         int col = 0;
         for (int i = 0; i < s.length(); i++) {
@@ -56,28 +55,28 @@ public class Board {
                 continue;
             }
             if (s.charAt(i) == ' ') {
-                if (valueS != "") {
-                    value = Integer.parseInt(valueS);
-                    valueS = "";
+                if (!valueS.toString().equals("")) {
+                    value = Integer.parseInt(valueS.toString());
+                    valueS = new StringBuilder();
                     tiles[row][col] = new Tile(value);
                     col++;
                 }
                 continue;
             }
             if (s.charAt(i) == '|') {
-                if (valueS != "") {
-                    value = Integer.parseInt(valueS);
-                    valueS = "";
+                if (!valueS.toString().equals("")) {
+                    value = Integer.parseInt(valueS.toString());
+                    valueS = new StringBuilder();
                     tiles[row][col] = new Tile(value);
                 }
                 row++;
                 col = 0;
                 continue;
             }
-            valueS += s.charAt(i);
+            valueS.append(s.charAt(i));
         }
         if (s.charAt(s.length() - 1) != EMPTY_CHAR) {
-            value = Integer.parseInt(valueS);
+            value = Integer.parseInt(valueS.toString());
             tiles[row][col] = new Tile(value);
         }
     }

@@ -32,8 +32,36 @@ public class Node {
         return expanded;
     }
 
+    private int[] findNumberInBoard(Board board, int value) {
+        int height = board.getBoard().length;
+        int width = board.getBoard()[0].length;
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (board.getBoard()[y][x].getValue() == value) {
+                    return new int[]{x, y};
+                }
+            }
+        }
+        return null;
+    }
+
     public int heuristicValue() {
         // TODO - implement
-        return 0;
+        int sumDistance = 0;
+        int height = state.getBoard().getBoard().length;
+        int width = state.getBoard().getBoard()[0].length;
+        for (int wantedY = 0; wantedY < height; wantedY++) {
+            for (int wantedX = 0; wantedX < width; wantedX++) {
+                int targetNumber = wantedY * width + wantedX + 1;
+                //if it is the empty tile (target)
+                if (wantedY == width - 1 && wantedY == height - 1) {
+                    targetNumber = Board.EMPTY;
+                }
+                int[] realPosition = findNumberInBoard(state.getBoard(), targetNumber);
+                int manhattanDistance = MathUtil.abs(wantedX - realPosition[0]) + MathUtil.abs(wantedX - realPosition[0]);
+                sumDistance += manhattanDistance;
+            }
+        }
+        return sumDistance;
     }
 }
