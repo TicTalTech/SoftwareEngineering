@@ -49,8 +49,9 @@ public class Node {
     public int heuristicValue() {
 //        return heuristicValueManhattanDistance();
 //        return heuristicValueManhattanDistanceConsiderEmpty();
-        return heuristicValueRecur(this, 5);
+//        return heuristicValueRecur(this, 3);
 //        return smartManhattanDistance(this.getState().getBoard());
+        return veryGoodFunctionHofully(this.getState().getBoard());
     }
 
     public static int heuristicValueRecur(Node node, int depth) {
@@ -58,8 +59,9 @@ public class Node {
             return -depth;
         }
         if (depth == 1) {
-            return Node.smartManhattanDistance(node.getState().getBoard());
+//            return Node.smartManhattanDistance(node.getState().getBoard());
 //            return node.heuristicValueManhattanDistanceConsiderEmpty();
+            return Node.veryGoodFunctionHofully(node.state.getBoard());
         }
 
         Node[] children = node.expand();
@@ -95,10 +97,15 @@ public class Node {
         return sumDistance;
     }
 
-    public int linear_conflicts_rows() {
-        int lengthOfRows = state.getBoard().getTiles()[0].length;
-        int numOfRows = state.getBoard().getTiles().length;
-        Tile[][] board = state.getBoard().getTiles();
+    public static int veryGoodFunctionHofully(Board stateBoard) {
+        int value = smartManhattanDistance(stateBoard) + linear_conflicts_rows(stateBoard) + linear_conflicts_cols(stateBoard);
+        return value;
+    }
+
+    public static int linear_conflicts_rows(Board stateBoard) {
+        int lengthOfRows = stateBoard.getTiles()[0].length;
+        int numOfRows = stateBoard.getTiles().length;
+        Tile[][] board = stateBoard.getTiles();
         int max = 0;
         Boolean empty = false;
         int maxIndex = 0;
@@ -157,10 +164,10 @@ public class Node {
         return 2 * counter;
     }
 
-    public int linear_conflicts_cols() {
-        int lengthOfCols = state.getBoard().getTiles().length;
-        int numOfCols = state.getBoard().getTiles()[0].length;
-        Tile[][] board = state.getBoard().getTiles();
+    public static int linear_conflicts_cols(Board stateBoard) {
+        int lengthOfCols = stateBoard.getTiles().length;
+        int numOfCols = stateBoard.getTiles()[0].length;
+        Tile[][] board = stateBoard.getTiles();
         int max = 0;
         Boolean empty = false;
         int maxIndex = 0;

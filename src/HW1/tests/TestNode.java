@@ -10,7 +10,7 @@ public class TestNode {
         Board b1 = new Board(ExampleBoardStrings.BOARD12);
         State s1 = new State(b1);
         Node n1 = new Node(s1, null, null);
-        n1.linear_conflicts_cols();
+//        int val = n1.linear_conflicts_cols();
        /* Node[] n1_result = n1.expand();
         for (int i = 0; i < n1_result.length; i++) {
             Board b = n1_result[i].getState().getBoard();
