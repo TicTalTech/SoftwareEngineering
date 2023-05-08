@@ -14,6 +14,8 @@ public class Board {
 
     private int manhattanScore;
 
+    public static ActionsBank actionsBank;
+
     public Board(Board other) {
         tiles = new Tile[other.tiles.length][other.tiles[0].length];
         for (int y = 0; y < tiles.length; y++) {
@@ -28,6 +30,7 @@ public class Board {
 
 
     public Board(String s) {
+        actionsBank = new ActionsBank();
         int value;
         int numOfRows = 0;
         int numOfCols = 0;

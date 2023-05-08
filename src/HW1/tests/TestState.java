@@ -7,26 +7,26 @@ import HW1.State;
 public class TestState {
 
     private static void printActionsOfState(String boardStr, String boardName) {
-        System.out.println(boardName);
-        Board board = new Board(boardStr);
-        State state = new State(board);
-        Action[] actions = state.actions();
-        for (Action action : actions) {
-            System.out.println(action);
-        }
-        System.out.println();
+//        System.out.println(boardName);
+//        Board board = new Board(boardStr);
+//        State state = new State(board);
+//        Action[] actions = state.actions();
+//        for (Action action : actions) {
+//            System.out.println(action);
+//        }
+//        System.out.println();
     }
 
     private static void testResults(String boardStr) {
-        State state = new State(new Board(boardStr));
-        TestBoard.printBoard(state.getBoard());
-        Action[] actions = state.actions();
-        for (Action action : actions) {
-            System.out.println(action);
-            State newState = state.result(action);
-            TestBoard.printBoard(newState.getBoard());
-
-        }
+//        State state = new State(new Board(boardStr));
+//        TestBoard.printBoard(state.getBoard());
+//        Action[] actions = state.actions();
+//        for (Action action : actions) {
+//            System.out.println(action);
+//            State newState = state.result(action);
+//            TestBoard.printBoard(newState.getBoard());
+//
+//        }
     }
 
     public static void main(String[] args) {

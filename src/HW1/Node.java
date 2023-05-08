@@ -25,10 +25,11 @@ public class Node {
     }
 
     public Node[] expand() {
-        Action[] actions = state.actions();
+        ActionCell[] actions = state.actions();
         Node[] expanded = new Node[actions.length];
         for (int i = 0; i < actions.length; i++) {
-            expanded[i] = new Node(state.result(actions[i]), this, actions[i]);
+            expanded[i] = new Node(state.result(actions[i].getAction()), this, actions[i].getAction());
+            actions[i].setActive(false);
         }
         return expanded;
     }
@@ -49,7 +50,7 @@ public class Node {
     public int heuristicValue() {
 //        return heuristicValueManhattanDistance();
 //        return heuristicValueManhattanDistanceConsiderEmpty();
-        return heuristicValueRecur(this, 5);
+        return heuristicValueRecur(this, 3);
 //        return smartManhattanDistance(this.getState().getBoard());
     }
 

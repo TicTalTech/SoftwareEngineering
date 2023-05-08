@@ -18,7 +18,17 @@ public class Action {
         return tileY;
     }
 
+    public Action() {
+    }
+
     public Action(Tile tile, Direction direction, int tileX, int tileY) {
+        this.tile = tile;
+        this.direction = direction;
+        this.tileX = tileX;
+        this.tileY = tileY;
+    }
+
+    public void createAction(Tile tile, Direction direction, int tileX, int tileY) {
         this.tile = tile;
         this.direction = direction;
         this.tileX = tileX;

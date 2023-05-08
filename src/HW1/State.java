@@ -45,41 +45,48 @@ public class State {
         return board;
     }
 
-    public Action[] actions() {
-        Action[] actions = new Action[4];
+    public ActionCell[] actions() {
+        ActionCell[] actions = new ActionCell[4];
         int numberOfActions = 0;
         int x, y;
         // move up action
         if (board.getEmptyY() != board.getTiles().length - 1) {
             x = board.getEmptyX();
             y = board.getEmptyY() + 1;
-            actions[0] = new Action(board.getTiles()[y][x], Direction.UP, x, y);
+            actions[0] = Board.actionsBank.newAction(board.getTiles()[y][x], Direction.UP, x, y);
+//            actions[0] = new Action(board.getTiles()[y][x], Direction.UP, x, y);
             numberOfActions++;
         }
         // move down action
         if (board.getEmptyY() != 0) {
             x = board.getEmptyX();
             y = board.getEmptyY() - 1;
-            actions[1] = new Action(board.getTiles()[y][x], Direction.DOWN, x, y);
+//            actions[1] = new Action(board.getTiles()[y][x], Direction.DOWN, x, y);
+            actions[1] = Board.actionsBank.newAction(board.getTiles()[y][x], Direction.DOWN, x, y);
+
             numberOfActions++;
         }
         // move right action
         if (board.getEmptyX() != 0) {
             x = board.getEmptyX() - 1;
             y = board.getEmptyY();
-            actions[2] = new Action(board.getTiles()[y][x], Direction.RIGHT, x, y);
+//            actions[2] = new Action(board.getTiles()[y][x], Direction.RIGHT, x, y);
+            actions[2] = Board.actionsBank.newAction(board.getTiles()[y][x], Direction.RIGHT, x, y);
+
             numberOfActions++;
         }
         // move up action
         if (board.getEmptyX() != board.getTiles()[0].length - 1) {
             x = board.getEmptyX() + 1;
             y = board.getEmptyY();
-            actions[3] = new Action(board.getTiles()[y][x], Direction.LEFT, x, y);
+//            actions[3] = new Action(board.getTiles()[y][x], Direction.LEFT, x, y);
+            actions[3] = Board.actionsBank.newAction(board.getTiles()[y][x], Direction.LEFT, x, y);
+
             numberOfActions++;
         }
-        Action[] condensedActions = new Action[numberOfActions];
+        ActionCell[] condensedActions = new ActionCell[numberOfActions];
         int actionsIndex = 0;
-        for (Action temp : actions) {
+        for (ActionCell temp : actions) {
             if (temp == null) {
                 continue;
             }
