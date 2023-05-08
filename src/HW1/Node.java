@@ -69,6 +69,68 @@ public class Node {
         return sumDistance;
     }
 
+    public int linear_conflicts() {
+        int lengthOfRows = state.getBoard().getTiles()[0].length;
+        int numOfRows = state.getBoard().getTiles().length;
+        Tile[][] board = state.getBoard().getTiles();
+        int max = 0;
+        Boolean empty = false;
+        int maxIndex = 0;
+        int counter = 0;
+        int numOfConflicts[] = new int[lengthOfRows];
+        int conflicts[][] = new int[lengthOfRows][lengthOfRows];
+        for (int row = 0; row < numOfRows; ++row) {
+            for (int i = 0; i < lengthOfRows; ++i) {
+                for (int j = i; j < lengthOfRows; ++j) {
+                    if (board[row][j].getValue() <= (row + 1) * lengthOfRows
+                            && board[row][j].getValue() >= (row) * lengthOfRows + 1
+                            && board[row][i].getValue() <= (row + 1) * lengthOfRows
+                            && board[row][i].getValue() >= (row) * lengthOfRows + 1
+                            && board[row][j].getValue() < board[row][i].getValue()) {
+                        conflicts[i][j]++;
+                        conflicts[j][i]++;
+                        numOfConflicts[i]++;
+                        numOfConflicts[j]++;
+                    }
+                }
+            }
+            empty = false;
+            while (!empty) {
+                empty = true;
+                for (int i = 0; i < lengthOfRows; ++i) {
+                    if (numOfConflicts[i] != 0)
+                        empty = false;
+                }
+                if (empty)
+                    break;
+
+                for (int i = 0; i < lengthOfRows; ++i) {
+                    if (numOfConflicts[i] >= max) {
+                        max = numOfConflicts[i];
+                        maxIndex = i;
+                    }
+                }
+                for (int i = 0; i < lengthOfRows; ++i) {
+                    conflicts[maxIndex][i] = 0;
+                    if (conflicts[i][maxIndex] > 0) {
+                        conflicts[i][maxIndex]--;
+                        numOfConflicts[i]--;
+                    }
+                }
+                numOfConflicts[maxIndex] = 0;
+                maxIndex = 0;
+                max = 0;
+                counter++;
+            }
+            for (int i = 0; i < lengthOfRows; ++i)
+                for (int j = 0; j < lengthOfRows; ++j)
+                    conflicts[i][j] = 0;
+            for (int i = 0; i < numOfConflicts.length; ++i)
+                numOfConflicts[i] = 0;
+        }
+        return 2 * counter;
+    }
+
     public int heuristicValueManhattanDistanceConsiderEmpty() {
         int sumDistance = 0;
         int height = state.getBoard().getBoard().length;

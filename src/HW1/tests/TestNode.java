@@ -7,10 +7,11 @@ import HW1.State;
 
 public class TestNode {
     public static void main(String[] args) {
-        Board b1 = new Board(ExampleBoardStrings.BOARD10);
+        Board b1 = new Board(ExampleBoardStrings.BOARD11);
         State s1 = new State(b1);
         Node n1 = new Node(s1, null, null);
-        Node[] n1_result = n1.expand();
+        n1.linear_conflicts();
+       /* Node[] n1_result = n1.expand();
         for (int i = 0; i < n1_result.length; i++) {
             Board b = n1_result[i].getState().getBoard();
             // TestBoard(b)
@@ -23,6 +24,6 @@ public class TestNode {
             Node[] n2_result = n1_result[i].expand();
             for (int j = 0; j < n2_result.length; ++j)
                 TestBoard.printBoard(n2_result[j].getState().getBoard());
-        }
+        }*/
     }
 }
