@@ -8,4 +8,14 @@ public class MathUtil {
             return -value;
         }
     }
+
+    public static int min(int[] arr) {
+        int minVal = Integer.MAX_VALUE;
+        for (int val : arr) {
+            if (val < minVal) {
+                minVal = val;
+            }
+        }
+        return minVal;
+    }
 }
