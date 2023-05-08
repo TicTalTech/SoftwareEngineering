@@ -1,5 +1,6 @@
 package HW1;
 
+
 public class Node {
     private State state;
     private Node parent;
@@ -32,7 +33,7 @@ public class Node {
         return expanded;
     }
 
-    private int[] findNumberInBoard(Board board, int value) {
+    public static int[] findNumberInBoard(Board board, int value) {
         int height = board.getBoard().length;
         int width = board.getBoard()[0].length;
         for (int y = 0; y < height; y++) {
@@ -46,22 +47,47 @@ public class Node {
     }
 
     public int heuristicValue() {
-        //return heuristicValueManhattanDistance();
-        return heuristicValueManhattanDistanceConsiderEmpty();
+//        return heuristicValueManhattanDistance();
+//        return heuristicValueManhattanDistanceConsiderEmpty();
+        return heuristicValueRecur(this, 5);
+//        return smartManhattanDistance(this.getState().getBoard());
     }
 
-    public int heuristicValueManhattanDistance() {
+    public static int heuristicValueRecur(Node node, int depth) {
+        if (node.getState().isGoal()) {
+            return -depth;
+        }
+        if (depth == 1) {
+            return Node.smartManhattanDistance(node.getState().getBoard());
+//            return node.heuristicValueManhattanDistanceConsiderEmpty();
+        }
+
+        Node[] children = node.expand();
+        int[] scores = new int[children.length];
+        for (int i = 0; i < children.length; i++) {
+            Node child = children[i];
+            int value = heuristicValueRecur(child, depth - 1);
+            scores[i] = value;
+        }
+        return MathUtil.min(scores);
+    }
+
+    public static int smartManhattanDistance(Board board) {
+        return board.getManhattanScore();
+    }
+
+    public static int heuristicValueManhattanDistance(Board board) {
         int sumDistance = 0;
-        int height = state.getBoard().getBoard().length;
-        int width = state.getBoard().getBoard()[0].length;
+        int height = board.getBoard().length;
+        int width = board.getBoard()[0].length;
         for (int wantedY = 0; wantedY < height; wantedY++) {
             for (int wantedX = 0; wantedX < width; wantedX++) {
                 int targetNumber = wantedY * width + wantedX + 1;
                 //if it is the empty tile (target)
-                if (wantedY == width - 1 && wantedY == height - 1) {
+                if (wantedX == width - 1 && wantedY == height - 1) {
                     targetNumber = Board.EMPTY;
                 }
-                int[] realPosition = findNumberInBoard(state.getBoard(), targetNumber);
+                int[] realPosition = Node.findNumberInBoard(board, targetNumber);
                 int manhattanDistance = MathUtil.abs(wantedX - realPosition[0]) + MathUtil.abs(wantedY - realPosition[1]);
                 sumDistance += manhattanDistance;
             }
@@ -140,11 +166,12 @@ public class Node {
             for (int wantedX = 0; wantedX < width; wantedX++) {
                 int targetNumber = wantedY * width + wantedX + 1;
                 //if it is the empty tile (target)
-                if (wantedY == width - 1 && wantedY == height - 1) {
+                if (wantedX == width - 1 && wantedY == height - 1) {
                     targetNumber = Board.EMPTY;
                 }
                 int[] realPosition = findNumberInBoard(state.getBoard(), targetNumber);
-                int manhattanDistance = MathUtil.abs(wantedX - realPosition[0]) + MathUtil.abs(wantedX - realPosition[0]);
+                int manhattanDistance = MathUtil.abs(wantedX - realPosition[0]) +
+                        MathUtil.abs(wantedY - realPosition[1]);
                 int manhattanDistanceToZero = MathUtil.abs(emptyPosition[0] - realPosition[0]) + MathUtil.abs(emptyPosition[1] - realPosition[1]);
                 sumDistance += (manhattanDistance + manhattanDistanceToZero);
             }
