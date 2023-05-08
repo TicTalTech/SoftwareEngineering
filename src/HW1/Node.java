@@ -46,7 +46,8 @@ public class Node {
     }
 
     public int heuristicValue() {
-        return heuristicValueManhattanDistance();
+        //return heuristicValueManhattanDistance();
+        return heuristicValueManhattanDistanceConsiderEmpty();
     }
 
     public int heuristicValueManhattanDistance() {

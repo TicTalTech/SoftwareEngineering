@@ -29,10 +29,17 @@ public class Board {
         int numOfRows = 0;
         int numOfCols = 0;
         int index = 0;
-        while (s.charAt(index) != '|') {
-            if (s.charAt(index) == ' ')
-                numOfCols++;
-            index++;
+        if (s.contains("|")) {
+            while (s.charAt(index) != '|') {
+                if (s.charAt(index) == ' ')
+                    numOfCols++;
+                index++;
+            }
+        } else {
+            for (char ch : s.toCharArray()) {
+                if (ch == ' ')
+                    numOfCols++;
+            }
         }
         index = 0;
         while (index < s.length()) {
