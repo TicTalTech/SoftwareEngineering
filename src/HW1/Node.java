@@ -49,9 +49,9 @@ public class Node {
     public int heuristicValue() {
 //        return heuristicValueManhattanDistance();
 //        return heuristicValueManhattanDistanceConsiderEmpty();
-//        return heuristicValueRecur(this, 3);
+//        return heuristicValueRecur(this, 2);
 //        return smartManhattanDistance(this.getState().getBoard());
-        return veryGoodFunctionHofully(this.getState().getBoard());
+        return veryGoodFunctionHofully(this);
     }
 
     public static int heuristicValueRecur(Node node, int depth) {
@@ -61,7 +61,7 @@ public class Node {
         if (depth == 1) {
 //            return Node.smartManhattanDistance(node.getState().getBoard());
 //            return node.heuristicValueManhattanDistanceConsiderEmpty();
-            return Node.veryGoodFunctionHofully(node.state.getBoard());
+            return Node.veryGoodFunctionHofully(node);
         }
 
         Node[] children = node.expand();
@@ -97,9 +97,35 @@ public class Node {
         return sumDistance;
     }
 
-    public static int veryGoodFunctionHofully(Board stateBoard) {
-        int value = smartManhattanDistance(stateBoard) + linear_conflicts_rows(stateBoard) + linear_conflicts_cols(stateBoard);
-        return value;
+    public static int veryGoodFunctionHofully(Node node) {
+        int manScore = smartManhattanDistance(node.state.getBoard());
+
+        if (node.getParent() == null || node.getParent().getAction() == null) {
+            int rowScore = linear_conflicts_rows(node.state.getBoard());
+            int colScore = linear_conflicts_cols(node.state.getBoard());
+
+            return manScore + rowScore + colScore;
+        }
+        Direction dir = node.
+                getAction().
+                getDirection();
+        int rowScore;
+        if (dir == Direction.UP || dir == Direction.DOWN) {
+            rowScore = linear_conflicts_rows(node.state.getBoard());
+        } else {
+            rowScore = node.getParent().getState().getBoard().getRowScore();
+        }
+
+        int colScore;
+        if (dir == Direction.LEFT || dir == Direction.RIGHT) {
+            colScore = linear_conflicts_cols(node.state.getBoard());
+        } else {
+            colScore = node.getParent().getState().getBoard().getColScore();
+        }
+        node.state.getBoard().setRowScore(rowScore);
+        node.state.getBoard().setColScore(colScore);
+
+        return manScore + rowScore + colScore;
     }
 
     public static int linear_conflicts_rows(Board stateBoard) {
@@ -161,6 +187,7 @@ public class Node {
             for (int i = 0; i < numOfConflicts.length; ++i)
                 numOfConflicts[i] = 0;
         }
+        stateBoard.setRowScore(2 * counter);
         return 2 * counter;
     }
 
@@ -221,6 +248,7 @@ public class Node {
             for (int i = 0; i < numOfConflicts.length; ++i)
                 numOfConflicts[i] = 0;
         }
+        stateBoard.setColScore(2 * counter);
         return 2 * counter;
     }
 

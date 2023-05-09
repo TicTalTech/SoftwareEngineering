@@ -4,6 +4,22 @@ import java.util.Arrays;
 
 
 public class Board {
+    public int getRowScore() {
+        return rowScore;
+    }
+
+    public void setRowScore(int rowScore) {
+        this.rowScore = rowScore;
+    }
+
+    public int getColScore() {
+        return colScore;
+    }
+
+    public void setColScore(int colScore) {
+        this.colScore = colScore;
+    }
+
     public static final int EMPTY = 0;
     public static final char EMPTY_CHAR = '_';
 
@@ -13,12 +29,18 @@ public class Board {
     private int emptyY;
 
     private int manhattanScore;
+    private int rowScore;
+    private int colScore;
+
 
     public Board(Board other) {
+//        tiles = other.tiles.clone();
         tiles = new Tile[other.tiles.length][other.tiles[0].length];
         for (int y = 0; y < tiles.length; y++) {
             for (int x = 0; x < tiles[0].length; x++) {
-                tiles[y][x] = new Tile(other.tiles[y][x]);
+//                tiles[y][x] = new Tile(other.tiles[y][x]);
+                tiles[y][x] = other.tiles[y][x];
+
             }
         }
         emptyX = other.emptyX;

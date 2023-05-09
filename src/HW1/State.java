@@ -34,9 +34,7 @@ public class State {
                 newState.board.switchTiles(
                         action.getTileX(), action.getTileY(), action.getTileX() - 1, action.getTileY());
                 newState.board.setEmptyX(action.getTileX());
-
                 break;
-
         }
         return newState;
     }
