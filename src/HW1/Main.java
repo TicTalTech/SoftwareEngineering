@@ -38,7 +38,6 @@ public class Main {
 //        String[] boards = {"1 6 4 15|5 10 _ 13|9 11 3 7|12 8 2 14"};
         int successCounter = 0;
         for (String boardString : boards) {
-            System.out.println("Inversions: " + numberOfInversions(new Board(boardString)));
             boolean success = searchOnce(boardString);
             if (success) {
                 successCounter++;
@@ -86,17 +85,9 @@ public class Main {
     private static boolean searchOnce(String boardString) {
         Search search = new Search();
         Thread t = new Thread(() -> search.search(boardString));
-//        countExpand = 0;
-//        countEvaluate = 0;
-//        total = 0;
-//        test = 0;
-//        long preTotal = System.currentTimeMillis();
         t.start();  // Start searching for a solution
         try {
-            t.join(1 * 10000);  // Wait for (at most) 60 seconds
-//            long postTotal = System.currentTimeMillis();
-//            total = (int) (postTotal - preTotal);
-//            System.out.println("total: " + total + " countExpand: " + countExpand + " countEvaluate: " + countEvaluate + " test: " + test);
+            t.join(10000);  // Wait for (at most) 60 seconds
         } catch (InterruptedException e) {
         }
         boolean success = false;
