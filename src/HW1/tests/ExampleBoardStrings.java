@@ -53,6 +53,8 @@ public class ExampleBoardStrings {
 
     public static final String BOARD12 = "10 2 3|7 8 6|4 5 9|1 11 _";
 
+    public static final String SOLVED33 = "1 2 3|4 5 6|7 8 _";
+
 
     public static final String[] BOARDS_3_BY_3 = {BOARD1, BOARD2, BOARD3, BOARD4, BOARD5, BOARD6, BOARD7, BOARD8, BOARD9};
 

@@ -1,6 +1,8 @@
 package HW1;
 
 
+import static HW1.Node.numberOfInversions;
+
 public class Node {
     private State state;
     private Node parent;
@@ -47,11 +49,64 @@ public class Node {
     }
 
     public int heuristicValue() {
+//        System.out.println(numberOfCorrectTiles(this.state.getBoard()));
 //        return heuristicValueManhattanDistance();
 //        return heuristicValueManhattanDistanceConsiderEmpty();
 //        return heuristicValueRecur(this, 2);
 //        return smartManhattanDistance(this.getState().getBoard());
-        return veryGoodFunctionHofully(this);
+        return numberOfInversions(this.state.getBoard());
+//        return 0;
+//        return veryGoodFunctionHofully(this);
+    }
+
+    public static int numberOfInversions(Board board) {
+        int numberOfInversions = 0;
+        int height = board.getBoard().length;
+        int width = board.getBoard()[0].length;
+        int boardSize = width * height;
+        for (int i = 0; i < boardSize; i++) {
+            int x1 = i % width;
+            int y1 = i / width;
+            int value1 = board.getBoard()[y1][x1].getValue();
+            if (value1 == Board.EMPTY) {
+//                value1 = boardSize;
+                continue;
+            }
+
+            for (int j = 0; j < i; j++) {
+                int x2 = j % width;
+                int y2 = j / width;
+                int value2 = board.getBoard()[y2][x2].getValue();
+                if (value2 == Board.EMPTY) {
+//                    value2 = boardSize;
+                    continue;
+                }
+                if (value2 > value1) {
+                    numberOfInversions++;
+                }
+            }
+        }
+        return numberOfInversions;
+    }
+
+    public static int numberOfCorrectTiles(Board board) {
+        int countDifference = 0;
+        int height = board.getBoard().length;
+        int width = board.getBoard()[0].length;
+        for (int wantedY = 0; wantedY < height; wantedY++) {
+            for (int wantedX = 0; wantedX < width; wantedX++) {
+                int targetNumber = wantedY * width + wantedX + 1;
+                //if it is the empty tile (target)
+                if (wantedX == width - 1 && wantedY == height - 1) {
+                    targetNumber = Board.EMPTY;
+                }
+                int realValue = board.getBoard()[wantedY][wantedX].getValue();
+                if (targetNumber != realValue) {
+                    countDifference++;
+                }
+            }
+        }
+        return countDifference;
     }
 
     public static int heuristicValueRecur(Node node, int depth) {
@@ -59,9 +114,9 @@ public class Node {
             return -depth;
         }
         if (depth == 1) {
-//            return Node.smartManhattanDistance(node.getState().getBoard());
+            return Node.smartManhattanDistance(node.getState().getBoard());
 //            return node.heuristicValueManhattanDistanceConsiderEmpty();
-            return Node.veryGoodFunctionHofully(node);
+//            return Node.veryGoodFunctionHofully(node);
         }
 
         Node[] children = node.expand();

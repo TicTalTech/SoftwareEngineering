@@ -120,13 +120,9 @@ public class Board {
 
     public void switchTiles(int x1, int y1, int x2, int y2) {
         int value1 = tiles[y1][x1].getValue() - 1;
-//        int value2 = tiles[y2][x2].getValue();
-//        System.out.println(value2);
 
         int value1TargetX = value1 % tiles[0].length;
         int value1TargetY = value1 / tiles[0].length;
-//        int value2TargetX = value2 % tiles.length;
-//        int value2TargetY = value2 / tiles.length;
         int value2TargetX = tiles[0].length - 1;
         int value2TargetY = tiles.length - 1;
 

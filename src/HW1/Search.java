@@ -43,21 +43,37 @@ public class Search {
             enqueued.add(root.getState());  // Mark the root as visited
 
             while (!frontier.isEmpty()) {
+//                long preTest = System.currentTimeMillis();
                 Node node = frontier.remove();  // Get a node with smallest heuristic value
+//                long postTest = System.currentTimeMillis();
+//                Main.test += (int) (postTest - preTest);
                 if (node.getState().isGoal()) {
                     result = extractSolution(node);  // Extracting the solution
                     status = Status.SOLVED;
                     return result;
                 }
+
                 expandedNodes++;
+//                long preExpand = System.currentTimeMillis();
                 Node[] children = node.expand();
+//                long postExpand = System.currentTimeMillis();
+//                int deltaExpand = (int) (postExpand - preExpand);
+//                Main.countExpand += deltaExpand;
+
 
                 for (Node child : children) {  // Iterate over all possible child nodes
                     if (!enqueued.contains(child.getState())) {  // Check for duplication
                         enqueued.add(child.getState());  // Mark the child as visited
+
+                        expandedNodes++;
+//                        long preEvaluate = System.currentTimeMillis();
                         frontier.add(child);
+//                        long postEvaluate = System.currentTimeMillis();
+//                        int deltaEvaluate = (int) (postEvaluate - preEvaluate);
+//                        Main.countEvaluate += deltaEvaluate;
                     }
                 }
+
             }
             status = Status.UNSOLVABLE;  // Unsolvable board
         } catch (OutOfMemoryError err) {  // Out of memory - probably due to an explosion of the frontier
