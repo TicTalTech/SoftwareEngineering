@@ -15,4 +15,15 @@ public class Int2 {
     public Int2(int x, int y) {
         set(x, y);
     }
+
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
+
+    public static void printArr(Int2[] arr) {
+        for (Int2 vec : arr) {
+            System.out.print(vec + ", ");
+        }
+        System.out.println();
+    }
 }

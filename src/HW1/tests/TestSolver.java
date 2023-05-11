@@ -11,7 +11,7 @@ public class TestSolver {
     public static void main(String args[]) {
         Board b = new Board(ExampleBoardStrings.BOARD13);
         printBoard(b);
-        SwitchStep[] p = Solver.Paths(b);
+        SwitchStep[] p = Solver.solvingSteps(b);
         for (int i = 0; i < p.length; ++i) {
             if (p[i] != null) {
                 System.out.print(p[i].getValue() + ",");

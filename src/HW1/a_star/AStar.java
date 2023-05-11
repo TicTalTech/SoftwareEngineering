@@ -1,5 +1,6 @@
 package HW1.a_star;
 
+import HW1.math.Int2;
 import HW1.math.MathUtil;
 
 public class AStar {
@@ -10,23 +11,57 @@ public class AStar {
 
 //    private DynamicNodesArray toExplore;
 
-    public AStar(int width, int height, int startX, int startY, int goalX, int goalY) {
-        this.startX = startX;
-        this.startY = startY;
-        this.goalX = goalX;
-        this.goalY = goalY;
+    public AStar(int width, int height) {
         tiles = new Tile[height][width];
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 tiles[y][x] = new Tile(x, y);
             }
         }
-        tiles[startY][startX].setStatus(Tile.TO_EXPLORE);
-
 //        toExplore = new DynamicNodesArray();
     }
 
+    public void initEdges(int startX, int startY, int goalX, int goalY) {
+        this.startX = startX;
+        this.startY = startY;
+        this.goalX = goalX;
+        this.goalY = goalY;
+    }
+
+    public int pathLength() {
+        int length = 0;
+        Tile endTile = tiles[goalY][goalX];
+        while (endTile.getParent() != null) {
+            endTile = endTile.getParent();
+            length++;
+        }
+        return length + 1;
+    }
+
+    public Int2[] exportPath() {
+        int pathLength = pathLength();
+        Tile endTile = tiles[goalY][goalX];
+        Int2[] pathArr = new Int2[pathLength];
+        for (int i = pathLength - 1; i >= 0; i--) {
+            pathArr[i] = new Int2(endTile.getX(), endTile.getY());
+            endTile = endTile.getParent();
+        }
+        return pathArr;
+    }
+
+    public void unexplore() {
+        for (Tile[] row : tiles) {
+            for (Tile tile : row) {
+                if (tile.getStatus() == TileStatus.EXPLORED || tile.getStatus() == TileStatus.TO_EXPLORE || tile.getStatus() == TileStatus.PATH) {
+                    tile.setStatus(TileStatus.EMPTY);
+                }
+                tile.setParent(null);
+            }
+        }
+    }
+
     public void printBoard() {
+        System.out.println("from: " + (new Int2(startX, startY)) + " to: " + (new Int2(goalX, goalY)));
         for (Tile[] row : tiles) {
             for (Tile tile : row) {
                 System.out.print(tile + " ");
@@ -36,20 +71,22 @@ public class AStar {
         System.out.println();
     }
 
-    public void findPath() {
+    public Tile findPath() {
+        tiles[startY][startX].setStatus(TileStatus.TO_EXPLORE);
         boolean foundPath = false;
         while (!isDoneExploring() && !foundPath) {
 //            printBoard();
             foundPath = explore();
         }
-        changePathChars(tiles[goalY][goalX]);
-        printBoard();
+        return tiles[goalY][goalX];
+//        changePathChars(tiles[goalY][goalX]);
+//        printBoard();
     }
 
     public boolean isDoneExploring() {
         for (Tile[] row : tiles) {
             for (Tile tile : row) {
-                if (tile.getStatus() == Tile.TO_EXPLORE) {
+                if (tile.getStatus() == TileStatus.TO_EXPLORE) {
                     return false;
                 }
             }
@@ -62,7 +99,7 @@ public class AStar {
         int bestScore = Integer.MAX_VALUE;
         for (Tile[] row : tiles) {
             for (Tile tile : row) {
-                if (tile.getStatus() != Tile.TO_EXPLORE) {
+                if (tile.getStatus() != TileStatus.TO_EXPLORE) {
                     continue;
                 }
                 if (tile.getScore() < bestScore) {
@@ -79,12 +116,13 @@ public class AStar {
         return bestTile;
     }
 
-    public void changePathChars(Tile tile) {
+    public void changePathChars() {
+        Tile tile = tiles[goalY][goalX];
         while (tile.getParent() != null) {
-            tile.setStatus(Tile.PATH);
+            tile.setStatus(TileStatus.PATH);
             tile = tile.getParent();
         }
-        tile.setStatus(Tile.PATH);
+        tile.setStatus(TileStatus.PATH);
     }
 
     public boolean isInsideBoard(int x, int y) {
@@ -93,7 +131,7 @@ public class AStar {
 
     public boolean explore() {
         Tile tileToExplore = getBestTile();
-        tileToExplore.setStatus(Tile.EXPLORED);
+        tileToExplore.setStatus(TileStatus.EXPLORED);
         if (tileToExplore.getX() == goalX && tileToExplore.getY() == goalY) {
             return true; // found target
         }
@@ -105,14 +143,14 @@ public class AStar {
                 continue;
             }
             Tile neighbourTile = tiles[neighbourY][neighbourX];
-            if (neighbourTile.getStatus() == Tile.EXPLORED || neighbourTile.getStatus() == Tile.WALL) {
+            if (neighbourTile.getStatus() == TileStatus.EXPLORED || neighbourTile.getStatus() == TileStatus.WALL) {
                 continue;
             }
             int startDist = tileToExplore.getDistToStart() + 1;
             int goalDist = MathUtil.manhattanDistance(neighbourX, neighbourY, goalX, goalY);
             int neighbourNewScore = startDist + goalDist;
-            if (neighbourTile.getStatus() == Tile.EMPTY || neighbourNewScore <= tileToExplore.getScore()) {
-                if (neighbourTile.getStatus() != Tile.EMPTY && neighbourNewScore == tileToExplore.getScore()) {
+            if (neighbourTile.getStatus() == TileStatus.EMPTY || neighbourNewScore <= tileToExplore.getScore()) {
+                if (neighbourTile.getStatus() != TileStatus.EMPTY && neighbourNewScore == tileToExplore.getScore()) {
                     if (goalDist > tileToExplore.getDistToTarget()) {
                         continue;
                     }
@@ -122,8 +160,8 @@ public class AStar {
                 neighbourTile.setDistToStart(startDist);
 
                 neighbourTile.setParent(tileToExplore);
-                if (neighbourTile.getStatus() != Tile.TO_EXPLORE) {
-                    neighbourTile.setStatus(Tile.TO_EXPLORE);
+                if (neighbourTile.getStatus() != TileStatus.TO_EXPLORE) {
+                    neighbourTile.setStatus(TileStatus.TO_EXPLORE);
                 }
             }
 

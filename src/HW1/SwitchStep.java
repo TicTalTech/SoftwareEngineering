@@ -11,6 +11,10 @@ public class SwitchStep {
         this.col = col;
     }
 
+    public String toString() {
+        return "Move " + value + " to (" + col + ", " + row + ")";
+    }
+
     public int getValue() {
         return value;
     }

@@ -2,24 +2,17 @@ package HW1.a_star;
 
 
 public class Tile {
-    public static final int WALL = 0;
-    public static final int TO_EXPLORE = 1;
-    public static final int EMPTY = 2;
-    public static final int EXPLORED = 3;
-    public static final int PATH = 4;
-
-
     private int distToTarget;
     private int distToStart;
     private int score;
-    private int status;
+    private TileStatus status;
     private int x, y;
     private Tile parent;
 
     public Tile(int x, int y) {
         this.x = x;
         this.y = y;
-        status = EMPTY;
+        status = TileStatus.EMPTY;
     }
 
     public String toString() {
@@ -48,11 +41,11 @@ public class Tile {
         this.parent = parent;
     }
 
-    public int getStatus() {
+    public TileStatus getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(TileStatus status) {
         this.status = status;
     }
 

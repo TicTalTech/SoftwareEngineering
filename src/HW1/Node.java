@@ -1,6 +1,7 @@
 package HW1;
 
 
+import HW1.math.Int2;
 import HW1.math.MathUtil;
 
 public class Node {
@@ -35,13 +36,13 @@ public class Node {
         return expanded;
     }
 
-    public static int[] findNumberInBoard(Board board, int value) {
+    public static Int2 findNumberInBoard(Board board, int value) {
         int height = board.getBoard().length;
         int width = board.getBoard()[0].length;
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 if (board.getBoard()[y][x].getValue() == value) {
-                    return new int[]{x, y};
+                    return new Int2(x, y);
                 }
             }
         }
@@ -144,8 +145,8 @@ public class Node {
                 if (wantedX == width - 1 && wantedY == height - 1) {
                     targetNumber = Board.EMPTY;
                 }
-                int[] realPosition = Node.findNumberInBoard(board, targetNumber);
-                int manhattanDistance = MathUtil.abs(wantedX - realPosition[0]) + MathUtil.abs(wantedY - realPosition[1]);
+                Int2 realPosition = Node.findNumberInBoard(board, targetNumber);
+                int manhattanDistance = MathUtil.abs(wantedX - realPosition.x) + MathUtil.abs(wantedY - realPosition.y);
                 sumDistance += manhattanDistance;
             }
         }
@@ -311,7 +312,7 @@ public class Node {
         int sumDistance = 0;
         int height = state.getBoard().getBoard().length;
         int width = state.getBoard().getBoard()[0].length;
-        int[] emptyPosition = findNumberInBoard(state.getBoard(), Board.EMPTY);
+        Int2 emptyPosition = findNumberInBoard(state.getBoard(), Board.EMPTY);
         for (int wantedY = 0; wantedY < height; wantedY++) {
             for (int wantedX = 0; wantedX < width; wantedX++) {
                 int targetNumber = wantedY * width + wantedX + 1;
@@ -319,10 +320,11 @@ public class Node {
                 if (wantedX == width - 1 && wantedY == height - 1) {
                     targetNumber = Board.EMPTY;
                 }
-                int[] realPosition = findNumberInBoard(state.getBoard(), targetNumber);
-                int manhattanDistance = MathUtil.abs(wantedX - realPosition[0]) +
-                        MathUtil.abs(wantedY - realPosition[1]);
-                int manhattanDistanceToZero = MathUtil.abs(emptyPosition[0] - realPosition[0]) + MathUtil.abs(emptyPosition[1] - realPosition[1]);
+                Int2 realPosition = findNumberInBoard(state.getBoard(), targetNumber);
+                int manhattanDistance = MathUtil.abs(wantedX - realPosition.x) +
+                        MathUtil.abs(wantedY - realPosition.y);
+                int manhattanDistanceToZero = MathUtil.abs(emptyPosition.x - realPosition.x) +
+                        MathUtil.abs(emptyPosition.y - realPosition.y);
                 sumDistance += (manhattanDistance + manhattanDistanceToZero);
             }
         }
