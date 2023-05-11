@@ -1,7 +1,7 @@
 package HW1;
 
 
-import static HW1.Node.numberOfInversions;
+import HW1.math.MathUtil;
 
 public class Node {
     private State state;
