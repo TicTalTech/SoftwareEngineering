@@ -1,6 +1,14 @@
 package HW1.math;
 
 public class MathUtil {
+
+    public static int pow(int value, int exp) {
+        int result = 1;
+        for (int i = 0; i < exp; i++) {
+            result *= value;
+        }
+        return result;
+    }
     public static int abs(int value) {
         if (value >= 0) {
             return value;

@@ -22,7 +22,7 @@ public class Int4 {
     }
 
     public String toString() {
-        return "(" + x + ", " + y + ")->( " + z + ", " + w + ")";
+        return "(" + x + ", " + y + ")->(" + z + ", " + w + ")";
     }
 
     public static void printArr(Int4[] arr) {
