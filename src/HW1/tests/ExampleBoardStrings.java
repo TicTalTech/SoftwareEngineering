@@ -51,9 +51,11 @@ public class ExampleBoardStrings {
     public static final String BOARD10 = "_ 3|2 1";
     public static final String BOARD11 = "3 2 4 1|6 7 5 _|8 10 9 11";
 
-    public static final String BOARD12 = "10 2 3|7 8 6|4 5 9|1 11 _";
+    public static final String BOARD12 = "10 2 3|5 7 6|8 4 9|1 11 _";
 
     public static final String SOLVED33 = "1 2 3|4 5 6|7 8 _";
+
+    public static final String BOARD13 = "3 2 4 1|6 7 5 _|8 10 9 11|12 13 14 15|16 17 18 19";
 
 
     public static final String[] BOARDS_3_BY_3 = {BOARD1, BOARD2, BOARD3, BOARD4, BOARD5, BOARD6, BOARD7, BOARD8, BOARD9};
