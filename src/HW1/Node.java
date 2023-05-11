@@ -54,9 +54,9 @@ public class Node {
 //        return heuristicValueManhattanDistanceConsiderEmpty();
 //        return heuristicValueRecur(this, 2);
 //        return smartManhattanDistance(this.getState().getBoard());
-        return numberOfInversions(this.state.getBoard());
+        // return numberOfInversions(this.state.getBoard());
 //        return 0;
-//        return veryGoodFunctionHofully(this);
+        return veryGoodFunctionHofully(this);
     }
 
     public static int numberOfInversions(Board board) {
