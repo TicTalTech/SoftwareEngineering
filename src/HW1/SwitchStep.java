@@ -1,11 +1,11 @@
 package HW1;
 
-public class Vector {
+public class SwitchStep {
     private int value;
     private int row;
     private int col;
 
-    public Vector(int value, int row, int col) {
+    public SwitchStep(int value, int row, int col) {
         this.value = value;
         this.row = row;
         this.col = col;
