@@ -1,5 +1,7 @@
 package HW1;
 
+import HW1.math.MathUtil;
+
 import java.util.Arrays;
 
 
