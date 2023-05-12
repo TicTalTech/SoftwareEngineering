@@ -4,11 +4,13 @@ public class SwitchStep {
     private int value;
     private int row;
     private int col;
+    private boolean isFinal;
 
-    public SwitchStep(int value, int row, int col) {
+    public SwitchStep(int value, int row, int col, boolean isFinal) {
         this.value = value;
         this.row = row;
         this.col = col;
+        this.isFinal = isFinal;
     }
 
     public String toString() {
@@ -17,6 +19,10 @@ public class SwitchStep {
 
     public int getValue() {
         return value;
+    }
+
+    public boolean isFinal() {
+        return isFinal;
     }
 
     public void setValue(int value) {
