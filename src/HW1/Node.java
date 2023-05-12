@@ -4,6 +4,8 @@ package HW1;
 import HW1.math.Int2;
 import HW1.math.MathUtil;
 
+import static HW1.AStarHeuristic.aStarHeuristic;
+
 public class Node {
     private State state;
     private Node parent;
@@ -57,10 +59,11 @@ public class Node {
 //        return smartManhattanDistance(this.getState().getBoard());
         // return numberOfInversions(this.state.getBoard());
 //        return 0;
-        return veryGoodFunctionHofully(this);
+//        return veryGoodFunctionHofully(this);
+        return aStarHeuristic(this.state.getBoard());
     }
 
-    public static int numberOfInversions(Board board) {
+        public static int numberOfInversions(Board board) {
         int numberOfInversions = 0;
         int height = board.getBoard().length;
         int width = board.getBoard()[0].length;

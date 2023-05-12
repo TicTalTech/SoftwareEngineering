@@ -36,6 +36,13 @@ public class State {
                 newState.board.setEmptyX(action.getTileX());
                 break;
         }
+        if (AStarHeuristic.isBoardEqualToCurrent(newState.board)) {
+            newState.board.setAStarScore(0);
+            newState.board.setBoardId(AStarHeuristic.lastBoardId);
+            AStarHeuristic.lastBoardId++;
+        } else {
+            newState.board.setAStarScore(1);
+        }
         return newState;
     }
 
@@ -111,7 +118,7 @@ public class State {
             return false;
         }
         State otherState = (State) other;
-        return board.equals(otherState.board);
+        return board.equals(otherState.board)  && this.getBoard().getBoardId() == otherState.board.getBoardId();
     }
 
     @Override

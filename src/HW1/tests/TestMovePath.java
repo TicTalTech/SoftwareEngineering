@@ -14,8 +14,7 @@ public class TestMovePath {
 //        Board board = new Board("1 9 _ 12 10 5 6|8 11 2 3 4 13 7");
 //        Board board = new Board("1 2 3 12 5 6|7 8 9 4 11 17|13 14 15 _ 10 16");
 //        Board board = new Board("29 7 14 9 11 16|23 17 24 22 18 20|5 3 21 13 27 15|6 4 12 1 19 28|26 10 8 25 2 _");
-//      Board board = new Board("2 3 8 4 14 13 6|16 9 17 _ 10 5 7|1 11 15 18 12 19 20");
-//
+        Board board = new Board("2 3 8 4 14 13 6|16 9 17 _ 10 5 7|1 11 15 18 12 19 20");
 //        Board board = new Board("1 2 23 5 21 14 7 6 16|10 11 3 22 15 35 9 34 _|28 20 13 31 4 33 26 17 8|29 19 12 32 30 24 18 27 25");
 //        Board board = new Board("");
 

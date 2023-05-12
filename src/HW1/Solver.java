@@ -37,6 +37,12 @@ public class Solver {
             index++;
             col++;
         }
+        paths[index] = new SwitchStep((numOfRows - 2) * numOfCols  + (numOfCols - 2) + 1, numOfRows - 2, numOfCols - 2, SwitchStep.FINAL);
+        index++;
+        paths[index] = new SwitchStep((numOfRows - 2) * numOfCols  + (numOfCols - 1) + 1, numOfRows - 2, numOfCols - 1, SwitchStep.FINAL);
+        index++;
+        paths[index] = new SwitchStep((numOfRows - 1) * numOfCols  + (numOfCols - 2) + 1, numOfRows - 1, numOfCols - 2, SwitchStep.FINAL);
+        index++;
 
         return paths;
     }

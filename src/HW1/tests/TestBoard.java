@@ -7,7 +7,7 @@ public class TestBoard {
         for (int i = 0; i < b.getTiles().length; ++i) {
             for (int j = 0; j < b.getTiles()[0].length; ++j) {
                 int value = b.getBoard()[i][j].getValue();
-                System.out.print(" " + (value == 0 ? "_" : value));
+                System.out.print((value == 0 ? "_" : value) + "\t");
             }
             System.out.println();
         }

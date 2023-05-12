@@ -49,6 +49,18 @@ public class AStar {
         return pathArr;
     }
 
+    public int countWalls() {
+        int count = 0;
+        for (Tile[] row : tiles) {
+            for (Tile tile : row) {
+                if (tile.getStatus() == TileStatus.WALL) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
     public void unexplore() {
         for (Tile[] row : tiles) {
             for (Tile tile : row) {
@@ -129,6 +141,14 @@ public class AStar {
         return x >= 0 && y >= 0 && x < tiles[0].length && y < tiles.length;
     }
 
+
+    private boolean isTraversable(Tile tile) {
+        return tile.getStatus() == TileStatus.EMPTY || tile.getStatus() == TileStatus.UNFAVORABLE;
+    }
+
+    private boolean isNotTraversable(Tile tile) {
+        return tile.getStatus() == TileStatus.WALL || tile.getStatus() == TileStatus.EXPLORED;
+    }
     public boolean explore() {
         Tile tileToExplore = getBestTile();
         tileToExplore.setStatus(TileStatus.EXPLORED);
@@ -143,14 +163,20 @@ public class AStar {
                 continue;
             }
             Tile neighbourTile = tiles[neighbourY][neighbourX];
-            if (neighbourTile.getStatus() == TileStatus.EXPLORED || neighbourTile.getStatus() == TileStatus.WALL) {
+//            if (neighbourTile.getStatus() == TileStatus.EXPLORED || neighbourTile.getStatus() == TileStatus.WALL) {
+            if(isNotTraversable(neighbourTile)) {
                 continue;
             }
-            int startDist = tileToExplore.getDistToStart() + 1;
+            int startDist = tileToExplore.getDistToStart();
+            if(neighbourTile.getStatus() == TileStatus.EMPTY) {
+                startDist++;
+            } else if (neighbourTile.getStatus() == TileStatus.UNFAVORABLE) {
+                startDist += 5;
+            }
             int goalDist = MathUtil.manhattanDistance(neighbourX, neighbourY, goalX, goalY);
             int neighbourNewScore = startDist + goalDist;
-            if (neighbourTile.getStatus() == TileStatus.EMPTY || neighbourNewScore <= tileToExplore.getScore()) {
-                if (neighbourTile.getStatus() != TileStatus.EMPTY && neighbourNewScore == tileToExplore.getScore()) {
+            if (isTraversable(neighbourTile) || neighbourNewScore <= tileToExplore.getScore()) {
+                if (!isTraversable(neighbourTile) && neighbourNewScore == tileToExplore.getScore()) {
                     if (goalDist > tileToExplore.getDistToTarget()) {
                         continue;
                     }

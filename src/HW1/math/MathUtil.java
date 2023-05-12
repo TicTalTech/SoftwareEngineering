@@ -17,6 +17,19 @@ public class MathUtil {
         }
     }
 
+    public static int min(int x, int y) {
+        if (x < y){
+            return x;
+        }
+        return y;
+    }
+
+    public static int max(int x, int y) {
+        if (x > y){
+            return x;
+        }
+        return y;
+    }
     public static int min(int[] arr) {
         int minVal = Integer.MAX_VALUE;
         for (int val : arr) {

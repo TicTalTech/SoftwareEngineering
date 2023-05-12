@@ -22,6 +22,7 @@ public class Search {
      */
     private Node getRoot(String boardString) {
         Board startingBoard = new Board(boardString);
+        AStarHeuristic.initOnBoard(startingBoard);
         State startingState = new State(startingBoard);
         Node startingNode = new Node(startingState, null, null);
         return startingNode;
@@ -34,6 +35,7 @@ public class Search {
      * @return List of actions which performing them will lead to the the goal state
      */
     public List<Action> search(String boardString) {
+        int count = 0;
         try {
             Node root = getRoot(boardString);
 
@@ -43,23 +45,15 @@ public class Search {
             enqueued.add(root.getState());  // Mark the root as visited
 
             while (!frontier.isEmpty()) {
-//                long preTest = System.currentTimeMillis();
+                count++;
                 Node node = frontier.remove();  // Get a node with smallest heuristic value
-//                long postTest = System.currentTimeMillis();
-//                Main.test += (int) (postTest - preTest);
                 if (node.getState().isGoal()) {
                     result = extractSolution(node);  // Extracting the solution
                     status = Status.SOLVED;
                     return result;
                 }
-
                 expandedNodes++;
-//                long preExpand = System.currentTimeMillis();
                 Node[] children = node.expand();
-//                long postExpand = System.currentTimeMillis();
-//                int deltaExpand = (int) (postExpand - preExpand);
-//                Main.countExpand += deltaExpand;
-
 
                 for (Node child : children) {  // Iterate over all possible child nodes
                     if (!enqueued.contains(child.getState())) {  // Check for duplication

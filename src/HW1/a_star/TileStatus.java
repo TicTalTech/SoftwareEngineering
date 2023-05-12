@@ -5,5 +5,6 @@ public enum TileStatus {
     TO_EXPLORE,
     EMPTY,
     EXPLORED,
-    PATH
+    PATH,
+    UNFAVORABLE
 }
