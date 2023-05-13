@@ -9,7 +9,8 @@ import java.util.PriorityQueue;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class Search {
+public class Search
+{
     private int expandedNodes;
     private List<Action> result;
     private Status status = Status.UNSOLVED;
@@ -22,7 +23,12 @@ public class Search {
      */
     private Node getRoot(String boardString) {
         Board startingBoard = new Board(boardString);
-        AStarHeuristic.initOnBoard(startingBoard);
+        if (startingBoard.getTiles()[0].length == 1 || startingBoard.getTiles().length == 1) {
+            Board.shouldRunSmartManhattanDistance = true;
+        } else {
+            Board.shouldRunSmartManhattanDistance = false;
+            AStarHeuristic.initOnBoard(startingBoard);
+        }
         State startingState = new State(startingBoard);
         Node startingNode = new Node(startingState, null, null);
         return startingNode;
@@ -60,11 +66,7 @@ public class Search {
                         enqueued.add(child.getState());  // Mark the child as visited
 
                         expandedNodes++;
-//                        long preEvaluate = System.currentTimeMillis();
                         frontier.add(child);
-//                        long postEvaluate = System.currentTimeMillis();
-//                        int deltaEvaluate = (int) (postEvaluate - preEvaluate);
-//                        Main.countEvaluate += deltaEvaluate;
                     }
                 }
 
@@ -106,7 +108,8 @@ public class Search {
         return expandedNodes;
     }
 
-    public enum Status {
+    public enum Status
+    {
         SOLVED,
         UNSOLVABLE,
         OUT_OF_MEMORY,

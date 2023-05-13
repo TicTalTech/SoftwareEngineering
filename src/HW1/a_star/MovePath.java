@@ -1,5 +1,8 @@
-package HW1;
+package HW1.a_star;
 
+import HW1.Board;
+import HW1.Node;
+import HW1.SwitchStep;
 import HW1.a_star.AStar;
 import HW1.a_star.Tile;
 import HW1.a_star.TileStatus;
@@ -9,14 +12,10 @@ import HW1.math.MathUtil;
 
 import static HW1.Solver.solvingSteps;
 
-public class MovePath {
+public class MovePath
+{
 
     private static int movesCounter;
-
-
-    public static void fixLast2By2() {
-        // TODO
-    }
 
     public static void addMove(Board board, Int4[] moves, int x1, int y1, int x2, int y2) {
         Int4 move = new Int4(x1, y1,
@@ -37,32 +36,32 @@ public class MovePath {
     }
 
     public static boolean isValueCloseBy(Board board, int value, int closeToX, int closeToY) {
-         final Int2[] area = {
-                 new Int2(-1, -1),
-                 new Int2(0, -1),
-                 new Int2(1, -1),
-                 new Int2(-1, 0),
-                 new Int2(0, 0),
-                 new Int2(1, 0),
-                 new Int2(-1, 1),
-                 new Int2(0, 1),
-                 new Int2(1, 1)};
+        final Int2[] area = {
+                new Int2(-1, -1),
+                new Int2(0, -1),
+                new Int2(1, -1),
+                new Int2(-1, 0),
+                new Int2(0, 0),
+                new Int2(1, 0),
+                new Int2(-1, 1),
+                new Int2(0, 1),
+                new Int2(1, 1)};
 
-         for (Int2 delta : area) {
-             int x = closeToX + delta.x;
-             int y = closeToY + delta.y;
-             if (x < 0 || y < 0 || x >= board.getTiles()[0].length || y >= board.getTiles().length) {
-                 continue;
-             }
-             if (board.getTiles()[y][x].getValue() == value){
-                 return true;
-             }
-         }
-         return false;
+        for (Int2 delta : area) {
+            int x = closeToX + delta.x;
+            int y = closeToY + delta.y;
+            if (x < 0 || y < 0 || x >= board.getTiles()[0].length || y >= board.getTiles().length) {
+                continue;
+            }
+            if (board.getTiles()[y][x].getValue() == value) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void moveNumberToPlace(AStar aStar, Int4[] moves, Board board, SwitchStep step, SwitchStep nextStep) {
-        if(nextStep != null && step.getMoveStatus() == SwitchStep.CORNER && isValueCloseBy(board, nextStep.getValue(), step.getCol(), step.getRow())) {
+        if (nextStep != null && step.getMoveStatus() == SwitchStep.CORNER && isValueCloseBy(board, nextStep.getValue(), step.getCol(), step.getRow())) {
 //        if (nextStep != null && nextStep.getValue() == board.getTiles()[step.getRow()][step.getCol()].getValue()) {
 //            System.out.println("-----moving " + nextStep.getValue() + " out of the way-----");
 //            final int delta = 2;
@@ -91,7 +90,7 @@ public class MovePath {
         for (int i = 1; i < path.length; i++) {
 //                System.out.println("before moving white:");
 //                TestBoard.printBoard(board);
-            aStar.getTiles()[path[i-1].y][path[i-1].x].setStatus(TileStatus.WALL);
+            aStar.getTiles()[path[i - 1].y][path[i - 1].x].setStatus(TileStatus.WALL);
             Int2 emptySpaceGoal = path[i];
             aStar.unexplore();
             Int2 emptyStartPosition = Node.findNumberInBoard(board, Board.EMPTY);
@@ -99,7 +98,7 @@ public class MovePath {
             Tile endOfEmptyPathTile = aStar.findPath();
             Int2[] emptySpacePath = aStar.exportPath();
             for (int j = 0; j < emptySpacePath.length - 1; j++) {
-                addMove(board, moves,emptySpacePath[j].x, emptySpacePath[j].y,
+                addMove(board, moves, emptySpacePath[j].x, emptySpacePath[j].y,
                         emptySpacePath[j + 1].x, emptySpacePath[j + 1].y);
 //                aStar.printBoard();
             }
@@ -107,10 +106,10 @@ public class MovePath {
             addMove(board, moves, path[i].x, path[i].y, path[i - 1].x, path[i - 1].y);
 //            aStar.printBoard();
 
-            aStar.getTiles()[path[i-1].y][path[i-1].x].setStatus(TileStatus.EMPTY);
+            aStar.getTiles()[path[i - 1].y][path[i - 1].x].setStatus(TileStatus.EMPTY);
         }
 //        if (step.getMoveStatus() == SwitchStep.FINAL) {
-            aStar.getTiles()[path[path.length - 1].y][path[path.length - 1].x].setStatus(TileStatus.WALL);
+        aStar.getTiles()[path[path.length - 1].y][path[path.length - 1].x].setStatus(TileStatus.WALL);
 //        }
 //            else {
 //                aStar.getTiles()[path[path.length - 1].y][path[path.length - 1].x].setStatus(TileStatus.UNFAVORABLE);
@@ -129,7 +128,9 @@ public class MovePath {
         // move numbers
         for (int stepNumber = 0; stepNumber < steps.length; stepNumber++) {
             SwitchStep step = steps[stepNumber];
-            if (step == null) { break; }
+            if (step == null) {
+                break;
+            }
             SwitchStep nextStep = null;
             if (stepNumber + 1 < steps.length) {
                 nextStep = steps[stepNumber + 1];
@@ -137,7 +138,7 @@ public class MovePath {
             moveNumberToPlace(aStar, moves, board, step, nextStep);
         }
 
-        System.out.println("finish solving with " + movesCounter + " moves");
+//        System.out.println("finish solving with " + movesCounter + " moves");
 //        TestBoard.printBoard(board);
 
         return moves;

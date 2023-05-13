@@ -5,7 +5,8 @@ import HW1.math.MathUtil;
 import java.util.Arrays;
 
 
-public class Board {
+public class Board
+{
     public int getRowScore() {
         return rowScore;
     }
@@ -38,25 +39,21 @@ public class Board {
 
     private int boardId;
 
-    public int getBoardId()
-    {
+    public int getBoardId() {
         return boardId;
     }
 
-    public void setBoardId(int boardId)
-    {
+    public void setBoardId(int boardId) {
         this.boardId = boardId;
     }
 
-    private static boolean shouldRunSmartManhattanDistance = false;
+    public static boolean shouldRunSmartManhattanDistance =  ;
 
-    public int getAStarScore()
-    {
+    public int getAStarScore() {
         return aStarScore;
     }
 
-    public void setAStarScore(int aStarScore)
-    {
+    public void setAStarScore(int aStarScore) {
         this.aStarScore = aStarScore;
     }
 
@@ -146,8 +143,7 @@ public class Board {
     }
 
     public void switchTiles(int x1, int y1, int x2, int y2) {
-        if(shouldRunSmartManhattanDistance)
-        {
+        if (shouldRunSmartManhattanDistance) {
             int value1 = tiles[y1][x1].getValue() - 1;
 
             int value1TargetX = value1 % tiles[0].length;

@@ -3,9 +3,11 @@ package HW1;
 import java.util.List;
 
 import static HW1.Node.numberOfInversions;
+import static HW1.RandomBoard.createBoardsSample;
 import static HW1.tests.ExampleBoardStrings.SOLVED33;
 
-public class Main {
+public class Main
+{
 
 //    static int countExpand = 0;
 //    static int countEvaluate = 0;
@@ -16,27 +18,35 @@ public class Main {
 
 
     public static void main(String[] args) {
-        String[] boards = {
+//        String[] boards = {
 //                "_ 1",
 //                "1 _",
 //                "_ 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40",
 //                "_ 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 35 26 27 28 29 30 31 32 33 34 25 36 37 38 39 40",// US
-                "7 5 4|_ 3 2|8 1 6", // ***
+//                "7 5 4|_ 3 2|8 1 6", // ***
 //                "7 5 4|_ 3 2|8 6 1", // US
-                "6 4 7|8 5 _|3 2 1", // ***
-                "6 7 5 1|2 10 4 11|9 3 8 _", // ***
-                "1 6 4 15|5 10 _ 13|9 11 3 7|12 8 2 14", // ***
-                "1 9 _ 12 10 5 6|8 11 2 3 4 13 7", // ***
-                "1 2 3 12 5 6|7 8 9 4 11 17|13 14 15 _ 10 16", // ***
-                "29 7 14 9 11 16|23 17 24 22 18 20|5 3 21 13 27 15|6 4 12 1 19 28|26 10 8 25 2 _",
-                "2 3 8 4 14 13 6|16 9 17 _ 10 5 7|1 11 15 18 12 19 20",
-                "1 2 23 5 21 14 7 6 16|10 11 3 22 15 35 9 34 _|28 20 13 31 4 33 26 17 8|29 19 12 32 30 24 18 27 25"
-        };
+//                "6 4 7|8 5 _|3 2 1", // ***
+//                "6 7 5 1|2 10 4 11|9 3 8 _", // ***
+//                "1 6 4 15|5 10 _ 13|9 11 3 7|12 8 2 14", // ***
+//                "1 9 _ 12 10 5 6|8 11 2 3 4 13 7", // ***
+//                "1 2 3 12 5 6|7 8 9 4 11 17|13 14 15 _ 10 16", // ***
+//                "29 7 14 9 11 16|23 17 24 22 18 20|5 3 21 13 27 15|6 4 12 1 19 28|26 10 8 25 2 _",
+//                "2 3 8 4 14 13 6|16 9 17 _ 10 5 7|1 11 15 18 12 19 20",
+//                "1 2 23 5 21 14 7 6 16|10 11 3 22 15 35 9 34 _|28 20 13 31 4 33 26 17 8|29 19 12 32 30 24 18 27 25",
+//        };
+//        String[] boards = createBoardsSample(1, 1, 10, 10, 2, 0);
+        String[] boards = createBoardsSample(2, 2, 5, 5, 3, 0);
+
 //        String[] boards = {"2 1 4|3 _ 5|6 7 8"};
 //        String[] boards = {"1 6 4 15|5 10 _ 13|9 11 3 7|12 8 2 14"};
         int successCounter = 0;
         for (String boardString : boards) {
-            boolean success = searchOnceSync(boardString);
+            System.out.println(boardString);
+            boardString = boardString.replace('1', 'x');
+            boardString = boardString.replace('2', '1');
+            boardString = boardString.replace('x', '2');
+            System.out.println(boardString);
+            boolean success = searchOnce(boardString);
             if (success) {
                 successCounter++;
             }
@@ -56,7 +66,7 @@ public class Main {
 
         switch (searchStatus) {
             case SOLVED:
-                System.out.println("Solution length: " + search.getResult().size());
+//                System.out.println("Solution length: " + search.getResult().size());
                 System.out.println(search.getResult());
                 success = true;
                 break;
@@ -89,7 +99,7 @@ public class Main {
         } catch (InterruptedException e) {
         }
         boolean success = false;
-        System.out.println(boardString);
+        System.out.print(boardString + "\t");
         if (t.isAlive()) {  // The search is not over
             t.stop();
             System.out.println("Timout occurred...");
@@ -99,7 +109,6 @@ public class Main {
                 case SOLVED:
 //                    System.out.println("Solution length: " + search.getResult().size());
                     System.out.println(search.getResult().size());
-
 //                    System.out.println(search.getResult());
                     success = true;
                     break;
@@ -112,9 +121,9 @@ public class Main {
             }
         }
 //        System.out.println("Number of expanded nodes: " + search.getExpandedNodes());
-        System.out.println(search.getExpandedNodes());
+//        System.out.println(search.getExpandedNodes());
 
-        System.out.println("----------------------------------------------------------------------");
+//        System.out.println("----------------------------------------------------------------------");
         return success;
     }
 }
