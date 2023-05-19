@@ -1,5 +1,9 @@
-package HW1;
+package HW1.tests;
 
+
+import HW1.Action;
+import HW1.Board;
+import HW1.State;
 
 import java.util.Random;
 
@@ -66,9 +70,12 @@ public class RandomBoard
         return s;
     }
 
-    public static String createRandomBoardString(int width, int height, Random random) {
+    public static String createRandomBoardString(int width, int height, Random random, boolean isSolvable) {
         String boardString = createSolvedStringBoard(width, height);
         Board board = new Board(boardString);
+        if (!isSolvable) {
+            board.switchTiles(0, 0, 1, 0);
+        }
         Board mixedBoard = mixBoard(board, random);
         String mixedBoardString = boardToString(mixedBoard);
 //        System.out.print(mixedBoardString + "\t");
@@ -78,16 +85,17 @@ public class RandomBoard
         return mixedBoardString;
     }
 
-    public static String[] createBoardsSample(int minWidth, int minHeight, int maxWidth, int maxHeight, int repeats, int seed) {
+    public static String[] createBoardsSample(int minWidth, int minHeight, int maxWidth, int maxHeight, int repeats, int seed, boolean isSolvable) {
         Random random = new Random(seed);
         String[] sample = new String[(maxWidth - minWidth + 1) * (maxHeight - minHeight + 1) * repeats];
         int index = 0;
         for (int height = minHeight; height <= maxHeight; height++) {
             for (int width = minWidth; width <= maxWidth; width++) {
                 for (int i = 0; i < repeats; i++) {
-                    String mixedBoardString = createRandomBoardString(width, height, random);
+                    String mixedBoardString = createRandomBoardString(width, height, random, isSolvable);
 //                    System.out.println("\"\"\"" + mixedBoardString + "\"\"\", ");
                     sample[index] = mixedBoardString;
+
                     index++;
                 }
             }
@@ -101,7 +109,7 @@ public class RandomBoard
 //        String[] big = createBoardsSample(5, 5, 10, 10, 3);
 //        String[] huge = createBoardsSample(20, 20, 22, 2, 1);
 
-        String[] boards = createBoardsSample(1, 1, 10, 10, 2, 0);
+        String[] boards = createBoardsSample(1, 1, 10, 10, 2, 0, true);
 //        String[] boards = createBoardsSample(5, 6, 5, 6, 20, 0);
 
 

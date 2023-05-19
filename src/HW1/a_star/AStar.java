@@ -1,16 +1,23 @@
 package HW1.a_star;
 
-import HW1.math.Int2;
-import HW1.math.MathUtil;
+import HW1.math_util.Int2;
+import HW1.math_util.MathUtil;
 
-public class AStar {
-
+/**
+ * an implementation of the A* algorithm
+ */
+public class AStar
+{
     private Tile[][] tiles;
     private int goalX, goalY;
     private int startX, startY;
 
-//    private DynamicNodesArray toExplore;
-
+    /**
+     * create and AStar object
+     *
+     * @param width  - the width of the board that needs solving
+     * @param height - the height of the board that needs solving
+     */
     public AStar(int width, int height) {
         tiles = new Tile[height][width];
         for (int y = 0; y < height; y++) {
@@ -18,9 +25,12 @@ public class AStar {
                 tiles[y][x] = new Tile(x, y);
             }
         }
-//        toExplore = new DynamicNodesArray();
     }
 
+
+    /**
+     * used to initialize the aStar beginning and end positions (from where and to where we want to go)
+     */
     public void initEdges(int startX, int startY, int goalX, int goalY) {
         this.startX = startX;
         this.startY = startY;
@@ -28,6 +38,11 @@ public class AStar {
         this.goalY = goalY;
     }
 
+    /**
+     * after the algorithm found a valid path from start to goal, it would count how many steps the path is
+     *
+     * @return path length
+     */
     public int pathLength() {
         int length = 0;
         Tile endTile = tiles[goalY][goalX];
@@ -38,6 +53,11 @@ public class AStar {
         return length + 1;
     }
 
+    /**
+     * after finding a path, the method is used to create an array of the steps that were taken on the path
+     *
+     * @return - an array that contains all the steps taken
+     */
     public Int2[] exportPath() {
         int pathLength = pathLength();
         Tile endTile = tiles[goalY][goalX];
@@ -49,19 +69,7 @@ public class AStar {
         return pathArr;
     }
 
-    public int countWalls() {
-        int count = 0;
-        for (Tile[] row : tiles) {
-            for (Tile tile : row) {
-                if (tile.getStatus() == TileStatus.WALL) {
-                    count++;
-                }
-            }
-        }
-        return count;
-    }
-
-    public void unexplore() {
+    public void resetBoardBeforeSearch() {
         for (Tile[] row : tiles) {
             for (Tile tile : row) {
                 if (tile.getStatus() == TileStatus.EXPLORED || tile.getStatus() == TileStatus.TO_EXPLORE || tile.getStatus() == TileStatus.PATH) {
@@ -73,7 +81,6 @@ public class AStar {
     }
 
     public void printBoard() {
-        System.out.println("from: " + (new Int2(startX, startY)) + " to: " + (new Int2(goalX, goalY)));
         for (Tile[] row : tiles) {
             for (Tile tile : row) {
                 System.out.print(tile + " ");
@@ -83,19 +90,23 @@ public class AStar {
         System.out.println();
     }
 
-    public Tile findPath() {
+    /**
+     * runs the A* algorithm
+     */
+    public void findPath() {
         tiles[startY][startX].setStatus(TileStatus.TO_EXPLORE);
         boolean foundPath = false;
         while (!isDoneExploring() && !foundPath) {
-//            printBoard();
             foundPath = explore();
         }
-        return tiles[goalY][goalX];
-//        changePathChars(tiles[goalY][goalX]);
-//        printBoard();
     }
 
-    public boolean isDoneExploring() {
+    /**
+     * checks if found a valid path from begging to end
+     *
+     * @return true if the path is valid
+     */
+    private boolean isDoneExploring() {
         for (Tile[] row : tiles) {
             for (Tile tile : row) {
                 if (tile.getStatus() == TileStatus.TO_EXPLORE) {
@@ -106,7 +117,10 @@ public class AStar {
         return true;
     }
 
-    public Tile getBestTile() {
+    /**
+     * looks at the searching board for the best tile to explore (based on normal A* implementation)
+     */
+    private Tile getBestTile() {
         Tile bestTile = null;
         int bestScore = Integer.MAX_VALUE;
         for (Tile[] row : tiles) {
@@ -128,6 +142,9 @@ public class AStar {
         return bestTile;
     }
 
+    /**
+     * used before printing the board (after running the A*) to display the path it found
+     */
     public void changePathChars() {
         Tile tile = tiles[goalY][goalX];
         while (tile.getParent() != null) {
@@ -137,7 +154,7 @@ public class AStar {
         tile.setStatus(TileStatus.PATH);
     }
 
-    public boolean isInsideBoard(int x, int y) {
+    private boolean isInsideBoard(int x, int y) {
         return x >= 0 && y >= 0 && x < tiles[0].length && y < tiles.length;
     }
 
@@ -149,6 +166,12 @@ public class AStar {
     private boolean isNotTraversable(Tile tile) {
         return tile.getStatus() == TileStatus.WALL || tile.getStatus() == TileStatus.EXPLORED;
     }
+
+    /**
+     * finding the best tile to check and adding its neighbors to be explored
+     *
+     * @return true if found the target
+     */
     public boolean explore() {
         Tile tileToExplore = getBestTile();
         tileToExplore.setStatus(TileStatus.EXPLORED);
@@ -164,11 +187,11 @@ public class AStar {
             }
             Tile neighbourTile = tiles[neighbourY][neighbourX];
 //            if (neighbourTile.getStatus() == TileStatus.EXPLORED || neighbourTile.getStatus() == TileStatus.WALL) {
-            if(isNotTraversable(neighbourTile)) {
+            if (isNotTraversable(neighbourTile)) {
                 continue;
             }
             int startDist = tileToExplore.getDistToStart();
-            if(neighbourTile.getStatus() == TileStatus.EMPTY) {
+            if (neighbourTile.getStatus() == TileStatus.EMPTY) {
                 startDist++;
             } else if (neighbourTile.getStatus() == TileStatus.UNFAVORABLE) {
                 startDist += 5;
@@ -190,49 +213,11 @@ public class AStar {
                     neighbourTile.setStatus(TileStatus.TO_EXPLORE);
                 }
             }
-
-
         }
         return false;
     }
 
     public Tile[][] getTiles() {
         return tiles;
-    }
-
-    public void setTiles(Tile[][] tiles) {
-        this.tiles = tiles;
-    }
-
-    public int getGoalX() {
-        return goalX;
-    }
-
-    public void setGoalX(int goalX) {
-        this.goalX = goalX;
-    }
-
-    public int getGoalY() {
-        return goalY;
-    }
-
-    public void setGoalY(int goalY) {
-        this.goalY = goalY;
-    }
-
-    public int getStartX() {
-        return startX;
-    }
-
-    public void setStartX(int startX) {
-        this.startX = startX;
-    }
-
-    public int getStartY() {
-        return startY;
-    }
-
-    public void setStartY(int startY) {
-        this.startY = startY;
     }
 }

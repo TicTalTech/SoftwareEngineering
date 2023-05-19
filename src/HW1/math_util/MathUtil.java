@@ -1,6 +1,10 @@
-package HW1.math;
+package HW1.math_util;
 
-public class MathUtil {
+/**
+ * usefully math functions
+ */
+public class MathUtil
+{
 
     public static int pow(int value, int exp) {
         int result = 1;
@@ -9,6 +13,7 @@ public class MathUtil {
         }
         return result;
     }
+
     public static int abs(int value) {
         if (value >= 0) {
             return value;
@@ -18,18 +23,19 @@ public class MathUtil {
     }
 
     public static int min(int x, int y) {
-        if (x < y){
+        if (x < y) {
             return x;
         }
         return y;
     }
 
     public static int max(int x, int y) {
-        if (x > y){
+        if (x > y) {
             return x;
         }
         return y;
     }
+
     public static int min(int[] arr) {
         int minVal = Integer.MAX_VALUE;
         for (int val : arr) {

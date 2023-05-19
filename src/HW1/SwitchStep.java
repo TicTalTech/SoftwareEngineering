@@ -1,57 +1,33 @@
 package HW1;
 
-public class SwitchStep {
-
-    public static final int FINAL = 0;
-    public static final int CORNER = 1;
-    public static final int BELLOW_CORNER = 2;
-    public static final int OUT_OF_THE_WAY = 3;
-
+public class SwitchStep
+{
 
     private int value;
     private int row;
     private int col;
-    private int moveStatus;
+    private SwitchStepStatus moveStatus;
 
-    // used to protect the tile next to the corner
-    private int safeX, safeY;
-
-    public SwitchStep(int value, int row, int col, int moveStatus, int safeX, int safeY)
-    {
+    public SwitchStep(int value, int row, int col, SwitchStepStatus moveStatus) {
         this.value = value;
         this.row = row;
         this.col = col;
         this.moveStatus = moveStatus;
-        this.safeX = safeX;
-        this.safeY = safeY;
-    }
 
-    public SwitchStep(int value, int row, int col, int moveStatus) {
-        this(value, row, col, moveStatus, 0,0);
-    }
-
-    public int getSafeX()
-    {
-        return safeX;
-    }
-
-    public int getSafeY()
-    {
-        return safeY;
     }
 
     public String toString() {
-        return "Move " + value + " to (" + col + ", " + row + ")";
+        return "Move " + value + " to (" + col + ", " + row + ") - " + getMoveStatus();
     }
 
     public int getValue() {
         return value;
     }
 
-    public int getMoveStatus()
-    {
+    public SwitchStepStatus getMoveStatus() {
         return moveStatus;
     }
+
     public void setValue(int value) {
         this.value = value;
     }

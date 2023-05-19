@@ -2,7 +2,7 @@ package HW1.tests;
 
 import HW1.Board;
 import HW1.a_star.MovePath;
-import HW1.math.Int4;
+import HW1.math_util.Int4;
 
 public class TestMovePath
 {

@@ -1,12 +1,13 @@
 package HW1;
 
 
-import HW1.math.Int2;
-import HW1.math.MathUtil;
+import HW1.math_util.Int2;
+import HW1.math_util.MathUtil;
 
-import static HW1.AStarHeuristic.aStarHeuristic;
+import static HW1.a_star.AStarHeuristic.aStarHeuristic;
 
-public class Node {
+public class Node
+{
     private State state;
     private Node parent;
     private Action action;
@@ -66,18 +67,18 @@ public class Node {
 //        return heuristicValueManhattanDistanceConsiderEmpty();
 //        return heuristicValueRecur(this, 2);
 
-        return smartManhattanDistance(this.getState().getBoard());
+//        return smartManhattanDistance(this.getState().getBoard());
         // return numberOfInversions(this.state.getBoard());
 //        return 0;
-//        return veryGoodFunctionHofully(this);
+//        return veryGoodFunctionHopefully(this);
 //        return aStarHeuristic(this.state.getBoard());
 
-//        Board board = this.state.getBoard();
-//        if (board.getTiles()[0].length == 1 || board.getTiles().length == 1) {
-//            return smartManhattanDistance(this.getState().getBoard());
-//        } else {
-//            return aStarHeuristic(this.state.getBoard());
-//        }
+        Board board = this.state.getBoard();
+        if (board.getTiles()[0].length == 1 || board.getTiles().length == 1) {
+            return smartManhattanDistance(this.getState().getBoard());
+        } else {
+            return aStarHeuristic(this.state.getBoard());
+        }
     }
 
     public static int numberOfInversions(Board board) {
@@ -137,7 +138,7 @@ public class Node {
         if (depth == 1) {
             return Node.smartManhattanDistance(node.getState().getBoard());
 //            return node.heuristicValueManhattanDistanceConsiderEmpty();
-//            return Node.veryGoodFunctionHofully(node);
+//            return Node.veryGoodFunctionHopefully(node);
         }
 
         Node[] children = node.expand();
@@ -173,7 +174,7 @@ public class Node {
         return sumDistance;
     }
 
-    public static int veryGoodFunctionHofully(Node node) {
+    public static int veryGoodFunctionHopefully(Node node) {
         int manScore = smartManhattanDistance(node.state.getBoard());
 
         if (node.getParent() == null || node.getParent().getAction() == null) {

@@ -1,12 +1,8 @@
 package HW1;
 
-import HW1.tests.Boards200;
-
 import java.util.List;
 
-import static HW1.Node.numberOfInversions;
-import static HW1.RandomBoard.createBoardsSample;
-import static HW1.tests.ExampleBoardStrings.SOLVED33;
+import static HW1.tests.RandomBoard.createBoardsSample;
 
 public class Main
 {
@@ -37,18 +33,13 @@ public class Main
 //                "1 2 23 5 21 14 7 6 16|10 11 3 22 15 35 9 34 _|28 20 13 31 4 33 26 17 8|29 19 12 32 30 24 18 27 25",
 //        };
 //        String[] boards = createBoardsSample(1, 1, 10, 10, 2, 0);
-//        String[] boards = createBoardsSample(15, 15, 15, 15, 1, 0);
-        String[] boards = Boards200.BOARDS;
+        String[] boards = createBoardsSample(1, 1, 20, 20, 10, 1, true);
+//        String[] boards = Boards200.BOARDS;
 
 //        String[] boards = {"2 1 4|3 _ 5|6 7 8"};
 //        String[] boards = {"1 6 4 15|5 10 _ 13|9 11 3 7|12 8 2 14"};
         int successCounter = 0;
         for (String boardString : boards) {
-//            System.out.println(boardString);
-//            boardString = boardString.replace('1', 'x');
-//            boardString = boardString.replace('2', '1');
-//            boardString = boardString.replace('x', '2');
-//            System.out.println(boardString);
             boolean success = searchOnce(boardString);
             if (success) {
                 successCounter++;

@@ -1,8 +1,11 @@
-package HW1.a_star;
+package HW1.tests;
 
-import HW1.math.Int2;
+import HW1.a_star.AStar;
+import HW1.a_star.TileStatus;
+import HW1.math_util.Int2;
 
-public class TestAStar {
+public class TestAStar
+{
     public static void main(String[] args) {
         AStar aStar = new AStar(10, 10);
         // , int startX, int startY, int goalX, int goalY

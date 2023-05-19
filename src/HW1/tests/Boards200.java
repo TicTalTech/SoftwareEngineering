@@ -1,6 +1,7 @@
 package HW1.tests;
 
-public class Boards200 {
+public class Boards200
+{
 
     public static final String[] BOARDS = {
             "_",

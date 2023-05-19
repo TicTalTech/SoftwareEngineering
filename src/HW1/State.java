@@ -1,6 +1,9 @@
 package HW1;
 
-public class State {
+import HW1.a_star.AStarHeuristic;
+
+public class State
+{
     private Board board;
 
     public State(Board board) {

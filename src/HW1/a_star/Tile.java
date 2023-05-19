@@ -1,7 +1,10 @@
 package HW1.a_star;
 
-
-public class Tile {
+/**
+ * A tile used by A* to track its tiles
+ */
+public class Tile
+{
     private int distToTarget;
     private int distToStart;
     private int score;

@@ -1,6 +1,7 @@
 package HW1;
 
-import HW1.math.MathUtil;
+
+import static HW1.math_util.MathUtil.abs;
 
 import java.util.Arrays;
 
@@ -74,6 +75,7 @@ public class Board
 
     /**
      * creates a board based on the string that the constructor receives
+     *
      * @param s a string representing the board
      */
     public Board(String s) {
@@ -138,7 +140,9 @@ public class Board
             value = Integer.parseInt(valueS.toString());
             tiles[row][col] = new Tile(value);
         }
-        manhattanScore = Node.heuristicValueManhattanDistance(this);
+        if (shouldRunSmartManhattanDistance) {
+            manhattanScore = Node.heuristicValueManhattanDistance(this);
+        }
     }
 
     public int getManhattanScore() {
@@ -147,6 +151,7 @@ public class Board
 
     /**
      * switches two tiles on the board
+     *
      * @param x1 the column of the first tile
      * @param y1 the row of the first tile
      * @param x2 the column of the second tile
@@ -161,10 +166,10 @@ public class Board
             int value2TargetX = tiles[0].length - 1;
             int value2TargetY = tiles.length - 1;
 
-            int value1OldDist = MathUtil.abs(value1TargetX - x1) + MathUtil.abs(value1TargetY - y1);
-            int value2OldDist = MathUtil.abs(value2TargetX - x2) + MathUtil.abs(value2TargetY - y2);
-            int value1NewDist = MathUtil.abs(value1TargetX - x2) + MathUtil.abs(value1TargetY - y2);
-            int value2NewDist = MathUtil.abs(value2TargetX - x1) + MathUtil.abs(value2TargetY - y1);
+            int value1OldDist = abs(value1TargetX - x1) + abs(value1TargetY - y1);
+            int value2OldDist = abs(value2TargetX - x2) + abs(value2TargetY - y2);
+            int value1NewDist = abs(value1TargetX - x2) + abs(value1TargetY - y2);
+            int value2NewDist = abs(value2TargetX - x1) + abs(value2TargetY - y1);
 
             manhattanScore -= value1OldDist;
             manhattanScore -= value2OldDist;

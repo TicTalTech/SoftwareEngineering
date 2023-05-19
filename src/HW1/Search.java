@@ -1,5 +1,7 @@
 package HW1;
 
+import HW1.a_star.AStarHeuristic;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -27,9 +29,8 @@ public class Search
             Board.shouldRunSmartManhattanDistance = true;
         } else {
             Board.shouldRunSmartManhattanDistance = false;
-//            AStarHeuristic.initOnBoard(startingBoard);
+            AStarHeuristic.initOnBoard(startingBoard);
         }
-        Board.shouldRunSmartManhattanDistance = true;
         State startingState = new State(startingBoard);
         Node startingNode = new Node(startingState, null, null);
         return startingNode;

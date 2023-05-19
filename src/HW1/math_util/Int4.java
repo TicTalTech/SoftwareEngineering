@@ -1,6 +1,10 @@
-package HW1.math;
+package HW1.math_util;
 
-public class Int4 {
+/**
+ * a 4D integer vector
+ */
+public class Int4
+{
     public int x, y, z, w;
 
     public void set(int x, int y, int z, int w) {

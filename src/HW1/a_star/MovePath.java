@@ -3,39 +3,37 @@ package HW1.a_star;
 import HW1.Board;
 import HW1.Node;
 import HW1.SwitchStep;
-import HW1.a_star.AStar;
-import HW1.a_star.Tile;
-import HW1.a_star.TileStatus;
-import HW1.math.Int2;
-import HW1.math.Int4;
-import HW1.math.MathUtil;
+import HW1.SwitchStepStatus;
+import HW1.math_util.Int2;
+import HW1.math_util.Int4;
+import HW1.math_util.MathUtil;
 
-import static HW1.Solver.solvingSteps;
+import static HW1.a_star.Solver.solvingSteps;
 
+/**
+ * gives the "bigger picture" of how to solve a board
+ */
 public class MovePath
 {
-
     private static int movesCounter;
 
+    /**
+     * add the switch between (x1, y1) and (x2, y2) to moves and switch them - (the tiles are just next to each other)
+     *
+     * @param board - the board need changing
+     * @param moves - the moves array that needed to add to
+     */
     public static void addMove(Board board, Int4[] moves, int x1, int y1, int x2, int y2) {
-        Int4 move = new Int4(x1, y1,
-                x2, y2);
+        Int4 move = new Int4(x1, y1, x2, y2);
         board.switchTiles(move.x, move.y, move.z, move.w);
         moves[movesCounter] = move;
         movesCounter++;
-//        System.out.println("did move: " + move + " (" + movesCounter + ")");
-        int valueFrom = board.getTiles()[move.y][move.x].getValue();
-        int valueTo = board.getTiles()[move.w][move.z].getValue();
-
-//        System.out.println("doing move: " + valueFrom + " -> " + valueTo);
-//        if (valueTo != 0) {
-//            System.out.println("=============================================================================================");
-//        }
-//        TestBoard.printBoard(board);
-
     }
 
-    public static boolean isValueCloseBy(Board board, int value, int closeToX, int closeToY) {
+    /**
+     * used in order to check if a value is on or next to a target location
+     */
+    private static boolean isValueCloseBy(Board board, int value, int closeToX, int closeToY) {
         final Int2[] area = {
                 new Int2(-1, -1),
                 new Int2(0, -1),
@@ -60,72 +58,64 @@ public class MovePath
         return false;
     }
 
+    /**
+     * @param aStar    - the already initialized A* that belongs to this board
+     * @param moves    - the array that keep tracks of all the moves that the method would add its moved to
+     * @param board    - the board that we are moving
+     * @param step     - the action we are preforming
+     * @param nextStep - the next action we would preform
+     */
     public static void moveNumberToPlace(AStar aStar, Int4[] moves, Board board, SwitchStep step, SwitchStep nextStep) {
-        if (nextStep != null && step.getMoveStatus() == SwitchStep.CORNER && isValueCloseBy(board, nextStep.getValue(), step.getCol(), step.getRow())) {
-//        if (nextStep != null && nextStep.getValue() == board.getTiles()[step.getRow()][step.getCol()].getValue()) {
-//            System.out.println("-----moving " + nextStep.getValue() + " out of the way-----");
-//            final int delta = 2;
-//            int moveToX = MathUtil.min(board.getTiles()[0].length - 1, nextStep.getCol() + delta);
-//            int moveToY = MathUtil.min(board.getTiles().length - 1, nextStep.getRow() + delta);
+        // check if there is a "conflict" tile in the way and moves it to the right down most corner if needed
+        // a "conflict" tile is a tile that needs to end up next to the tile we are trying to move at the time and that
+        // is close to the target position of the tile we are moving
+        if (nextStep != null && step.getMoveStatus() == SwitchStepStatus.CORNER && isValueCloseBy(board, nextStep.getValue(), step.getCol(), step.getRow())) {
             moveNumberToPlace(aStar, moves, board,
                     new SwitchStep(nextStep.getValue(), board.getTiles().length - 1,
-                            board.getTiles()[0].length - 1, SwitchStep.OUT_OF_THE_WAY),
-                    null);
+                            board.getTiles()[0].length - 1, SwitchStepStatus.OUT_OF_THE_WAY), null);
             aStar.getTiles()[board.getTiles().length - 1][board.getTiles()[0].length - 1].setStatus(TileStatus.EMPTY);
-//            TestBoard.printBoard(board);
         }
-//        if (step.getMoveStatus() == SwitchStep.CORNER) {
-//            aStar.getTiles()[step.getSafeY()][step.getSafeX()].setStatus(TileStatus.WALL);
-//        }
-//        System.out.println("move a number step: " + step);
-//            TestBoard.printBoard(board);
+
         Int2 numberPosition = Node.findNumberInBoard(board, step.getValue());
-        aStar.unexplore();
+        aStar.resetBoardBeforeSearch();
         aStar.initEdges(numberPosition.x, numberPosition.y, step.getCol(), step.getRow());
-        Tile endOfPathTile = aStar.findPath();
+        aStar.findPath();
         Int2[] path = aStar.exportPath();
-        aStar.changePathChars();
-//            System.out.println("there are " + path.length + " path points");
-        // move white spaces
+        // move white spaces to be in front of the tile we want to move
+        // (in order to switch them and advance the wanted tile)
         for (int i = 1; i < path.length; i++) {
-//                System.out.println("before moving white:");
-//                TestBoard.printBoard(board);
             aStar.getTiles()[path[i - 1].y][path[i - 1].x].setStatus(TileStatus.WALL);
             Int2 emptySpaceGoal = path[i];
-            aStar.unexplore();
+            aStar.resetBoardBeforeSearch();
             Int2 emptyStartPosition = Node.findNumberInBoard(board, Board.EMPTY);
             aStar.initEdges(emptyStartPosition.x, emptyStartPosition.y, emptySpaceGoal.x, emptySpaceGoal.y);
-            Tile endOfEmptyPathTile = aStar.findPath();
+            aStar.findPath();
             Int2[] emptySpacePath = aStar.exportPath();
             for (int j = 0; j < emptySpacePath.length - 1; j++) {
                 addMove(board, moves, emptySpacePath[j].x, emptySpacePath[j].y,
                         emptySpacePath[j + 1].x, emptySpacePath[j + 1].y);
-//                aStar.printBoard();
             }
-//            System.out.println("v - final move - v");
             addMove(board, moves, path[i].x, path[i].y, path[i - 1].x, path[i - 1].y);
-//            aStar.printBoard();
 
             aStar.getTiles()[path[i - 1].y][path[i - 1].x].setStatus(TileStatus.EMPTY);
         }
-//        if (step.getMoveStatus() == SwitchStep.FINAL) {
-        aStar.getTiles()[path[path.length - 1].y][path[path.length - 1].x].setStatus(TileStatus.WALL);
-//        }
-//            else {
-//                aStar.getTiles()[path[path.length - 1].y][path[path.length - 1].x].setStatus(TileStatus.UNFAVORABLE);
-//            }
-        if (step.getMoveStatus() == SwitchStep.CORNER) {
-            aStar.getTiles()[step.getSafeY()][step.getSafeX()].setStatus(TileStatus.EMPTY);
+        if (step.getMoveStatus() != SwitchStepStatus.OUT_OF_THE_WAY) {
+            aStar.getTiles()[path[path.length - 1].y][path[path.length - 1].x].setStatus(TileStatus.WALL);
         }
     }
 
+    /**
+     * given a board, the method would solve it and give back an array od the moves it did in order to solve it
+     *
+     * @param board - the board needed solving
+     * @return - the array of moves that solve the board
+     */
     public static Int4[] solveBoard(Board board) {
         Int4[] moves = new Int4[MathUtil.pow(board.getTiles().length * board.getTiles()[0].length, 3)];
         movesCounter = 0;
-//        TestBoard.printBoard(board);
         SwitchStep[] steps = solvingSteps(board);
         AStar aStar = new AStar(board.getTiles()[0].length, board.getTiles().length);
-        // move numbers
+        // move each tile to its correct place
         for (int stepNumber = 0; stepNumber < steps.length; stepNumber++) {
             SwitchStep step = steps[stepNumber];
             if (step == null) {
@@ -137,10 +127,6 @@ public class MovePath
             }
             moveNumberToPlace(aStar, moves, board, step, nextStep);
         }
-
-//        System.out.println("finish solving with " + movesCounter + " moves");
-//        TestBoard.printBoard(board);
-
         return moves;
     }
 }
