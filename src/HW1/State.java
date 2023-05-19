@@ -1,15 +1,25 @@
 package HW1;
 
-import HW1.a_star.AStarHeuristic;
-
-public class State
-{
+public class State {
+    /**
+     * This class represents a state of the board. Which is defined by the board that the state holds
+     */
     private Board board;
 
+    /**
+     * Constructor
+     *
+     * @param board The game board
+     */
     public State(Board board) {
         this.board = board;
     }
 
+    /**
+     * creates a new state with the same board as the state that its given
+     *
+     * @param other the state that will be duplicated
+     */
     public State(State other) {
         this.board = new Board(other.board);
     }

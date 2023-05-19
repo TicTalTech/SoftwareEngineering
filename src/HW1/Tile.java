@@ -1,8 +1,16 @@
 package HW1;
 
 public class Tile {
+    /**
+     * This class represents a tile on the board
+     */
     private final int value;
 
+    /**
+     * Constructor
+     *
+     * @param value The value of the tile
+     */
     public Tile(int value) {
         this.value = value;
     }

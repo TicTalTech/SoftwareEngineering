@@ -1,17 +1,27 @@
 package HW1;
 
 
-import HW1.math_util.Int2;
-import HW1.math_util.MathUtil;
+import HW1.math.Int2;
+import HW1.math.MathUtil;
 
-import static HW1.a_star.AStarHeuristic.aStarHeuristic;
+import static HW1.AStarHeuristic.aStarHeuristic;
 
-public class Node
-{
+public class Node {
+    /**
+     * This class represents a node. A node holds the current state its parent node and the action that
+     * was done to get to the current state.
+     */
     private State state;
     private Node parent;
     private Action action;
 
+    /**
+     * Constructor
+     *
+     * @param state  The current state
+     * @param parent The nodes parent node
+     * @param action The action that was done to get to the current state
+     */
     public Node(State state, Node parent, Action action) {
         this.state = state;
         this.parent = parent;

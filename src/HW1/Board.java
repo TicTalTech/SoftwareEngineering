@@ -6,8 +6,10 @@ import static HW1.math_util.MathUtil.abs;
 import java.util.Arrays;
 
 
-public class Board
-{
+public class Board {
+    /**
+     * This class represents the game board. Which is held in a 2d array of tiles
+     */
     public int getRowScore() {
         return rowScore;
     }
@@ -58,6 +60,11 @@ public class Board
         this.aStarScore = aStarScore;
     }
 
+    /**
+     * Creates a new board that is equal to the board it receives
+     *
+     * @param other the board that will be cloned
+     */
     public Board(Board other) {
 //        tiles = other.tiles.clone();
         tiles = new Tile[other.tiles.length][other.tiles[0].length];
