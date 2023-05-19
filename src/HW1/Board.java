@@ -6,6 +6,9 @@ import java.util.Arrays;
 
 
 public class Board {
+    /**
+     * This class represents the game board. Which is held in a 2d array of tiles
+     */
     public int getRowScore() {
         return rowScore;
     }

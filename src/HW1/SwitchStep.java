@@ -1,7 +1,9 @@
 package HW1;
 
 public class SwitchStep {
-
+    /**
+     * An object that holds information that is used when solving the board.
+     */
     public static final int FINAL = 0;
     public static final int CORNER = 1;
     public static final int BELLOW_CORNER = 2;
@@ -16,8 +18,13 @@ public class SwitchStep {
     // used to protect the tile next to the corner
     private int safeX, safeY;
 
-    public SwitchStep(int value, int row, int col, int moveStatus, int safeX, int safeY)
-    {
+    /**
+     * @param value      The tiles value
+     * @param row        The row to move the tile to
+     * @param col        The column to move the tile to
+     * @param moveStatus Where the move places the tile
+     */
+    public SwitchStep(int value, int row, int col, int moveStatus, int safeX, int safeY) {
         this.value = value;
         this.row = row;
         this.col = col;
@@ -27,16 +34,14 @@ public class SwitchStep {
     }
 
     public SwitchStep(int value, int row, int col, int moveStatus) {
-        this(value, row, col, moveStatus, 0,0);
+        this(value, row, col, moveStatus, 0, 0);
     }
 
-    public int getSafeX()
-    {
+    public int getSafeX() {
         return safeX;
     }
 
-    public int getSafeY()
-    {
+    public int getSafeY() {
         return safeY;
     }
 
@@ -48,10 +53,10 @@ public class SwitchStep {
         return value;
     }
 
-    public int getMoveStatus()
-    {
+    public int getMoveStatus() {
         return moveStatus;
     }
+
     public void setValue(int value) {
         this.value = value;
     }

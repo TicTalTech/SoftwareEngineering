@@ -1,6 +1,9 @@
 package HW1;
 
 public class State {
+    /**
+     * This class represents a state of the board. Which is defined by the board that the state holds
+     */
     private Board board;
 
     /**
