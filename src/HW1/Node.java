@@ -1,12 +1,13 @@
 package HW1;
 
 
-import HW1.math.Int2;
-import HW1.math.MathUtil;
+import HW1.math_util.Int2;
+import HW1.math_util.MathUtil;
 
-import static HW1.AStarHeuristic.aStarHeuristic;
+import static HW1.a_star.AStarHeuristic.aStarHeuristic;
 
-public class Node {
+public class Node
+{
     /**
      * This class represents a node. A node holds the current state its parent node and the action that
      * was done to get to the current state.

@@ -1,6 +1,9 @@
 package HW1;
 
-public class State {
+import HW1.a_star.AStarHeuristic;
+
+public class State
+{
     /**
      * This class represents a state of the board. Which is defined by the board that the state holds
      */

@@ -1,9 +1,8 @@
 package HW1;
 
-public class SwitchStep {
-    /**
-     * An object that holds information that is used when solving the board.
-     */
+/**
+ * An object that holds information that is used when solving the board.
+ */
 public class SwitchStep
 {
 
@@ -17,22 +16,6 @@ public class SwitchStep
         this.row = row;
         this.col = col;
         this.moveStatus = moveStatus;
-        this.safeX = safeX;
-        this.safeY = safeY;
-    }
-
-    public SwitchStep(int value, int row, int col, int moveStatus) {
-        this(value, row, col, moveStatus, 0,0);
-    }
-
-    public int getSafeX()
-    {
-        return safeX;
-    }
-
-    public int getSafeY()
-    {
-        return safeY;
     }
 
     public String toString() {
