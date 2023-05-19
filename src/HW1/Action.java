@@ -18,6 +18,14 @@ public class Action {
         return tileY;
     }
 
+    /**
+     * Constructor
+     *
+     * @param tile      The tile that the action will be preformed on
+     * @param direction The direction that the tile moves
+     * @param tileX     The tiles column number
+     * @param tileY     The tiles row number
+     */
     public Action(Tile tile, Direction direction, int tileX, int tileY) {
         this.tile = tile;
         this.direction = direction;

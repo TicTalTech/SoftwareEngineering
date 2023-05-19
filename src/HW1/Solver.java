@@ -3,6 +3,12 @@ package HW1;
 // https://www.cs.princeton.edu/courses/archive/spring21/cos226/assignments/8puzzle/specification.php#:~:text=Thus%2C%20if%20a%20board%20has,inversions%2C%20then%20it%20is%20solvable.
 // https://www.kopf.com.br/kaplof/how-to-solve-any-slide-puzzle-regardless-of-its-size/
 public class Solver {
+    /**
+     * Creates an array that holds where each tile needs to be placed in order of its placement
+     *
+     * @param b The board that will be solved
+     * @return returns an array that holds where each tile needs to be placed in order to solve the board
+     */
     public static SwitchStep[] solvingSteps(Board b) {
         Tile[][] board = b.getTiles();
         int numOfRows = board.length;
@@ -37,11 +43,11 @@ public class Solver {
             index++;
             col++;
         }
-        paths[index] = new SwitchStep((numOfRows - 2) * numOfCols  + (numOfCols - 2) + 1, numOfRows - 2, numOfCols - 2, SwitchStep.FINAL);
+        paths[index] = new SwitchStep((numOfRows - 2) * numOfCols + (numOfCols - 2) + 1, numOfRows - 2, numOfCols - 2, SwitchStep.FINAL);
         index++;
-        paths[index] = new SwitchStep((numOfRows - 2) * numOfCols  + (numOfCols - 1) + 1, numOfRows - 2, numOfCols - 1, SwitchStep.FINAL);
+        paths[index] = new SwitchStep((numOfRows - 2) * numOfCols + (numOfCols - 1) + 1, numOfRows - 2, numOfCols - 1, SwitchStep.FINAL);
         index++;
-        paths[index] = new SwitchStep((numOfRows - 1) * numOfCols  + (numOfCols - 2) + 1, numOfRows - 1, numOfCols - 2, SwitchStep.FINAL);
+        paths[index] = new SwitchStep((numOfRows - 1) * numOfCols + (numOfCols - 2) + 1, numOfRows - 1, numOfCols - 2, SwitchStep.FINAL);
         index++;
 
         return paths;

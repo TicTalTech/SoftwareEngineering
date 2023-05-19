@@ -5,8 +5,7 @@ import HW1.math.MathUtil;
 import java.util.Arrays;
 
 
-public class Board
-{
+public class Board {
     public int getRowScore() {
         return rowScore;
     }
@@ -57,6 +56,11 @@ public class Board
         this.aStarScore = aStarScore;
     }
 
+    /**
+     * Creates a new board that is equal to the board it receives
+     *
+     * @param other the board that will be cloned
+     */
     public Board(Board other) {
 //        tiles = other.tiles.clone();
         tiles = new Tile[other.tiles.length][other.tiles[0].length];
@@ -74,6 +78,7 @@ public class Board
 
     /**
      * creates a board based on the string that the constructor receives
+     *
      * @param s a string representing the board
      */
     public Board(String s) {
@@ -147,6 +152,7 @@ public class Board
 
     /**
      * switches two tiles on the board
+     *
      * @param x1 the column of the first tile
      * @param y1 the row of the first tile
      * @param x2 the column of the second tile

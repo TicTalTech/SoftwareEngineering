@@ -3,6 +3,11 @@ package HW1;
 public class Tile {
     private final int value;
 
+    /**
+     * Constructor
+     *
+     * @param value The value of the tile
+     */
     public Tile(int value) {
         this.value = value;
     }

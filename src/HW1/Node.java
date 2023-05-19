@@ -11,6 +11,13 @@ public class Node {
     private Node parent;
     private Action action;
 
+    /**
+     * Constructor
+     *
+     * @param state  The current state
+     * @param parent The nodes parent node
+     * @param action The action that was done to get to the current state
+     */
     public Node(State state, Node parent, Action action) {
         this.state = state;
         this.parent = parent;

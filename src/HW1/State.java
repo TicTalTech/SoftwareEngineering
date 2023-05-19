@@ -3,10 +3,20 @@ package HW1;
 public class State {
     private Board board;
 
+    /**
+     * Constructor
+     *
+     * @param board The game board
+     */
     public State(Board board) {
         this.board = board;
     }
 
+    /**
+     * creates a new state with the same board as the state that its given
+     *
+     * @param other the state that will be duplicated
+     */
     public State(State other) {
         this.board = new Board(other.board);
     }
