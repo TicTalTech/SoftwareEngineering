@@ -11,6 +11,12 @@ public class State {
         this.board = new Board(other.board);
     }
 
+    /**
+     * Performs the action on the current board
+     *
+     * @param action An action which represents which action to preform
+     * @return returns a State that holds the current state of the board after the action is preformed
+     */
     public State result(Action action) {
         State newState = new State(this);
         switch (action.getDirection()) {
@@ -50,6 +56,11 @@ public class State {
         return board;
     }
 
+    /**
+     * Finds all the possible actions that can currently be performed
+     *
+     * @return returns an array of actions that represents which actions can be currently performed
+     */
     public Action[] actions() {
         Action[] actions = new Action[4];
         int numberOfActions = 0;
@@ -95,6 +106,11 @@ public class State {
         return condensedActions;
     }
 
+    /**
+     * checks if the board is in the goal position
+     *
+     * @return returns true if the current state is a solved board else returns false
+     */
     public boolean isGoal() {
         int num = 1;
         for (int i = 0; i < board.getBoard().length; i++) {
@@ -118,7 +134,7 @@ public class State {
             return false;
         }
         State otherState = (State) other;
-        return board.equals(otherState.board)  && this.getBoard().getBoardId() == otherState.board.getBoardId();
+        return board.equals(otherState.board) && this.getBoard().getBoardId() == otherState.board.getBoardId();
     }
 
     @Override

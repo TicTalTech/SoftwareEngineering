@@ -6,8 +6,7 @@ import HW1.math.MathUtil;
 
 import static HW1.AStarHeuristic.aStarHeuristic;
 
-public class Node
-{
+public class Node {
     private State state;
     private Node parent;
     private Action action;
@@ -30,6 +29,12 @@ public class Node
         return this.state;
     }
 
+    /**
+     * performs all the possible actions that can currently be performed on the board and puts the new nodes
+     * that are the result of those actions in an array
+     *
+     * @return returns an array of nodes that hold all the possible nodes based on the actions that can be performed
+     */
     public Node[] expand() {
         Action[] actions = state.actions();
         Node[] expanded = new Node[actions.length];
@@ -52,6 +57,9 @@ public class Node
         return null;
     }
 
+    /**
+     * @return
+     */
     public int heuristicValue() {
 //        System.out.println(numberOfCorrectTiles(this.state.getBoard()));
 //        return heuristicValueManhattanDistance();

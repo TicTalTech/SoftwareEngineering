@@ -72,7 +72,10 @@ public class Board
         this.manhattanScore = other.manhattanScore;
     }
 
-
+    /**
+     * creates a board based on the string that the constructor receives
+     * @param s a string representing the board
+     */
     public Board(String s) {
         int value;
         int numOfRows = 0;
@@ -142,6 +145,13 @@ public class Board
         return manhattanScore;
     }
 
+    /**
+     * switches two tiles on the board
+     * @param x1 the column of the first tile
+     * @param y1 the row of the first tile
+     * @param x2 the column of the second tile
+     * @param y2 the row of the second tile
+     */
     public void switchTiles(int x1, int y1, int x2, int y2) {
         if (shouldRunSmartManhattanDistance) {
             int value1 = tiles[y1][x1].getValue() - 1;

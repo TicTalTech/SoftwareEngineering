@@ -3,10 +3,6 @@ package HW1;
 public class Tile {
     private final int value;
 
-//    public Tile(Tile other) {
-//        value = other.value;
-//    }
-
     public Tile(int value) {
         this.value = value;
     }
