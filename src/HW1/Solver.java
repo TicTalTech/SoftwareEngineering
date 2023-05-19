@@ -12,28 +12,28 @@ public class Solver {
         SwitchStep[] paths = new SwitchStep[numOfRows * numOfCols * 3];
         for (int row = 0; row < numOfRows - 2; ++row) {
             while (col < numOfCols - 2) {
-                paths[index] = new SwitchStep((row * numOfCols) + 1 + col, row, col, true);
+                paths[index] = new SwitchStep((row * numOfCols) + 1 + col, row, col, SwitchStep.FINAL);
                 col++;
                 index++;
             }
-            paths[index] = new SwitchStep(row * numOfCols + col + 1, row, numOfCols - 1, false);
+            paths[index] = new SwitchStep(row * numOfCols + col + 1, row, numOfCols - 1, SwitchStep.CORNER);
             index++;
-            paths[index] = new SwitchStep(row * numOfCols + col + 2, row + 1, numOfCols - 1, false);
+            paths[index] = new SwitchStep(row * numOfCols + col + 2, row + 1, numOfCols - 1, SwitchStep.BELLOW_CORNER);
             index++;
-            paths[index] = new SwitchStep(row * numOfCols + col + 1, row, numOfCols - 2, true);
+            paths[index] = new SwitchStep(row * numOfCols + col + 1, row, numOfCols - 2, SwitchStep.FINAL);
             index++;
-            paths[index] = new SwitchStep(row * numOfCols + col + 2, row, numOfCols - 1, true);
+            paths[index] = new SwitchStep(row * numOfCols + col + 2, row, numOfCols - 1, SwitchStep.FINAL);
             index++;
             col = 0;
         }
         while (col < numOfCols - 2) {
-            paths[index] = new SwitchStep((numOfRows - 2) * numOfCols + 1 + col, numOfRows - 1, col, false);
+            paths[index] = new SwitchStep((numOfRows - 2) * numOfCols + 1 + col, numOfRows - 1, col, SwitchStep.CORNER);
             index++;
-            paths[index] = new SwitchStep((numOfRows - 2) * numOfCols + 1 + col + numOfCols, numOfRows - 1, col + 1, false);
+            paths[index] = new SwitchStep((numOfRows - 2) * numOfCols + 1 + col + numOfCols, numOfRows - 1, col + 1, SwitchStep.BELLOW_CORNER);
             index++;
-            paths[index] = new SwitchStep((numOfRows - 2) * numOfCols + 1 + col, numOfRows - 2, col, true);
+            paths[index] = new SwitchStep((numOfRows - 2) * numOfCols + 1 + col, numOfRows - 2, col, SwitchStep.FINAL);
             index++;
-            paths[index] = new SwitchStep((numOfRows - 2) * numOfCols + 1 + col + +numOfCols, numOfRows - 1, col, true);
+            paths[index] = new SwitchStep((numOfRows - 2) * numOfCols + 1 + col + +numOfCols, numOfRows - 1, col, SwitchStep.FINAL);
             index++;
             col++;
         }

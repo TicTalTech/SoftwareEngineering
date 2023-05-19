@@ -57,18 +57,19 @@ public class Node
 //        return heuristicValueManhattanDistance();
 //        return heuristicValueManhattanDistanceConsiderEmpty();
 //        return heuristicValueRecur(this, 2);
-//        return smartManhattanDistance(this.getState().getBoard());
+
+        return smartManhattanDistance(this.getState().getBoard());
         // return numberOfInversions(this.state.getBoard());
 //        return 0;
 //        return veryGoodFunctionHofully(this);
 //        return aStarHeuristic(this.state.getBoard());
 
-        Board board = this.state.getBoard();
-        if (board.getTiles()[0].length == 1 || board.getTiles().length == 1) {
-            return smartManhattanDistance(this.getState().getBoard());
-        } else {
-            return aStarHeuristic(this.state.getBoard());
-        }
+//        Board board = this.state.getBoard();
+//        if (board.getTiles()[0].length == 1 || board.getTiles().length == 1) {
+//            return smartManhattanDistance(this.getState().getBoard());
+//        } else {
+//            return aStarHeuristic(this.state.getBoard());
+//        }
     }
 
     public static int numberOfInversions(Board board) {

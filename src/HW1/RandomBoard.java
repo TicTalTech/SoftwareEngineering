@@ -87,7 +87,6 @@ public class RandomBoard
                 for (int i = 0; i < repeats; i++) {
                     String mixedBoardString = createRandomBoardString(width, height, random);
 //                    System.out.println("\"\"\"" + mixedBoardString + "\"\"\", ");
-
                     sample[index] = mixedBoardString;
                     index++;
                 }

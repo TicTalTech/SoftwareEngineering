@@ -27,8 +27,9 @@ public class Search
             Board.shouldRunSmartManhattanDistance = true;
         } else {
             Board.shouldRunSmartManhattanDistance = false;
-            AStarHeuristic.initOnBoard(startingBoard);
+//            AStarHeuristic.initOnBoard(startingBoard);
         }
+        Board.shouldRunSmartManhattanDistance = true;
         State startingState = new State(startingBoard);
         Node startingNode = new Node(startingState, null, null);
         return startingNode;

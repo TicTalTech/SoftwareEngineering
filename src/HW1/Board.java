@@ -47,7 +47,7 @@ public class Board
         this.boardId = boardId;
     }
 
-    public static boolean shouldRunSmartManhattanDistance =  ;
+    public static boolean shouldRunSmartManhattanDistance = false;
 
     public int getAStarScore() {
         return aStarScore;
