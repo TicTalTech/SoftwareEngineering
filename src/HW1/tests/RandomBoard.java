@@ -73,7 +73,7 @@ public class RandomBoard
     public static String createRandomBoardString(int width, int height, Random random, boolean isSolvable) {
         String boardString = createSolvedStringBoard(width, height);
         Board board = new Board(boardString);
-        if (!isSolvable) {
+        if (!isSolvable && width >= 2) {
             board.switchTiles(0, 0, 1, 0);
         }
         Board mixedBoard = mixBoard(board, random);

@@ -33,7 +33,7 @@ public class Main
 //                "1 2 23 5 21 14 7 6 16|10 11 3 22 15 35 9 34 _|28 20 13 31 4 33 26 17 8|29 19 12 32 30 24 18 27 25",
 //        };
 //        String[] boards = createBoardsSample(1, 1, 10, 10, 2, 0);
-        String[] boards = createBoardsSample(1, 1, 20, 20, 10, 1, true);
+        String[] boards = createBoardsSample(1, 1, 5, 5, 10, 1, false);
 //        String[] boards = Boards200.BOARDS;
 
 //        String[] boards = {"2 1 4|3 _ 5|6 7 8"};
