@@ -22,94 +22,90 @@ public class Polynomial extends Function {
         return value;
     }
 
+    private boolean isZero() {
+        if (coefficients.length == 0) {
+            return true;
+        }
+        for (double val : coefficients) {
+            if (val != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private int findEffectiveSize() {
+        int countZeros = 0;
+        for (int i = coefficients.length - 1; i >= 0; i--) {
+            countZeros++;
+            if (coefficients[i] != 0) {
+                break;
+            }
+        }
+        return coefficients.length - countZeros + 1;
+    }
+
+    private boolean isFirstCoefficientNegative() {
+        for (double val : coefficients) {
+            if (val > 0) {
+                return false;
+            } else if(val < 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
-        int zero = 0;
-        String s = "(";
-        if (coefficients.length == 1)
-            return "(" + coefficients[0] + ")";
-        for (int i = 0; i < coefficients.length; ++i)
-            zero += coefficients[i];
-        if (zero == 0)
-            return "(" + 0 + ")";
-        else {
-            if (coefficients.length > 0) {
-                if (coefficients[0] != 0 && coefficients[0] != 1 && coefficients[0] != -1) {
-                    if (coefficients[0] % 1 == 0) {
-                        int num = (int) coefficients[0];
-                        s = s + num;
-                    } else
-                        s = s + coefficients[0];
-                }
-                if (coefficients[0] == 1)
-                    s = s + "1";
-                if (coefficients[0] == -1)
-                    s = s + "-1";
-            }
-            if (coefficients.length > 1) {
-                if (coefficients[1] != 0 && coefficients[1] != 1 && coefficients[1] != -1) {
-                    if (coefficients[1] % 1 == 0) {
-                        int num = (int) coefficients[1];
-                        if (num > 0)
-                            s = "+" + s + num + "x";
-                        if (num < 0)
-                            s = "-" + s + num + "x";
-                    } else {
-                        if (coefficients[1] > 0)
-                            s = "+" + s + coefficients[1] + "x";
-                        if (coefficients[1] < 0)
-                            s = "-" + s + coefficients[1] + "x";
-                        s = s + coefficients[1];
-                    }
-                }
-                if (coefficients[1] == 1)
-                    s = s + "x";
-                if (coefficients[1] == -1)
-                    s = s + "-x";
-            }
-            for (int i = 2; i < coefficients.length - 1; ++i) {
-                if (coefficients[i] != 0 && coefficients[i] != 1 && coefficients[i] != -1) {
-                    if (coefficients[i] % 1 == 0) {
-                        int num = (int) coefficients[i];
-                        if (coefficients[i] > 0)
-                            s = "+" + s + num + "x" + "^" + i;
-                        if (coefficients[i] < 0)
-                            s = "-" + s + num + "x" + "^" + i;
-                    } else {
-                        if (coefficients[i] > 0)
-                            s = "+" + s + coefficients[i] + "x" + "^" + i;
-                        if (coefficients[i] < 0)
-                            s = "-" + s + coefficients[i] + "x" + "^" + i;
-                    }
-                }
-                if (coefficients[i] == 1)
-                    s = s + "x" + "^" + i;
-                if (coefficients[i] == -1)
-                    s = s + "-x" + "^" + i;
-            }
-            if (coefficients.length > 2) {
-                if (coefficients[coefficients.length - 1] != 0 && coefficients[coefficients.length - 1] != 1
-                        && coefficients[coefficients.length - 1] != -1) {
-                    if (coefficients[coefficients.length - 1] % 1 == 0) {
-                        int num = (int) coefficients[coefficients.length - 1];
-                        if (coefficients[coefficients.length - 1] > 0)
-                            s = "+" + s + coefficients[coefficients.length - 1] + "x" + "^" + (coefficients.length - 1);
-                        if (coefficients[coefficients.length - 1] < 0)
-                            s = "-" + s + coefficients[coefficients.length - 1] + "x" + "^" + (coefficients.length - 1);
-                    } else {
-                        if (coefficients[coefficients.length - 1] > 0)
-                            s = "+" + s + coefficients[coefficients.length - 1] + "x" + "^" + (coefficients.length - 1);
-                        if (coefficients[coefficients.length - 1] < 0)
-                            s = "-" + s + coefficients[coefficients.length - 1] + "x" + "^" + (coefficients.length - 1);
-                    }
-                }
-                if (coefficients[coefficients.length - 1] == 1)
-                    s = s + "x" + "^" + (coefficients.length - 1);
-                if (coefficients[coefficients.length - 1] == -1)
-                    s = s + "-x" + "^" + (coefficients.length - 1);
-            }
-            return s + ")";
+        if (isZero()) {
+            return "0";
         }
+        String s = "";
+        if (isFirstCoefficientNegative()) {
+            s += "-";
+        }
+        int effectiveSize = findEffectiveSize();
+//        System.out.println("effective size: " + effectiveSize);
+        for (int degree = 0; degree < effectiveSize; degree++) {
+            if (coefficients[degree] == 0) {
+                continue;
+            }
+            double absCoefficient = Math.abs(coefficients[degree]);
+            if (absCoefficient != 1 || degree == 0) {
+                if (absCoefficient % 1 == 0) {
+                    s += (int) absCoefficient;
+                } else {
+                    s += absCoefficient;
+                }
+            }
+
+            if (degree >= 1) {
+                s += "x";
+            }
+            if (degree >= 2) {
+                s += "^" + degree;
+            }
+
+            if (degree != effectiveSize - 1) {
+                if (coefficients[degree] > 0) {
+                    s += " + ";
+                } else {
+                    s += " - ";
+                }
+            }
+        }
+        return s;
+    }
+
+    public String rawString() {
+        String s = "";
+
+        for (int degree = 0; degree < coefficients.length; degree++) {
+            s += coefficients[degree];
+            s += "x^" + degree + " + ";
+        }
+        return s;
     }
 
     @Override
