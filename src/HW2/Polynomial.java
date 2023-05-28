@@ -101,7 +101,7 @@ public class Polynomial extends Function {
             if (degree != effectiveSize - 1) {
                 if (coefficients[degree + 1] > 0) {
                     s += " + ";
-                } else if (coefficients[degree + 1] < 0){
+                } else if (coefficients[degree + 1] < 0) {
                     s += " - ";
                 }
             }

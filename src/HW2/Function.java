@@ -48,7 +48,6 @@ public abstract class Function {
             derivative = derivative.derivative();
         }
         Polynomial polynomial = new Polynomial(Coefficients);
-        System.out.println(polynomial.rawString());
         return polynomial;
     }
 

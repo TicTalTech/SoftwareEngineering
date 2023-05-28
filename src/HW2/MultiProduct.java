@@ -23,15 +23,16 @@ public class MultiProduct extends Function {
 
     @Override
     public String toString() {
-        String s = "";
+        String s = "(";
         int count = 0;
         for (Function func : this.functions) {
-            s += "(" + func.toString() + ")";
+            s += func.toString();
             if (count != this.functions.length - 1) {
                 s += " * ";
             }
             count++;
         }
+        s += ")";
         return s;
     }
 
