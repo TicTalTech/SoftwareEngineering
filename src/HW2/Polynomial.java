@@ -2,7 +2,7 @@ package HW2;
 
 import java.lang.Math;
 
-public class Polynomial {
+public class Polynomial extends Function {
     final double[] coefficients;
 
     public Polynomial(double... coefficients) {
@@ -11,6 +11,8 @@ public class Polynomial {
             this.coefficients[i] = coefficients[i];
         }
     }
+
+    @Override
 
     public double valueAt(double x) {
         double value = 0;
@@ -82,6 +84,8 @@ public class Polynomial {
         }
         return s;
     }
+
+    @Override
 
     public Function derivative() {
         double[] newCoefficients = new double[coefficients.length - 1];
