@@ -4,9 +4,11 @@ import HW2.Polynomial;
 
 public class testPolynomial {
     public static void main(String[] args) {
-        double[] arr = {2, 3.5, 4.5};
+        double[] arr = {2, 3, 4, 5.5, 6};
 
         Polynomial p = new Polynomial(arr);
         System.out.println(p);
+        System.out.println((p.valueAt(3.8)));
+        System.out.print(p.derivative());
     }
 }
