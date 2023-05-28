@@ -30,11 +30,11 @@ public class MultiSum extends Function {
 
     @Override
     public String toString() {
-        String s = "";
+        String s = "(";
         for (int i = 0; i < functions.length - 1; ++i)
             s = s + functions[i].toString() + " + ";
         s = s + functions[functions.length - 1].toString();
-        return s;
+        return s + ")";
     }
 
     @Override

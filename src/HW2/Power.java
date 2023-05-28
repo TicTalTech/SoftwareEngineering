@@ -16,7 +16,7 @@ public class Power extends Function {
 
     @Override
     public String toString() {
-        return "( " + func.toString() + ")" + "^" + power;
+        return "(( " + func.toString() + ")" + "^" + power + ")";
     }
 
     @Override

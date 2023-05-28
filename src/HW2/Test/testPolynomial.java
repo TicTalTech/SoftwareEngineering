@@ -4,7 +4,7 @@ import HW2.Polynomial;
 
 public class testPolynomial {
     public static void main(String[] args) {
-        double[] arr = {1,2,3};
+        double[] arr = {1, 0, 1};
 
         Polynomial p = new Polynomial(arr);
         System.out.println(p);

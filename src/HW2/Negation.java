@@ -1,12 +1,24 @@
 package HW2;
 
-public class Negation extends Product{
+public class Negation extends Function {
 
-    public Negation(Function two) {
-        super(new Constant(-1), two);
+    private Function f;
+
+    public Negation(Function f) {
+        this.f = f;
+    }
+
+    @Override
+    public double valueAt(double x) {
+        return -f.valueAt(x);
+    }
+
+    @Override
+    public Function derivative() {
+        return new Negation(f.derivative());
     }
 
     public String toString() {
-        return "-(" + this.getG() + ")";
+        return "(-" + f + ")";
     }
 }

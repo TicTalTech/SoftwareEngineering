@@ -16,7 +16,7 @@ public class Quotient extends Function {
 
     @Override
     public String toString() {
-        String s = f.toString() + "/" + g.toString();
+        String s = "(" + f.toString() + "/" + g.toString() + ")";
         return s;
     }
 
