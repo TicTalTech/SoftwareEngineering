@@ -2,7 +2,7 @@ package HW2;
 
 import java.lang.Math;
 
-public class Polynomial extends Function {
+public class Polynomial {
     final double[] coefficients;
 
     public Polynomial(double... coefficients) {

@@ -1,8 +1,6 @@
 package HW2.Test;
 
-import HW2.Constant;
-import HW2.Function;
-import HW2.Sum;
+import HW2.*;
 
 public class TestFunctions {
     public static void main(String[] args) {
@@ -13,10 +11,20 @@ public class TestFunctions {
 //                new Constant(3),
 //                new Constant(-1),
 //                new Constant(0),
-                new Sum(new Constant(1), new Constant(2)),
-                new Sum(new Constant(1), new Constant(-1)),
-                new Sum(new Constant(-2), new Constant(-8)),
-                new Sum(new Constant(1), new Sum(new Constant(2), new Constant(3))),
+
+                new Polynomial(new double[] {1, 2, 3})
+
+//                new Sum(new Constant(1), new Constant(2)),
+//                new Sum(new Constant(1), new Constant(-1)),
+//                new Sum(new Constant(-2), new Constant(-8)),
+//                new Sum(new Constant(1), new Sum(new Constant(2), new Constant(3))),
+
+//                new Difference(new Constant(1), new Constant(2)),
+//                new Difference(new Constant(1), new Constant(-1)),
+//                new Difference(new Constant(-2), new Constant(-8)),
+//                new Difference(new Constant(1), new Sum(new Constant(2), new Constant(3))),
+
+//                new MultiProduct(new Function[] {new Constant(2), new Constant(3)})
         };
         for (Function func : functions){
             System.out.println("f(x) = " + func);
