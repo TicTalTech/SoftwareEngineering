@@ -12,8 +12,8 @@ public class TestFunctions {
 //                new Constant(-1),
 //                new Constant(0),
 
-//                new Polynomial(1, 2, 3),
-//                new Polynomial(0, 0, 1),
+                new Polynomial(1, 2, 3),
+                new Polynomial(0, 0, 1),
                 new Polynomial(0, 1),
                 new Polynomial(1),
                 new Polynomial(-1),

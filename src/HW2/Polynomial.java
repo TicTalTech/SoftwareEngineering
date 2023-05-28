@@ -68,29 +68,29 @@ public class Polynomial extends Function {
         int effectiveSize = findEffectiveSize();
 //        System.out.println("effective size: " + effectiveSize);
         for (int degree = 0; degree < effectiveSize; degree++) {
-            if (coefficients[degree] == 0) {
-                continue;
-            }
-            double absCoefficient = Math.abs(coefficients[degree]);
-            if (absCoefficient != 1 || degree == 0) {
-                if (absCoefficient % 1 == 0) {
-                    s += (int) absCoefficient;
-                } else {
-                    s += absCoefficient;
-                }
-            }
+            if (coefficients[degree] != 0) {
 
-            if (degree >= 1) {
-                s += "x";
-            }
-            if (degree >= 2) {
-                s += "^" + degree;
+                double absCoefficient = Math.abs(coefficients[degree]);
+                if (absCoefficient != 1 || degree == 0) {
+                    if (absCoefficient % 1 == 0) {
+                        s += (int) absCoefficient;
+                    } else {
+                        s += absCoefficient;
+                    }
+                }
+
+                if (degree >= 1) {
+                    s += "x";
+                }
+                if (degree >= 2) {
+                    s += "^" + degree;
+                }
             }
 
             if (degree != effectiveSize - 1) {
                 if (coefficients[degree + 1] > 0) {
                     s += " + ";
-                } else {
+                } else if (coefficients[degree + 1] < 0){
                     s += " - ";
                 }
             }
