@@ -32,7 +32,7 @@ public class MultiSum extends Function {
     public String toString() {
         String s = "";
         for (int i = 0; i < functions.length - 1; ++i)
-            s = s + functions[i].toString() + "+";
+            s = s + functions[i].toString() + " + ";
         s = s + functions[functions.length - 1].toString();
         return s;
     }
