@@ -20,7 +20,17 @@ public class MultiSum {
     @Override
     public String toString() {
         String s = "";
-        for(int i=0; i<)
-            s = s + func.toString() + "+";
+        for (int i = 0; i < functions.length - 1; ++i)
+            s = s + functions[i].toString() + "+";
+        s = s + functions[functions.length - 1].toString();
+        return s;
+    }
+
+    public MultiSum derivative() {
+        Function[] derivatives = new Function[functions.length];
+        for (int i = 0; i < functions.length; ++i)
+            derivatives[i] = functions[i].derivative();
+        MultiSum der = new MultiSum(derivatives);
+        return der;
     }
 }
