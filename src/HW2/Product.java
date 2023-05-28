@@ -16,10 +16,11 @@ public class Product extends Function {
 
     @Override
     public String toString() {
-        String s = "";
+        String s = "(";
         s = s + one.toString();
-        s = s = "*";
+        s = s = " * ";
         s = s + two.toString();
+        s += ")";
         return s;
     }
 

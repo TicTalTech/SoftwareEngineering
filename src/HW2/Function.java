@@ -10,8 +10,7 @@ public abstract class Function {
             double mid = (left + right) / 2.0;
             double fA = this.valueAt(a);
             double fMid = this.valueAt(mid);
-            double fB = this.valueAt(b);
-            System.out.println(fA + " | " + fB);
+//            double fB = this.valueAt(b);
             if (fA * fMid > 0) {
                 left = mid;
             } else {
