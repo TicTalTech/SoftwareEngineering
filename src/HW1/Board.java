@@ -1,15 +1,13 @@
 package HW1;
 
-
-import static HW1.math_util.MathUtil.abs;
-
 import java.util.Arrays;
 
 
+/**
+ * This class represents the game board. Which is held in a 2d array of tiles
+ */
 public class Board {
-    /**
-     * This class represents the game board. Which is held in a 2d array of tiles
-     */
+
     public int getRowScore() {
         return rowScore;
     }
@@ -41,6 +39,7 @@ public class Board {
     private int aStarScore = -1;
 
     private int boardId;
+    public static boolean shouldRunSmartManhattanDistance = false;
 
     public int getBoardId() {
         return boardId;
@@ -49,8 +48,6 @@ public class Board {
     public void setBoardId(int boardId) {
         this.boardId = boardId;
     }
-
-    public static boolean shouldRunSmartManhattanDistance = false;
 
     public int getAStarScore() {
         return aStarScore;
@@ -66,13 +63,10 @@ public class Board {
      * @param other the board that will be cloned
      */
     public Board(Board other) {
-//        tiles = other.tiles.clone();
         tiles = new Tile[other.tiles.length][other.tiles[0].length];
         for (int y = 0; y < tiles.length; y++) {
             for (int x = 0; x < tiles[0].length; x++) {
-//                tiles[y][x] = new Tile(other.tiles[y][x]);
                 tiles[y][x] = other.tiles[y][x];
-
             }
         }
         emptyX = other.emptyX;
@@ -157,7 +151,7 @@ public class Board {
     }
 
     /**
-     * switches two tiles on the board
+     * switches two tiles on the board and updates the manhattan distance if necessary
      *
      * @param x1 the column of the first tile
      * @param y1 the row of the first tile
@@ -173,16 +167,15 @@ public class Board {
             int value2TargetX = tiles[0].length - 1;
             int value2TargetY = tiles.length - 1;
 
-            int value1OldDist = abs(value1TargetX - x1) + abs(value1TargetY - y1);
-            int value2OldDist = abs(value2TargetX - x2) + abs(value2TargetY - y2);
-            int value1NewDist = abs(value1TargetX - x2) + abs(value1TargetY - y2);
-            int value2NewDist = abs(value2TargetX - x1) + abs(value2TargetY - y1);
+            int value1OldDist = MathUtil.abs(value1TargetX - x1) + MathUtil.abs(value1TargetY - y1);
+            int value2OldDist = MathUtil.abs(value2TargetX - x2) + MathUtil.abs(value2TargetY - y2);
+            int value1NewDist = MathUtil.abs(value1TargetX - x2) + MathUtil.abs(value1TargetY - y2);
+            int value2NewDist = MathUtil.abs(value2TargetX - x1) + MathUtil.abs(value2TargetY - y1);
 
             manhattanScore -= value1OldDist;
             manhattanScore -= value2OldDist;
             manhattanScore += value1NewDist;
             manhattanScore += value2NewDist;
-
         }
 
         Tile temp = tiles[y1][x1];

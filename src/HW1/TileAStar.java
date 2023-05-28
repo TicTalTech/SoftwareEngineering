@@ -1,18 +1,17 @@
-package HW1.a_star;
+package HW1;
 
 /**
  * A tile used by A* to track its tiles
  */
-public class Tile
-{
+public class TileAStar {
     private int distToTarget;
     private int distToStart;
     private int score;
     private TileStatus status;
     private int x, y;
-    private Tile parent;
+    private TileAStar parent;
 
-    public Tile(int x, int y) {
+    public TileAStar(int x, int y) {
         this.x = x;
         this.y = y;
         status = TileStatus.EMPTY;
@@ -23,12 +22,10 @@ public class Tile
             case WALL:
                 return "#";
             case TO_EXPLORE:
-//                return "" + score;
                 return "?";
             case EMPTY:
                 return ".";
             case EXPLORED:
-//                return "" + distToTarget;
                 return "-";
             case PATH:
                 return "+";
@@ -36,11 +33,11 @@ public class Tile
         return "!";
     }
 
-    public Tile getParent() {
+    public TileAStar getParent() {
         return parent;
     }
 
-    public void setParent(Tile parent) {
+    public void setParent(TileAStar parent) {
         this.parent = parent;
     }
 

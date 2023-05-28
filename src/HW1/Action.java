@@ -1,10 +1,11 @@
 package HW1;
 
+/**
+ * This class represents an action that can be performed on the board. Each action is defined by a tile
+ * and the direction to move it
+ */
 public class Action {
-    /**
-     * This class represents an action that can be performed on the board. Each action is defined by a tile
-     * and the direction to move it
-     */
+
     private Tile tile;
     private Direction direction;
 

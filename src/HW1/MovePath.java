@@ -1,20 +1,9 @@
-package HW1.a_star;
-
-import HW1.Board;
-import HW1.Node;
-import HW1.SwitchStep;
-import HW1.SwitchStepStatus;
-import HW1.math_util.Int2;
-import HW1.math_util.Int4;
-import HW1.math_util.MathUtil;
-
-import static HW1.a_star.Solver.solvingSteps;
+package HW1;
 
 /**
  * gives the "bigger picture" of how to solve a board
  */
-public class MovePath
-{
+public class MovePath {
     private static int movesCounter;
 
     /**
@@ -113,7 +102,8 @@ public class MovePath
     public static Int4[] solveBoard(Board board) {
         Int4[] moves = new Int4[MathUtil.pow(board.getTiles().length * board.getTiles()[0].length, 3)];
         movesCounter = 0;
-        SwitchStep[] steps = solvingSteps(board);
+        Solver solver = new Solver();
+        SwitchStep[] steps = solver.solvingSteps(board);
         AStar aStar = new AStar(board.getTiles()[0].length, board.getTiles().length);
         // move each tile to its correct place
         for (int stepNumber = 0; stepNumber < steps.length; stepNumber++) {

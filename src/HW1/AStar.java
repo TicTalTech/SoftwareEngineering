@@ -1,28 +1,24 @@
-package HW1.a_star;
-
-import HW1.math_util.Int2;
-import HW1.math_util.MathUtil;
+package HW1;
 
 /**
  * an implementation of the A* algorithm
  */
-public class AStar
-{
-    private Tile[][] tiles;
+public class AStar {
+    private TileAStar[][] tiles;
     private int goalX, goalY;
     private int startX, startY;
 
     /**
-     * create and AStar object
+     * create and HW1.AStar object
      *
      * @param width  - the width of the board that needs solving
      * @param height - the height of the board that needs solving
      */
     public AStar(int width, int height) {
-        tiles = new Tile[height][width];
+        tiles = new TileAStar[height][width];
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                tiles[y][x] = new Tile(x, y);
+                tiles[y][x] = new TileAStar(x, y);
             }
         }
     }
@@ -45,7 +41,7 @@ public class AStar
      */
     public int pathLength() {
         int length = 0;
-        Tile endTile = tiles[goalY][goalX];
+        TileAStar endTile = tiles[goalY][goalX];
         while (endTile.getParent() != null) {
             endTile = endTile.getParent();
             length++;
@@ -60,7 +56,7 @@ public class AStar
      */
     public Int2[] exportPath() {
         int pathLength = pathLength();
-        Tile endTile = tiles[goalY][goalX];
+        TileAStar endTile = tiles[goalY][goalX];
         Int2[] pathArr = new Int2[pathLength];
         for (int i = pathLength - 1; i >= 0; i--) {
             pathArr[i] = new Int2(endTile.getX(), endTile.getY());
@@ -70,8 +66,8 @@ public class AStar
     }
 
     public void resetBoardBeforeSearch() {
-        for (Tile[] row : tiles) {
-            for (Tile tile : row) {
+        for (TileAStar[] row : tiles) {
+            for (TileAStar tile : row) {
                 if (tile.getStatus() == TileStatus.EXPLORED || tile.getStatus() == TileStatus.TO_EXPLORE || tile.getStatus() == TileStatus.PATH) {
                     tile.setStatus(TileStatus.EMPTY);
                 }
@@ -81,8 +77,8 @@ public class AStar
     }
 
     public void printBoard() {
-        for (Tile[] row : tiles) {
-            for (Tile tile : row) {
+        for (TileAStar[] row : tiles) {
+            for (TileAStar tile : row) {
                 System.out.print(tile + " ");
             }
             System.out.println();
@@ -107,8 +103,8 @@ public class AStar
      * @return true if the path is valid
      */
     private boolean isDoneExploring() {
-        for (Tile[] row : tiles) {
-            for (Tile tile : row) {
+        for (TileAStar[] row : tiles) {
+            for (TileAStar tile : row) {
                 if (tile.getStatus() == TileStatus.TO_EXPLORE) {
                     return false;
                 }
@@ -120,11 +116,11 @@ public class AStar
     /**
      * looks at the searching board for the best tile to explore (based on normal A* implementation)
      */
-    private Tile getBestTile() {
-        Tile bestTile = null;
+    private TileAStar getBestTile() {
+        TileAStar bestTile = null;
         int bestScore = Integer.MAX_VALUE;
-        for (Tile[] row : tiles) {
-            for (Tile tile : row) {
+        for (TileAStar[] row : tiles) {
+            for (TileAStar tile : row) {
                 if (tile.getStatus() != TileStatus.TO_EXPLORE) {
                     continue;
                 }
@@ -146,7 +142,7 @@ public class AStar
      * used before printing the board (after running the A*) to display the path it found
      */
     public void changePathChars() {
-        Tile tile = tiles[goalY][goalX];
+        TileAStar tile = tiles[goalY][goalX];
         while (tile.getParent() != null) {
             tile.setStatus(TileStatus.PATH);
             tile = tile.getParent();
@@ -159,11 +155,11 @@ public class AStar
     }
 
 
-    private boolean isTraversable(Tile tile) {
+    private boolean isTraversable(TileAStar tile) {
         return tile.getStatus() == TileStatus.EMPTY || tile.getStatus() == TileStatus.UNFAVORABLE;
     }
 
-    private boolean isNotTraversable(Tile tile) {
+    private boolean isNotTraversable(TileAStar tile) {
         return tile.getStatus() == TileStatus.WALL || tile.getStatus() == TileStatus.EXPLORED;
     }
 
@@ -173,7 +169,7 @@ public class AStar
      * @return true if found the target
      */
     public boolean explore() {
-        Tile tileToExplore = getBestTile();
+        TileAStar tileToExplore = getBestTile();
         tileToExplore.setStatus(TileStatus.EXPLORED);
         if (tileToExplore.getX() == goalX && tileToExplore.getY() == goalY) {
             return true; // found target
@@ -185,8 +181,8 @@ public class AStar
             if (!isInsideBoard(neighbourX, neighbourY)) {
                 continue;
             }
-            Tile neighbourTile = tiles[neighbourY][neighbourX];
-//            if (neighbourTile.getStatus() == TileStatus.EXPLORED || neighbourTile.getStatus() == TileStatus.WALL) {
+            TileAStar neighbourTile = tiles[neighbourY][neighbourX];
+//            if (neighbourTile.getStatus() == HW1.TileStatus.EXPLORED || neighbourTile.getStatus() == HW1.TileStatus.WALL) {
             if (isNotTraversable(neighbourTile)) {
                 continue;
             }
@@ -217,7 +213,7 @@ public class AStar
         return false;
     }
 
-    public Tile[][] getTiles() {
+    public TileAStar[][] getTiles() {
         return tiles;
     }
 }

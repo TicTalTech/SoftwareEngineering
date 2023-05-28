@@ -1,14 +1,10 @@
-package HW1.a_star;
-
-import HW1.Board;
-import HW1.math_util.Int4;
+package HW1;
 
 /**
- * uses the MovePath and The AStar to score the boards
+ * uses the HW1.MovePath and The HW1.AStar to score the boards
  */
-public class AStarHeuristic
-{
-    //    public static AStar aStar;
+public class AStarHeuristic {
+    //    public static HW1.AStar aStar;
     public static Int4[] moves;
     public static Board board;
     public static int movesCounter;
@@ -20,7 +16,7 @@ public class AStarHeuristic
      *
      * @param initialBoard - the start board that needs to be solved
      */
-    public static void initOnBoard(Board initialBoard) {
+    public static void initBoard(Board initialBoard) {
         AStarHeuristic.board = new Board(initialBoard);
         Board copyBoard = new Board(initialBoard);
         moves = MovePath.solveBoard(copyBoard);

@@ -784,7 +784,7 @@ public class Main {
             if (!isTileInsideBoard(x, y, agentBoard)) {
                 System.out.println("Illegal tile, try again!");
             } else if (isTileAlreadyHit(x, y, agentBoard)) {
-                System.out.println("Tile already attacked, try again!");
+                System.out.println("HW1.Tile already attacked, try again!");
             } else {
                 foundCoordsFlag = true;
             }

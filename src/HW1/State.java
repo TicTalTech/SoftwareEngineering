@@ -1,12 +1,9 @@
 package HW1;
 
-import HW1.a_star.AStarHeuristic;
-
-public class State
-{
-    /**
-     * This class represents a state of the board. Which is defined by the board that the state holds
-     */
+/**
+ * This class represents a state of the board. Which is defined by the board that the state holds
+ */
+public class State {
     private Board board;
 
     /**
@@ -31,7 +28,7 @@ public class State
      * Performs the action on the current board
      *
      * @param action An action which represents which action to preform
-     * @return returns a State that holds the current state of the board after the action is preformed
+     * @return returns a HW1.State that holds the current state of the board after the action is preformed
      */
     public State result(Action action) {
         State newState = new State(this);

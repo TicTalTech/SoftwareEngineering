@@ -1,9 +1,9 @@
 package HW1;
 
+/**
+ * This class represents a tile on the board
+ */
 public class Tile {
-    /**
-     * This class represents a tile on the board
-     */
     private final int value;
 
     /**

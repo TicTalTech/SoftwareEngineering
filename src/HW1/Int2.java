@@ -1,10 +1,9 @@
-package HW1.math_util;
+package HW1;
 
 /**
  * a 2D integer vector
  */
-public class Int2
-{
+public class Int2 {
     public int x, y;
 
     public void set(int x, int y) {

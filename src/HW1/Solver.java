@@ -1,19 +1,9 @@
-package HW1.a_star;
-
-import HW1.Board;
-import HW1.SwitchStep;
-import HW1.SwitchStepStatus;
-import HW1.Tile;
-import HW1.tests.TestBoard;
-
-// https://www.cs.princeton.edu/courses/archive/spring21/cos226/assignments/8puzzle/specification.php#:~:text=Thus%2C%20if%20a%20board%20has,inversions%2C%20then%20it%20is%20solvable.
-// https://www.kopf.com.br/kaplof/how-to-solve-any-slide-puzzle-regardless-of-its-size/
+package HW1;
 
 /**
  * deciding witch tiles needs to end up where and in what order
  */
-public class Solver
-{
+public class Solver {
     /**
      * Creates an array that holds where each tile needs to be placed in order of its placement
      *
@@ -50,7 +40,7 @@ public class Solver
             index++;
             paths[index] = new SwitchStep((numOfRows - 2) * numOfCols + 1 + col, numOfRows - 2, col, SwitchStepStatus.FINAL);
             index++;
-            paths[index] = new SwitchStep((numOfRows - 2) * numOfCols + 1 + col + +numOfCols, numOfRows - 1, col, SwitchStepStatus.FINAL);
+            paths[index] = new SwitchStep((numOfRows - 2) * numOfCols + 1 + col + numOfCols, numOfRows - 1, col, SwitchStepStatus.FINAL);
             index++;
             col++;
         }
@@ -59,7 +49,6 @@ public class Solver
         paths[index] = new SwitchStep((numOfRows - 2) * numOfCols + (numOfCols - 1) + 1, numOfRows - 2, numOfCols - 1, SwitchStepStatus.FINAL);
         index++;
         paths[index] = new SwitchStep((numOfRows - 1) * numOfCols + (numOfCols - 2) + 1, numOfRows - 1, numOfCols - 2, SwitchStepStatus.FINAL);
-        index++;
 
         return paths;
     }

@@ -1,7 +1,5 @@
 package HW1;
 
-import HW1.a_star.AStarHeuristic;
-
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -11,8 +9,7 @@ import java.util.PriorityQueue;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class Search
-{
+public class Search {
     private int expandedNodes;
     private List<Action> result;
     private Status status = Status.UNSOLVED;
@@ -29,7 +26,7 @@ public class Search
             Board.shouldRunSmartManhattanDistance = true;
         } else {
             Board.shouldRunSmartManhattanDistance = false;
-            AStarHeuristic.initOnBoard(startingBoard);
+            AStarHeuristic.initBoard(startingBoard);
         }
         State startingState = new State(startingBoard);
         Node startingNode = new Node(startingState, null, null);
@@ -37,13 +34,12 @@ public class Search
     }
 
     /**
-     * Performs a Greedy Best First Search, using node heuristic function.
+     * Performs a Greedy Best First HW1.Search, using node heuristic function.
      *
      * @param boardString String representing the initial board
      * @return List of actions which performing them will lead to the the goal state
      */
     public List<Action> search(String boardString) {
-        int count = 0;
         try {
             Node root = getRoot(boardString);
 
@@ -53,7 +49,6 @@ public class Search
             enqueued.add(root.getState());  // Mark the root as visited
 
             while (!frontier.isEmpty()) {
-                count++;
                 Node node = frontier.remove();  // Get a node with smallest heuristic value
                 if (node.getState().isGoal()) {
                     result = extractSolution(node);  // Extracting the solution
@@ -66,12 +61,9 @@ public class Search
                 for (Node child : children) {  // Iterate over all possible child nodes
                     if (!enqueued.contains(child.getState())) {  // Check for duplication
                         enqueued.add(child.getState());  // Mark the child as visited
-
-                        expandedNodes++;
                         frontier.add(child);
                     }
                 }
-
             }
             status = Status.UNSOLVABLE;  // Unsolvable board
         } catch (OutOfMemoryError err) {  // Out of memory - probably due to an explosion of the frontier
@@ -84,7 +76,7 @@ public class Search
      * Extracts a solution from a given node by iterating backward from the node up to the root.
      * The given node satisfies node.getState().isGoal() == true.
      *
-     * @param node Node contains a the goal state
+     * @param node HW1.Node contains a the goal state
      * @return List of actions to reach the goal state
      */
     private List<Action> extractSolution(Node node) {
@@ -110,8 +102,7 @@ public class Search
         return expandedNodes;
     }
 
-    public enum Status
-    {
+    public enum Status {
         SOLVED,
         UNSOLVABLE,
         OUT_OF_MEMORY,

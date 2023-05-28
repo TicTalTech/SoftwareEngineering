@@ -1,7 +1,6 @@
 package HW1;
 
-public enum SwitchStepStatus
-{
+public enum SwitchStepStatus {
     FINAL,
     CORNER,
     NEXT_TO_CORNER,

@@ -1,10 +1,9 @@
-package HW1.a_star;
+package HW1;
 
 /**
  * statuses the A* tiles can have
  */
-public enum TileStatus
-{
+public enum TileStatus {
     WALL,
     TO_EXPLORE,
     EMPTY,

@@ -3,9 +3,7 @@ package HW1;
 /**
  * An object that holds information that is used when solving the board.
  */
-public class SwitchStep
-{
-
+public class SwitchStep {
     private int value;
     private int row;
     private int col;
