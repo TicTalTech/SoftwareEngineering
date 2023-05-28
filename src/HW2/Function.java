@@ -2,6 +2,7 @@ package HW2;
 
 public abstract class Function {
     public abstract double valueAt(double x);
+
     public abstract Function derivative();
 
     public double bisectionMethod(double a, double b, double epsilon) {
@@ -20,6 +21,7 @@ public abstract class Function {
         }
         return (left + right) / 2.0;
     }
+
     public double bisectionMethod(double a, double b) {
         return bisectionMethod(a, b, 1e-5);
     }
@@ -29,6 +31,20 @@ public abstract class Function {
         while (Math.abs(valueAt(point)) >= epsilon)
             point = point - (valueAt(point) / derivative().valueAt(point));
         return point;
+    }
+
+    public Function taylorPolynomial(int n) {
+        double factorial = 1;
+        Function derivative = derivative();
+        double derivativeValue;
+        double value;
+        for (int i = 1; i <= n; ++i) {
+            factorial = factorial * i;
+            derivativeValue = derivative.valueAt(0);
+            value = derivativeValue / factorial;
+            derivative = derivative.derivative();
+        }
+        return null;
     }
 
     public double newtonRaphsonMethod(double a) {
