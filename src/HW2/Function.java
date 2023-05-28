@@ -38,13 +38,16 @@ public abstract class Function {
         Function derivative = derivative();
         double derivativeValue;
         double value;
+        double Coefficients[] = new double[n + 1];
+        Coefficients[0] = valueAt(0);
         for (int i = 1; i <= n; ++i) {
             factorial = factorial * i;
             derivativeValue = derivative.valueAt(0);
             value = derivativeValue / factorial;
+            Coefficients[i] = value;
             derivative = derivative.derivative();
         }
-        return null;
+        return new Polynomial(Coefficients);
     }
 
     public double newtonRaphsonMethod(double a) {
