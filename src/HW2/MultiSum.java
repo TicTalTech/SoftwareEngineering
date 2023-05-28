@@ -1,7 +1,7 @@
 package HW2;
 
 public class MultiSum extends Function {
-    public Function[] functions;
+    private Function[] functions;
 
     public MultiSum(Function[] functions) {
         this.functions = new Sum[functions.length];

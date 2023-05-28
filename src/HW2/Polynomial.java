@@ -3,7 +3,7 @@ package HW2;
 import java.lang.Math;
 
 public class Polynomial extends Function {
-    final double[] coefficients;
+    private final double[] coefficients;
 
     public Polynomial(double... coefficients) {
         this.coefficients = new double[coefficients.length];
@@ -38,7 +38,7 @@ public class Polynomial extends Function {
             if (coefficients[0] == -1)
                 s = s + "-1";
         }
-        if (coefficients.length > 1)
+        if (coefficients.length > 1 && coefficients[1] != 0 && coefficients[0] != 0)
             s = s + "+";
         if (coefficients.length > 1) {
             if (coefficients[1] != 0 && coefficients[1] != 1 && coefficients[1] != -1) {
@@ -53,7 +53,7 @@ public class Polynomial extends Function {
             if (coefficients[1] == -1)
                 s = s + "-x";
         }
-        if (coefficients.length > 2)
+        if (coefficients.length > 2 && coefficients[2] != 0 && coefficients[1] != 0)
             s = s + "+";
         for (int i = 2; i < coefficients.length - 1; ++i) {
             if (coefficients[i] != 0 && coefficients[i] != 1 && coefficients[i] != -1) {
