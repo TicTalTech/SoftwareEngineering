@@ -25,7 +25,7 @@ public class Quotient extends Function {
         Function func1 = new Product(f.derivative(), g);
         Function func2 = new Product(g.derivative(), f);
         Function denominator = new Product(g, g);
-        Function numerator = new Sum(func1, func2);
+        Function numerator = new Sum(func1, new Negation(func2));//f'g-g'f
         Function derivative = new Quotient(numerator, denominator);
         return derivative;
     }

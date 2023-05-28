@@ -23,4 +23,15 @@ public abstract class Function {
     public double bisectionMethod(double a, double b) {
         return bisectionMethod(a, b, 1e-5);
     }
+
+    public double newtonRaphsonMethod(double a, double epsilon) {
+        double point = a;
+        while (Math.abs(valueAt(point)) >= epsilon)
+            point = point - (valueAt(point) / derivative().valueAt(point));
+        return point;
+    }
+
+    public double newtonRaphsonMethod(double a) {
+        return (newtonRaphsonMethod(a, Math.pow(10, -5)));
+    }
 }

@@ -3,11 +3,21 @@ package HW2;
 public class MultiSum extends Function {
     private Function[] functions;
 
-    public MultiSum(Function[] functions) {
-        this.functions = new Function[functions.length];
-        for (int i = 0; i < functions.length; ++i) {
-            this.functions[i] = functions[i];
+    public MultiSum(Function f, Function g, Function... more) {
+        this.functions = new Function[more.length + 2];
+        this.functions[0] = f;
+        this.functions[1] = g;
+        for (int i = 0; i < more.length; i++) {
+            this.functions[i + 2] = more[i];
         }
+    }
+
+    public static MultiSum createMultiSumFromArray(Function[] functions) {
+        Function[] lastFunctions = new Function[functions.length - 2];
+        for (int i = 2; i < functions.length; i++) {
+            lastFunctions[i - 2] = functions[i];
+        }
+        return new MultiSum(functions[0], functions[1], lastFunctions);
     }
 
     @Override
@@ -33,7 +43,7 @@ public class MultiSum extends Function {
         Function[] derivatives = new Function[functions.length];
         for (int i = 0; i < functions.length; ++i)
             derivatives[i] = functions[i].derivative();
-        Function der = new MultiSum(derivatives);
+        Function der = createMultiSumFromArray(derivatives);
         return der;
     }
 }

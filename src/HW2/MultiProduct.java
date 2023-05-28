@@ -15,26 +15,27 @@ public class MultiProduct extends Function {
     @Override
     public double valueAt(double x) {
         double product = 1;
-        for(Function func : this.functions){
+        for (Function func : this.functions) {
             product *= func.valueAt(x);
         }
         return product;
     }
+
     @Override
     public String toString() {
         String s = "";
         int count = 0;
-        for(Function func : this.functions){
+        for (Function func : this.functions) {
             s += "(" + func.toString() + ")";
             if (count != this.functions.length - 1) {
                 s += " * ";
             }
-                count++;
+            count++;
         }
         return s;
     }
 
-    private MultiProduct createMultiFromArray(Function[] functions) {
+    public static MultiProduct createMultiProductFromArray(Function[] functions) {
         Function[] lastFunctions = new Function[functions.length - 2];
         for (int i = 2; i < functions.length; i++) {
             lastFunctions[i - 2] = functions[i];
@@ -45,12 +46,12 @@ public class MultiProduct extends Function {
     @Override
     public Function derivative() {
         Function[] outerSum = new Function[this.functions.length];
-        for(int i = 0; i < this.functions.length; i++) {
+        for (int i = 0; i < this.functions.length; i++) {
             Function[] innerProductFunctions = new Function[this.functions.length];
             Function iDerivative = this.functions[i].derivative();
             innerProductFunctions[0] = iDerivative;
             int jCount = 0;
-            for(int j = 0; j < this.functions.length; j++) {
+            for (int j = 0; j < this.functions.length; j++) {
                 if (i == j) {
                     continue;
                 }
@@ -58,10 +59,9 @@ public class MultiProduct extends Function {
                 innerProductFunctions[jCount + 1] = jFunc;
                 jCount++;
             }
-            MultiProduct innerProduct = createMultiFromArray(innerProductFunctions);
+            MultiProduct innerProduct = createMultiProductFromArray(innerProductFunctions);
             outerSum[i] = innerProduct;
         }
-        // TODO - create a MultiSum from the "outerSum" array
-        return new MultiSum(outerSum);
+        return MultiSum.createMultiSumFromArray(outerSum);
     }
 }
