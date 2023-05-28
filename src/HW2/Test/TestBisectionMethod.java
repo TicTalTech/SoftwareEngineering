@@ -10,8 +10,12 @@ public class TestBisectionMethod {
         System.out.println("f(x) = " + func);
         double root1 = func.bisectionMethod(a, b, 0.1);
         double root2 = func.bisectionMethod(a, b);
+        double root3 = func.bisectionMethod(a, b, 1e-10);
+
         System.out.println("The root is: " + root1);
         System.out.println("The root is: " + root2);
+        System.out.println("The root is: " + root3);
+
         System.out.println();
     }
     public static void main(String[] args) {

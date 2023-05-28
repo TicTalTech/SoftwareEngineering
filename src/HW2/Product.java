@@ -17,9 +17,9 @@ public class Product extends Function {
     @Override
     public String toString() {
         String s = "(";
-        s = s + f.toString();
-        s = s = " * ";
-        s = s + g.toString();
+        s += f.toString();
+        s += " * ";
+        s += g.toString();
         s += ")";
         return s;
     }
@@ -30,5 +30,9 @@ public class Product extends Function {
         Function derivative2 = new Product(g.derivative(), f);
         Function derivative = new Sum(derivative1, derivative2);
         return derivative;
+    }
+
+    public Function getG() {
+        return g;
     }
 }

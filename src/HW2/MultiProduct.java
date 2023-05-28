@@ -1,10 +1,15 @@
 package HW2;
 
-public class MultiProduct extends Function{
+public class MultiProduct extends Function {
     private final Function[] functions;
 
-    public MultiProduct(Function... functions) {
-        this.functions = functions;
+    public MultiProduct(Function f, Function g, Function... more) {
+        this.functions = new Function[more.length + 2];
+        this.functions[0] = f;
+        this.functions[1] = g;
+        for (int i = 0; i < more.length; i++) {
+            this.functions[i + 2] = more[i];
+        }
     }
 
     @Override
@@ -20,13 +25,21 @@ public class MultiProduct extends Function{
         String s = "";
         int count = 0;
         for(Function func : this.functions){
-            s += "( " + func.toString() + " )";
+            s += "(" + func.toString() + ")";
             if (count != this.functions.length - 1) {
                 s += " * ";
             }
                 count++;
         }
         return s;
+    }
+
+    private MultiProduct createMultiFromArray(Function[] functions) {
+        Function[] lastFunctions = new Function[functions.length - 2];
+        for (int i = 2; i < functions.length; i++) {
+            lastFunctions[i - 2] = functions[i];
+        }
+        return new MultiProduct(functions[0], functions[1], lastFunctions);
     }
 
     @Override
@@ -45,10 +58,10 @@ public class MultiProduct extends Function{
                 innerProductFunctions[jCount + 1] = jFunc;
                 jCount++;
             }
-            MultiProduct innerProduct = new MultiProduct(innerProductFunctions);
+            MultiProduct innerProduct = createMultiFromArray(innerProductFunctions);
             outerSum[i] = innerProduct;
         }
         // TODO - create a MultiSum from the "outerSum" array
-        return null;
+        return new MultiSum(outerSum);
     }
 }

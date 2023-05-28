@@ -24,13 +24,13 @@ public class TestFunctions {
 //                new Difference(new Constant(-2), new Constant(-8)),
 //                new Difference(new Constant(1), new Sum(new Constant(2), new Constant(3))),
 
-//                new MultiProduct(new Function[] {new Constant(2), new Constant(3)})
+                new MultiProduct(new Constant(2), new Constant(3)),
 
-                new Negation(new Constant(1)),
-                new Negation(new Constant(0)),
-                new Negation(new Constant(-1)),
-                new Negation(new Polynomial(1, 1, 1)),
-                new Negation(new Sum(new Constant(1), new Constant(2))),
+//                new Negation(new Constant(1)),
+//                new Negation(new Constant(0)),
+//                new Negation(new Constant(-1)),
+//                new Negation(new Polynomial(1, 1, 1)),
+//                new Negation(new Sum(new Constant(1), new Constant(2))),
 
         };
         for (Function func : functions){

@@ -7,6 +7,6 @@ public class Negation extends Product{
     }
 
     public String toString() {
-        return "-(" + two + ")";
+        return "-(" + this.getG() + ")";
     }
 }
