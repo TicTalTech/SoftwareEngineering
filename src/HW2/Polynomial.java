@@ -56,6 +56,17 @@ public class Polynomial extends Function {
         return false;
     }
 
+    private int firstCoefficientIndex() {
+        int count = 0;
+        for (double val : coefficients) {
+            if (val != 0) {
+                break;
+            }
+            count++;
+        }
+        return count;
+    }
+
     @Override
     public String toString() {
         if (isZero()) {
@@ -67,7 +78,7 @@ public class Polynomial extends Function {
         }
         int effectiveSize = findEffectiveSize();
 //        System.out.println("effective size: " + effectiveSize);
-        for (int degree = 0; degree < effectiveSize; degree++) {
+        for (int degree = firstCoefficientIndex(); degree < effectiveSize; degree++) {
             if (coefficients[degree] != 0) {
 
                 double absCoefficient = Math.abs(coefficients[degree]);
