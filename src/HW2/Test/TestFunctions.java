@@ -20,10 +20,17 @@ public class TestFunctions {
 //                new Polynomial(),
                 new Polynomial(-1),
                 new Polynomial(5),
-
+                new Polynomial(0, 0),
                 new Polynomial(1, 0),
                 new Polynomial(-1, 0),
                 new Polynomial(-1, -1),
+                new Polynomial(1, 0, 1),
+                new Polynomial(-1, 0, -1),
+                new Polynomial(1, 0, 1, 0),
+                new Polynomial(-1, 0, -1, 0),
+                new Polynomial(0, 1, 0, 1, 0),
+                new Polynomial(0, -1, 0, -1, 0),
+
 
 //                new Sum(new Constant(1), new Constant(2)),
 //                new Sum(new Constant(1), new Constant(-1)),
@@ -37,7 +44,9 @@ public class TestFunctions {
 
 //                new MultiProduct(new Constant(2), new Constant(3)),
 //                new MultiSum(new Constant(2), new Constant(3)),
-//                new MultiProduct(new Polynomial(0, 1), new Constant(3)),
+//                new MultiProduct(new Constant(3), new Polynomial(1, 1)),
+//                new MultiSum(new Constant(3), new Polynomial(1, 1)),
+//                new MultiSum(new Constant(3), new Negation(new Polynomial(1, 1))),
 
 
 
