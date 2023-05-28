@@ -1,6 +1,6 @@
 package HW2;
 
-public class Constant extends Function{
+public class Constant extends Function {
     private final double constant;
 
     public Constant(double constant) {
@@ -16,8 +16,12 @@ public class Constant extends Function{
     public Function derivative() {
         return new Constant(0);
     }
+
     @Override
     public String toString() {
-        return "" + constant;
+        if (constant % 1 == 0)
+            return "(" + (int) constant + ")";
+        else
+            return "(" + constant + ")";
     }
 }
