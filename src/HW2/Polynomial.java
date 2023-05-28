@@ -88,7 +88,7 @@ public class Polynomial extends Function {
             }
 
             if (degree != effectiveSize - 1) {
-                if (coefficients[degree] > 0) {
+                if (coefficients[degree + 1] > 0) {
                     s += " + ";
                 } else {
                     s += " - ";
