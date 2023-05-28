@@ -16,15 +16,15 @@ public class Quotient extends Function {
 
     @Override
     public String toString() {
-        String s = "(" + f.toString() + "/" + g.toString() + ")";
+        String s = "(" + f.toString() + " / " + g.toString() + ")";
         return s;
     }
 
     @Override
     public Function derivative() {
         Function func1 = new Product(f.derivative(), g);
-        Function func2 = new Product(g.derivative(), f);
-        Function denominator = new Product(g, g);
+        Function func2 = new Product(f, g.derivative());
+        Function denominator = new Power(g, 2);
         Function numerator = new Difference(func1, func2);//f'g-g'f
         Function derivative = new Quotient(numerator, denominator);
         return derivative;

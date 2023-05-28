@@ -47,7 +47,9 @@ public abstract class Function {
             Coefficients[i] = value;
             derivative = derivative.derivative();
         }
-        return new Polynomial(Coefficients);
+        Polynomial polynomial = new Polynomial(Coefficients);
+        System.out.println(polynomial.rawString());
+        return polynomial;
     }
 
     public double newtonRaphsonMethod(double a) {

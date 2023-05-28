@@ -49,7 +49,7 @@ public class Polynomial extends Function {
         for (double val : coefficients) {
             if (val > 0) {
                 return false;
-            } else if(val < 0) {
+            } else if (val < 0) {
                 return true;
             }
         }
@@ -59,9 +59,9 @@ public class Polynomial extends Function {
     @Override
     public String toString() {
         if (isZero()) {
-            return "0";
+            return "(0)";
         }
-        String s = "";
+        String s = "(";
         if (isFirstCoefficientNegative()) {
             s += "-";
         }
@@ -95,6 +95,7 @@ public class Polynomial extends Function {
                 }
             }
         }
+        s += ")";
         return s;
     }
 
