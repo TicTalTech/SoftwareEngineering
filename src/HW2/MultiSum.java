@@ -1,18 +1,19 @@
 package HW2;
 
-public class MultiSum {
-    public Sum[] functions;
+public class MultiSum extends Function {
+    public Function[] functions;
 
-    public MultiSum(Sum[] functions) {
+    public MultiSum(Function[] functions) {
         this.functions = new Sum[functions.length];
         for (int i = 0; i < functions.length; ++i) {
             this.functions[i] = functions[i];
         }
     }
 
+    @Override
     public double valueAt(double x) {
         double value = 0;
-        for (Sum func : functions)
+        for (Function func : functions)
             value += func.valueAt(x);
         return value;
     }
@@ -26,11 +27,13 @@ public class MultiSum {
         return s;
     }
 
-    public MultiSum derivative() {
+    @Override
+
+    public Function derivative() {
         Function[] derivatives = new Function[functions.length];
         for (int i = 0; i < functions.length; ++i)
             derivatives[i] = functions[i].derivative();
-        MultiSum der = new MultiSum(derivatives);
+        Function der = new MultiSum(derivatives);
         return der;
     }
 }
