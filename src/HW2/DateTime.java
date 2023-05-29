@@ -30,14 +30,14 @@ public class DateTime extends Date {
 
     public void setHour(int hour) {
         this.hour = hour;
-        if (hour > 23) {
+        if (hour > 23 || hour < 0) {
             this.hour = 0;
         }
     }
 
     public void setMinute(int minute) {
         this.minute = minute;
-        if (minute > 59) {
+        if (minute > 59 || minute < 0) {
             this.minute = 0;
         }
     }
