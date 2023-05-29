@@ -26,6 +26,14 @@ public abstract class Function {
         return bisectionMethod(a, b, 1e-5);
     }
 
+    /**
+     * A method that finds an approximation of the square root of the function at a point a
+     *
+     * @param a       the point where we want to find the square root
+     * @param epsilon the error from the actual value
+     * @return returns an approximation of the value of the square root of the function at point a within epsilon
+     * of the actual value
+     */
     public double newtonRaphsonMethod(double a, double epsilon) {
         double point = a;
         while (Math.abs(valueAt(point)) >= epsilon)
@@ -33,6 +41,12 @@ public abstract class Function {
         return point;
     }
 
+    /**
+     * Finds the nth degree taylor polynomial of the function
+     *
+     * @param n the degree of which we want to calculate the taylor polynomial for
+     * @return returns the nth degree taylor polynomial of the function
+     */
     public Function taylorPolynomial(int n) {
         double factorial = 1;
         Function derivative = derivative();
@@ -51,6 +65,13 @@ public abstract class Function {
         return polynomial;
     }
 
+    /**
+     * A method that finds an approximation of the square root of the function at a point a
+     *
+     * @param a the point where we want to find the square root
+     * @return returns an approximation of the value of the square root of the function at point a within 10^-5
+     * of the actual value
+     */
     public double newtonRaphsonMethod(double a) {
         return (newtonRaphsonMethod(a, Math.pow(10, -5)));
     }

@@ -1,5 +1,8 @@
 package HW2;
 
+/**
+ * A class that represents a function that's made up of the sum of two or more functions
+ */
 public class MultiSum extends Function {
     private Function[] functions;
 
@@ -12,6 +15,10 @@ public class MultiSum extends Function {
         }
     }
 
+    /**
+     * @param functions an array of functions
+     * @return returns a Multi sum function that's created from the sum of the functions in the array
+     */
     public static MultiSum createMultiSumFromArray(Function[] functions) {
         Function[] lastFunctions = new Function[functions.length - 2];
         for (int i = 2; i < functions.length; i++) {
@@ -20,6 +27,12 @@ public class MultiSum extends Function {
         return new MultiSum(functions[0], functions[1], lastFunctions);
     }
 
+    /**
+     * A method which finds the value of the function at a point
+     *
+     * @param x the point where we want to know the value at
+     * @return returns the value at that point
+     */
     @Override
     public double valueAt(double x) {
         double value = 0;
@@ -37,6 +50,11 @@ public class MultiSum extends Function {
         return s + ")";
     }
 
+    /**
+     * A method which finds the derivative of the function
+     *
+     * @return returns a function that is the derivative of the current function
+     */
     @Override
 
     public Function derivative() {

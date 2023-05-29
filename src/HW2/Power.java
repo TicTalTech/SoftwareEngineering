@@ -1,5 +1,8 @@
 package HW2;
 
+/**
+ * A class that represents a function that is a certain function to the power of a positive integer.
+ */
 public class Power extends Function {
     private Function func;
     private int power;
@@ -9,6 +12,12 @@ public class Power extends Function {
         this.power = power;
     }
 
+    /**
+     * A method which finds the value of the function at a point
+     *
+     * @param x the point where we want to know the value at
+     * @return returns the value at that point
+     */
     @Override
     public double valueAt(double x) {
         return Math.pow(func.valueAt(x), power);
@@ -19,6 +28,11 @@ public class Power extends Function {
         return "(" + func.toString() + "" + "^" + power + ")";
     }
 
+    /**
+     * A method which finds the derivative of the function
+     *
+     * @return returns a function that is the derivative of the current function
+     */
     @Override
     public Function derivative() {
         if (power == 1)

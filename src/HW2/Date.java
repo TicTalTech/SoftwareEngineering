@@ -1,5 +1,8 @@
 package HW2;
 
+/**
+ * A class that represents a date by its day,month and year
+ */
 public class Date {
     private int month;
     private int day;
@@ -70,6 +73,9 @@ public class Date {
     }
 
     @Override
+    /**
+     * A hash code where the code is a number that represents the days since the minimum date, plus one.
+     */
     public int hashCode() {
         return (this.year + 3999) * 365 + (this.month - 1) * 12 + this.day;
     }

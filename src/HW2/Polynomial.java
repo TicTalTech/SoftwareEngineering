@@ -2,6 +2,10 @@ package HW2;
 
 import java.lang.Math;
 
+/**
+ * A class that represents a polynomial. The coefficients are represented in an array. Where the number in
+ * the index i is the coefficient of x^i
+ */
 public class Polynomial extends Function {
     private final double[] coefficients;
 
@@ -12,8 +16,13 @@ public class Polynomial extends Function {
         }
     }
 
+    /**
+     * A method which finds the value of the function at a point
+     *
+     * @param x the point where we want to know the value at
+     * @return returns the value at that point
+     */
     @Override
-
     public double valueAt(double x) {
         double value = 0;
         for (int i = 0; i < coefficients.length; ++i) {
@@ -22,6 +31,9 @@ public class Polynomial extends Function {
         return value;
     }
 
+    /**
+     * @return
+     */
     private boolean isZero() {
         if (coefficients.length == 0) {
             return true;
@@ -120,8 +132,12 @@ public class Polynomial extends Function {
         return s;
     }
 
+    /**
+     * A method which finds the derivative of the function
+     *
+     * @return returns a function that is the derivative of the current function
+     */
     @Override
-
     public Function derivative() {
         double[] newCoefficients;
         if (coefficients.length > 1) {
