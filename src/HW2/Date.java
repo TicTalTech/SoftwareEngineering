@@ -53,8 +53,9 @@ public class Date {
                     && (((Date) date).getDay() == this.day))
                 if (hashCode() != date.hashCode())
                     return false;
+                else
+                    return true;
         }
-
         return false;
     }
 
