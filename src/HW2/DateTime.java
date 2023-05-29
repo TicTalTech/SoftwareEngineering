@@ -4,9 +4,10 @@ public class DateTime extends Date {
     private int hour;
     private int minute;
 
-    public DateTime(int hour, int minute) {
-        this.setHour(hour);
-        this.setMinute(minute);
+    public DateTime(int month, int day, int year, int hour, int minute) {
+        super(month, day, year);
+        this.hour = hour;
+        this.minute = minute;
     }
 
     @Override
@@ -14,13 +15,14 @@ public class DateTime extends Date {
         if (!(obj instanceof DateTime)) {
             return false;
         }
-        return super.equals(obj) && this.hour == ((DateTime)obj).hour && this.minute == ((DateTime)obj).minute;
+        return super.equals(obj) && this.hour == ((DateTime) obj).hour && this.minute == ((DateTime) obj).minute;
     }
 
     @Override
     public String toString() {
         return super.toString() + " " + String.format("%02d", hour) + ":" + String.format("%02d", minute);
     }
+
     @Override
     public int hashCode() {
         return super.hashCode() * 3600 + hour * 60 + minute;
