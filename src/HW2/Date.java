@@ -46,15 +46,18 @@ public class Date {
 
     @Override
     public boolean equals(Object date) {
-        if (date != null) {
-            if (!(date instanceof Date))
-                return false;
-            if ((((Date) date).getYear() == this.year) && (((Date) date).getMonth() == this.month)
-                    && (((Date) date).getDay() == this.day))
-                if (hashCode() != date.hashCode())
-                    return false;
-                else
-                    return true;
+        if (date == null) {
+            return false;
+        }
+        if (!(date instanceof Date)) {
+            return false;
+        }
+        if (hashCode() != date.hashCode()) {
+            return false;
+        }
+        if (((Date) date).getYear() == this.year && ((Date) date).getMonth() == this.month
+                && ((Date) date).getDay() == this.day) {
+            return true;
         }
         return false;
     }
