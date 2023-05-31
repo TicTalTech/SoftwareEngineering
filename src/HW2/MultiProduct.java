@@ -12,6 +12,12 @@ public class MultiProduct extends Function {
         }
     }
 
+    /**
+     * A method which finds the value of the function at a point
+     *
+     * @param x the point where we want to know the value at
+     * @return returns the value at that point
+     */
     @Override
     public double valueAt(double x) {
         double product = 1;
@@ -36,6 +42,12 @@ public class MultiProduct extends Function {
         return s;
     }
 
+    /**
+     * create a new MultiProduct with the existing constructor
+     *
+     * @param functions an array of functions
+     * @return returns a MultiProduct function that's created from the product of the functions in the array
+     */
     public static MultiProduct createMultiProductFromArray(Function[] functions) {
         Function[] lastFunctions = new Function[functions.length - 2];
         for (int i = 2; i < functions.length; i++) {
@@ -44,6 +56,11 @@ public class MultiProduct extends Function {
         return new MultiProduct(functions[0], functions[1], lastFunctions);
     }
 
+    /**
+     * A method which finds the derivative of the function
+     *
+     * @return returns a function that is the derivative of the current function
+     */
     @Override
     public Function derivative() {
         Function[] outerSum = new Function[this.functions.length];

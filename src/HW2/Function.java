@@ -1,17 +1,36 @@
 package HW2;
 
 public abstract class Function {
+    /**
+     * A method which finds the value of the function at a point
+     *
+     * @param x the point where we want to know the value at
+     * @return returns the value at that point
+     */
     public abstract double valueAt(double x);
 
+    /**
+     * A method which finds the derivative of the function
+     *
+     * @return returns a function that is the derivative of the current function
+     */
     public abstract Function derivative();
 
+    /**
+     * A method that finds an approximation of the root of the function between x=a and x=b
+     *
+     * @param a       the left bound the root is in between
+     * @param b       the right bound the root is in between
+     * @param epsilon the error from the actual value
+     * @return returns an approximation of the value of the root of the function (in (a, b)) at point a within epsilon
+     * of the actual value
+     */
     public double bisectionMethod(double a, double b, double epsilon) {
         double left = a, right = b;
         while (right - left > epsilon) {
             double mid = (left + right) / 2.0;
             double fA = this.valueAt(a);
             double fMid = this.valueAt(mid);
-//            double fB = this.valueAt(b);
             if (fA * fMid > 0) {
                 left = mid;
             } else {
@@ -22,6 +41,14 @@ public abstract class Function {
         return (left + right) / 2.0;
     }
 
+    /**
+     * A method that finds an approximation of the root of the function between x=a and x=b
+     *
+     * @param a       the left bound the root is in between
+     * @param b       the right bound the root is in between
+     * @return returns an approximation of the value of the root of the function (in (a, b)) at point a within 10^-5
+     * of the actual value
+     */
     public double bisectionMethod(double a, double b) {
         return bisectionMethod(a, b, 1e-5);
     }

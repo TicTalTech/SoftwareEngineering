@@ -16,8 +16,10 @@ public class MultiSum extends Function {
     }
 
     /**
+     * create a new MultiSum with the existing constructor
+     *
      * @param functions an array of functions
-     * @return returns a Multi sum function that's created from the sum of the functions in the array
+     * @return returns a MultiSum function that's created from the sum of the functions in the array
      */
     public static MultiSum createMultiSumFromArray(Function[] functions) {
         Function[] lastFunctions = new Function[functions.length - 2];

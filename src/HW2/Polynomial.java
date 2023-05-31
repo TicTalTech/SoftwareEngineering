@@ -32,7 +32,9 @@ public class Polynomial extends Function {
     }
 
     /**
-     * @return
+     * checks if the polynomial represents the zero polynomial
+     *
+     * @return - true if it is the zero polynomial
      */
     private boolean isZero() {
         if (coefficients.length == 0) {
@@ -46,6 +48,14 @@ public class Polynomial extends Function {
         return true;
     }
 
+    /**
+     * in cases the there are the most significant coefficients that are zero, it will return the size of the
+     * polynomial without them.
+     * for example:
+     * 0 + x + x^2 + 0x^3 + 0x^4 -> 3 (will not take into account the 0x^3, 0x^4
+     *
+     * @return the "real" size of the polynomial
+     */
     private int findEffectiveSize() {
         int countZeros = 0;
         for (int i = coefficients.length - 1; i >= 0; i--) {
@@ -57,6 +67,15 @@ public class Polynomial extends Function {
         return coefficients.length - countZeros + 1;
     }
 
+    /**
+     * out of all non-zero coefficients, check if the first one is zero
+     * example:
+     * 0 + x + x^2 -> false
+     * 1 - x -> false
+     * 0 + 0x - x^2 -> true
+     *
+     * @return true if the first non-zero coefficient is negative
+     */
     private boolean isFirstCoefficientNegative() {
         for (double val : coefficients) {
             if (val > 0) {
@@ -68,6 +87,11 @@ public class Polynomial extends Function {
         return false;
     }
 
+    /**
+     * finds the index in the coefficients array of the first non-zero coefficient
+     *
+     * @return the index of the first non-zero coefficient
+     */
     private int firstCoefficientIndex() {
         int count = 0;
         for (double val : coefficients) {
@@ -119,16 +143,6 @@ public class Polynomial extends Function {
             }
         }
         s += ")";
-        return s;
-    }
-
-    public String rawString() {
-        String s = "";
-
-        for (int degree = 0; degree < coefficients.length; degree++) {
-            s += coefficients[degree];
-            s += "x^" + degree + " + ";
-        }
         return s;
     }
 

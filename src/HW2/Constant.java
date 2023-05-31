@@ -7,6 +7,12 @@ public class Constant extends Function {
         this.constant = constant;
     }
 
+    /**
+     * A method which finds the value of the function at a point
+     *
+     * @param x the point where we want to know the value at
+     * @return returns the value at that point
+     */
     @Override
     public double valueAt(double x) {
         return this.constant;
