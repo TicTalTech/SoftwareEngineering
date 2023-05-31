@@ -1,5 +1,8 @@
 package HW2;
 
+/**
+ * A class that represents a function that's made up of the product of two or more functions
+ */
 public class MultiProduct extends Function {
     private final Function[] functions;
 

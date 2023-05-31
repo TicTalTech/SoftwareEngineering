@@ -1,5 +1,8 @@
 package HW2;
 
+/**
+ * A class that represents a function and contains useful methods to work with the function
+ */
 public abstract class Function {
     /**
      * A method which finds the value of the function at a point

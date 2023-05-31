@@ -1,5 +1,8 @@
 package HW2;
 
+/**
+ * A class that represents a date and time by its day, month, year, hour and minute
+ */
 public class DateTime extends Date {
     private int hour;
     private int minute;

@@ -1,5 +1,8 @@
 package HW2;
 
+/**
+ * A class that represents a function that's the negation of a function
+ */
 public class Negation extends Function {
 
     private Function f;

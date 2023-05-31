@@ -11,6 +11,10 @@ public class MovePath {
      *
      * @param board - the board need changing
      * @param moves - the moves array that needed to add to
+     * @param x1 - the x coordinate of the first point
+     * @param y1 - the y coordinate of the first point
+     * @param x2 - the x coordinate of the second point
+     * @param y2 - the y coordinate of the second point
      */
     public static void addMove(Board board, Int4[] moves, int x1, int y1, int x2, int y2) {
         Int4 move = new Int4(x1, y1, x2, y2);

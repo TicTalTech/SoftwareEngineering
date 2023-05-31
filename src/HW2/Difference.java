@@ -1,5 +1,8 @@
 package HW2;
 
+/**
+ * A class that represents a function which is a function minus another function
+ */
 public class Difference extends Function {
     private final Function f, g;
 

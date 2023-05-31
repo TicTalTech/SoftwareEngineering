@@ -1,5 +1,8 @@
 package HW2;
 
+/**
+ * A class that represents a function that's a constant
+ */
 public class Constant extends Function {
     private final double constant;
 

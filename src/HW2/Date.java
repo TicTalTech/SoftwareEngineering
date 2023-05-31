@@ -1,7 +1,7 @@
 package HW2;
 
 /**
- * A class that represents a date by its day,month and year
+ * A class that represents a date by its day, month and year
  */
 public class Date {
     private int month;
