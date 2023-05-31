@@ -41,7 +41,7 @@ public class Product extends Function {
     @Override
     public Function derivative() {
         Function derivative1 = new Product(f.derivative(), g);
-        Function derivative2 = new Product(f, g.derivative());
+        Function derivative2 = new Product(g.derivative(), f);
         Function derivative = new Sum(derivative1, derivative2);
         return derivative;
     }

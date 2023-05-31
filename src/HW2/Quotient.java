@@ -37,7 +37,7 @@ public class Quotient extends Function {
     @Override
     public Function derivative() {
         Function func1 = new Product(f.derivative(), g);
-        Function func2 = new Product(f, g.derivative());
+        Function func2 = new Product(g.derivative(), f);
         Function denominator = new Power(g, 2);
         Function numerator = new Difference(func1, func2);//f'g-g'f
         Function derivative = new Quotient(numerator, denominator);
