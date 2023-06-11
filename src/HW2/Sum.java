@@ -1,5 +1,8 @@
 package HW2;
 
+/**
+ * A class that represents a function that's the sum of two functions
+ */
 public class Sum extends Function {
     private final Function f, g;
 
