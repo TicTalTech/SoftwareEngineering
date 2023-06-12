@@ -8,10 +8,10 @@ import java.util.Iterator;
  * implements a stack data structure with a max size using an array
  * @param <E> the type of object the stack will keep
  */
-public class ArrayStack<E extends Cloneable> implements Stack<E>, Iterable<E> {
+public class ArrayStack<E extends Cloneable> implements Stack<E> {
 
-    private Cloneable[] data;
-    private int capacity;
+    private Cloneable[] arr;
+    private int effectiveSize;
 
     /**
      * a constructor for the stack that chooses the max size it can be
@@ -21,80 +21,103 @@ public class ArrayStack<E extends Cloneable> implements Stack<E>, Iterable<E> {
         if (size < 0) {
             throw new NegativeCapacityException();
         }
-        capacity = 0;
-        this.data = new Cloneable[size];
+        effectiveSize = 0;
+        this.arr = new Cloneable[size];
     }
 
     @Override
     public void push(E element) {
-        if (capacity == data.length) {
+        if (effectiveSize == arr.length) {
             throw new StackOverflowException();
         }
-        data[capacity] = element;
-        capacity++;
+        arr[effectiveSize] = element;
+        effectiveSize++;
     }
 
 
     @Override
     public E pop() {
-        if (capacity == 0) {
+        if (effectiveSize == 0) {
             throw new EmptyStackException();
         }
-        capacity--;
-        return (E) data[capacity];
+        effectiveSize--;
+        return (E) arr[effectiveSize];
     }
 
     @Override
     public E peek() {
-        if (capacity == 0) {
+        if (effectiveSize == 0) {
             throw new EmptyStackException();
         }
-        return (E) data[capacity - 1];
+        return (E) arr[effectiveSize - 1];
     }
 
     @Override
     public int size() {
-        return capacity;
+        return effectiveSize;
     }
 
     @Override
     public boolean isEmpty() {
-        return capacity == 0;
+        return effectiveSize == 0;
     }
 
     @Override
     public ArrayStack<E> clone() {
-        ArrayStack<E> newStack = new ArrayStack<>(this.data.length);
-        newStack.capacity = this.capacity;
-        for(int i = 0; i < newStack.size(); i++) {
+//        ArrayStack<E> newStack = new ArrayStack<>(this.data.length);
+        ArrayStack<E> copyStack;
+        try {
+            copyStack = (ArrayStack<E>) super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+        copyStack.arr = new Cloneable[this.arr.length];
+        for (int i = 0; i < this.size(); i++) {
             Method cloneMethod;
             try {
-                cloneMethod = this.data[i].getClass().getMethod("clone");
-                newStack.data[i] = (Cloneable) cloneMethod.invoke(this.data[i]);
+                cloneMethod = this.arr[i].getClass().
+                        getMethod("clone");
+                copyStack.arr[i] = (Cloneable) cloneMethod.invoke(arr[i]);
+
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-                throw new RuntimeException(e);
+                return null;
             }
         }
-        return newStack;
+        return copyStack;
     }
+//    @Override
+//    public ArrayStack<E> clone() {
+//        ArrayStack<E> newStack = new ArrayStack<>(this.arr.length);
+//        newStack.effectiveSize = this.effectiveSize;
+//        for(int i = 0; i < newStack.size(); i++) {
+//            Method cloneMethod;
+//            try {
+//                cloneMethod = this.arr[i].getClass().getMethod("clone");
+//                newStack.arr[i] = (Cloneable) cloneMethod.invoke(this.arr[i]);
+//            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//        return newStack;
+//    }
 
     @Override
     public Iterator iterator() {
         return new StackIterator();
     }
 
-    private class StackIterator implements Iterator {
+    private class StackIterator implements Iterator<E> {
 
-        private int currentIndex = capacity;
+        private int currentIndex = effectiveSize;
         @Override
         public boolean hasNext() {
             return currentIndex > 0;
         }
 
         @Override
-        public Object next() {
+        public E next() {
             currentIndex--;
-            return data[currentIndex];
+            return (E) arr[currentIndex];
         }
     }
 }
