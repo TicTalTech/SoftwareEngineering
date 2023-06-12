@@ -5,8 +5,6 @@ public class TestPlaylist {
         Playlist p = new Playlist();
         Song s = new Song("b", "b", Song.Genre.ROCK, 50);
         p.addSong(s);
-        s = new Song("b", "a", Song.Genre.HOP_HIP, 50);
-        p.addSong(s);
         p.filterDuration(50);
         p.filterArtist(null);
         p.filterGenre(null);
