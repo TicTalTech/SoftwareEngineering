@@ -80,10 +80,10 @@ public class ArrayStack<E extends Cloneable> implements Stack<E>, Iterable<E> {
 
     @Override
     public Iterator iterator() {
-        return new ArrayStackIterator();
+        return new StackIterator();
     }
 
-    private class ArrayStackIterator implements Iterator {
+    private class StackIterator implements Iterator {
 
         private int currentIndex = capacity;
         @Override
