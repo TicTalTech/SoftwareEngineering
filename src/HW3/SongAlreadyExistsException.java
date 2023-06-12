@@ -1,5 +1,8 @@
 package HW3;
 
+/**
+ * An exception that gets thrown if we try to add a song to a playlist in which that song is already on the playlist
+ */
 public class SongAlreadyExistsException extends RuntimeException {
     public SongAlreadyExistsException() {
     }
