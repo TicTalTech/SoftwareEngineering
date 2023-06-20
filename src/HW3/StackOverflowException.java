@@ -5,4 +5,14 @@ package HW3;
  * (there is no space to add more)
  */
 public class StackOverflowException extends StackException {
+    public StackOverflowException() {
+    }
+
+    public StackOverflowException(String message) {
+        super(message);
+    }
+
+    public StackOverflowException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
