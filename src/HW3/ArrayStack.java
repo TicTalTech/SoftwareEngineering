@@ -1,7 +1,6 @@
 package HW3;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Iterator;
 
 /**
@@ -25,6 +24,10 @@ public class ArrayStack<E extends Cloneable> implements Stack<E> {
         this.arr = new Cloneable[size];
     }
 
+    /**
+     * add an item to the top of the stack
+     * @param element - the item tobe added
+     */
     @Override
     public void push(E element) {
         if (effectiveSize == arr.length) {
@@ -35,6 +38,10 @@ public class ArrayStack<E extends Cloneable> implements Stack<E> {
     }
 
 
+    /**
+     * removes an item from the top of the stack and returns it
+     * @return the item that was removed
+     */
     @Override
     public E pop() {
         if (effectiveSize == 0) {
@@ -44,6 +51,10 @@ public class ArrayStack<E extends Cloneable> implements Stack<E> {
         return (E) arr[effectiveSize];
     }
 
+    /**
+     * looks at the top item
+     * @return the top item in the stack
+     */
     @Override
     public E peek() {
         if (effectiveSize == 0) {
@@ -52,19 +63,30 @@ public class ArrayStack<E extends Cloneable> implements Stack<E> {
         return (E) arr[effectiveSize - 1];
     }
 
+    /**
+     * returns the amount of items in the stack
+     * @return the size of the stack
+     */
     @Override
     public int size() {
         return effectiveSize;
     }
 
+    /**
+     * check if the stack contain any items
+     * @return - true if the stack is empty
+     */
     @Override
     public boolean isEmpty() {
         return effectiveSize == 0;
     }
 
+    /**
+     * create a deep copy of the stack
+     * @return - a new object containing a copy of the stack
+     */
     @Override
     public ArrayStack<E> clone() {
-//        ArrayStack<E> newStack = new ArrayStack<>(this.data.length);
         ArrayStack<E> copyStack;
         try {
             copyStack = (ArrayStack<E>) super.clone();
@@ -73,12 +95,9 @@ public class ArrayStack<E extends Cloneable> implements Stack<E> {
         }
         copyStack.arr = new Cloneable[this.arr.length];
         for (int i = 0; i < this.size(); i++) {
-            Method cloneMethod;
             try {
-                cloneMethod = this.arr[i].getClass().
-                        getMethod("clone");
-                copyStack.arr[i] = (Cloneable) cloneMethod.invoke(arr[i]);
-
+                copyStack.arr[i] = (Cloneable) this.arr[i].getClass().
+                        getMethod("clone").invoke(arr[i]);
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
                 return null;
             }
@@ -101,19 +120,35 @@ public class ArrayStack<E extends Cloneable> implements Stack<E> {
 //        return newStack;
 //    }
 
+    /**
+     * creates an iterator for the stack
+     * @return the iterator
+     */
     @Override
     public Iterator iterator() {
         return new StackIterator();
     }
 
+    /**
+     * an iterator class for the ArrayStack class
+     */
     private class StackIterator implements Iterator<E> {
 
         private int currentIndex = effectiveSize;
+
+        /**
+         * check if the iterator has passed through all the objects
+         * @return true if there is another item
+         */
         @Override
         public boolean hasNext() {
             return currentIndex > 0;
         }
 
+        /**
+         * each time called, returns the next item in the stack
+         * @return the next item in the stack
+         */
         @Override
         public E next() {
             currentIndex--;
