@@ -12,12 +12,13 @@ public class Database {
     private Lock counterLock;
     private Condition reachedCapacity;
 
-    private int counter = 0;
+    private int counter;
     private final int MAX_NUM_OF_READERS;
     private HashMap<Long, AccessStatus> threadsStatus;
 
 
     public Database(int maxNumOfReaders) {
+        counter = 0;
         data = new HashMap<>();  // Note: You may add fields to the class and initialize them in here. Do not add parameters!
         MAX_NUM_OF_READERS = maxNumOfReaders;
         counterLock = new ReentrantLock();
@@ -90,14 +91,14 @@ public class Database {
     }
 
     public void writeAcquire() {
-        // TODO: Add your code here...
+        addToCounter(MAX_NUM_OF_READERS, AccessStatus.WRITING, true);
     }
 
     public boolean writeTryAcquire() {
-        // TODO: Add your code here...
+        return addToCounter(MAX_NUM_OF_READERS, AccessStatus.WRITING, false);
     }
 
     public void writeRelease() {
-        // TODO: Add your code here...
+        addToCounter(-MAX_NUM_OF_READERS, AccessStatus.WRITING, true);
     }
 }
