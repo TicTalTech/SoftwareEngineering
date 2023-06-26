@@ -78,15 +78,15 @@ public class Database {
     }
 
     public boolean readTryAcquire() {
-        // TODO: Add your code here...
+        return addToCounter(1, AccessStatus.READING, false);
     }
 
     public void readAcquire() {
-        // TODO: Add your code here...
+        addToCounter(1, AccessStatus.READING, true);
     }
 
     public void readRelease() {
-        // TODO: Add your code here...
+        addToCounter(-1, AccessStatus.READING, true);
     }
 
     public void writeAcquire() {
