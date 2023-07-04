@@ -1,5 +1,3 @@
-package HW4;
-
 /**
  * a class containing a method that check if a certain word exits in a binary tree
  */

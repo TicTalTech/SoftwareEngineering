@@ -1,5 +1,3 @@
-package HW4;
-
 import java.util.ArrayDeque;
 
 /**

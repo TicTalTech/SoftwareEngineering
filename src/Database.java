@@ -1,5 +1,3 @@
-package HW4;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.Condition;
@@ -40,6 +38,7 @@ public class Database {
      * @param accessStatus An enum that indicates if the thread wants to read or write to the database
      * @param shouldWait   True if the thread should wait for it to be granted access (counter small enough)
      *                     false if the thread should return false and not wait
+     * @throws IllegalMonitorStateException if you are trying to release a read or write that does not exist
      * @return return true if the thread added or subtracted from the counter otherwise if shouldWait is false and it
      * didn't get access(the counter was too big) then it returns false
      */
@@ -120,6 +119,7 @@ public class Database {
     /**
      * called after reading from the database. signal the threads that are waiting to access the
      * database to check if they can now access it
+     * @throws  IllegalMonitorStateException if your trying to release a read that does not exist
      */
     public void readRelease() {
         addToCounter(-1, AccessStatus.READING, true);
@@ -147,6 +147,7 @@ public class Database {
     /**
      * called after writing to the database. signal the threads that are waiting to access the
      * database to check if they can now access it
+     * @throws IllegalMonitorStateException if your trying to release a read that does not exist
      */
     public void writeRelease() {
         addToCounter(-MAX_NUM_OF_READERS, AccessStatus.WRITING, true);

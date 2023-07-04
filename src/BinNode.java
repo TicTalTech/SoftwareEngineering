@@ -1,5 +1,3 @@
-package HW4;
-
 public class BinNode<E> {
     private E data;
     private BinNode<E> left;
