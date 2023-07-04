@@ -1,5 +1,8 @@
 package HW4;
 
+/**
+ * a class containing a method that check if a certain word exits in a binary tree
+ */
 public class PathFromRoot {
     /**
      * checks if the given string is in the binary tree (starting from the beginning of the tree)

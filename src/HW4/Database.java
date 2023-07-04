@@ -7,6 +7,9 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 
+/**
+ * a class that represents a database you can read and write from, together with ways to make it thread-safe
+ */
 public class Database {
     private Map<String, String> data;
     private Lock counterLock;
@@ -71,34 +74,72 @@ public class Database {
         return true;
     }
 
+    /**
+     * simulates writing to a database (a dictionary)
+     * @param key the key to write to in the dictionary
+     * @param value the value to be written
+     */
     public void put(String key, String value) {
         data.put(key, value);
     }
 
+    /**
+     * simulates reading from a database (a dictionary)
+     * @param key the key to read from the dictionary
+     * @return the value in the key given
+     */
     public String get(String key) {
         return data.get(key);
     }
 
+    /**
+     * used before reading from the database, it makes sure that there are not too many
+     * threads reading / writing at the moment
+     * @return true if the thread calling is able to read. false if not
+     */
     public boolean readTryAcquire() {
         return addToCounter(1, AccessStatus.READING, false);
     }
 
+    /**
+     * used before reading from the database, it makes sure that there are not too many
+     * threads reading / writing at the moment. waits until there is space / permission
+     * for it to access the database
+      */
     public void readAcquire() {
         addToCounter(1, AccessStatus.READING, true);
     }
 
+    /**
+     * called after reading from the database. signal the threads that are waiting to access the
+     * database to check if they can now access it
+     */
     public void readRelease() {
         addToCounter(-1, AccessStatus.READING, true);
     }
 
+    /**
+     * used before writing from the database, it makes sure that there are not too many
+     *  threads reading / writing at the moment. waits until there is space / permission
+     *  for it to access the database
+     */
     public void writeAcquire() {
         addToCounter(MAX_NUM_OF_READERS, AccessStatus.WRITING, true);
     }
 
+    /**
+     * used before writing to the database, it makes sure that there are not too many
+     * threads reading / writing at the moment
+     * @return true if the thread calling is able to write. false if not
+     */
     public boolean writeTryAcquire() {
         return addToCounter(MAX_NUM_OF_READERS, AccessStatus.WRITING, false);
     }
 
+    /**
+     * called after writing to the database. signal the threads that are waiting to access the
+     * database to check if they can now access it
+     */
     public void writeRelease() {
         addToCounter(-MAX_NUM_OF_READERS, AccessStatus.WRITING, true);
     }
