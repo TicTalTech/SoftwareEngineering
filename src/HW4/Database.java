@@ -39,6 +39,7 @@ public class Database {
     public boolean addToCounter(int change, AccessStatus accessStatus, boolean shouldWait) {
         counterLock.lock();
         try {
+            // if the change is negative the condition will always be false and it will never await
             while (counter + change > MAX_NUM_OF_READERS) {
                 if (shouldWait) {
                     reachedCapacity.await();
