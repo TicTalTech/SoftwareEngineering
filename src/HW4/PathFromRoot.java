@@ -15,10 +15,11 @@ public class PathFromRoot {
              return true;
          }
          char firstLetter = str.charAt(0);
-         if (firstLetter != root.getData().charValue()) {
+         char rootLetter = root.getData().charValue();
+         if (firstLetter != rootLetter) {
              return false;
          }
-         if (str.length() == 1 && firstLetter == root.getData().charValue()) {
+         if (str.length() == 1 && firstLetter == rootLetter) {
              return true;
          }
          if (root.getLeft() != null) {
