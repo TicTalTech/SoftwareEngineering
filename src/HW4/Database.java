@@ -19,7 +19,11 @@ public class Database {
     private final int MAX_NUM_OF_READERS;
     private HashMap<Long, AccessStatus> threadsStatus;
 
-
+    /**
+     * Creates a database object
+     *
+     * @param maxNumOfReaders the max number of threads that could read from the database at the same time
+     */
     public Database(int maxNumOfReaders) {
         counter = 0;
         data = new HashMap<>();  // Note: You may add fields to the class and initialize them in here. Do not add parameters!
@@ -40,8 +44,8 @@ public class Database {
      * didn't get access(the counter was too big) then it returns false
      */
     public boolean addToCounter(int change, AccessStatus accessStatus, boolean shouldWait) {
-        counterLock.lock();
         try {
+            counterLock.lock();
             // if the change is negative the condition will always be false and it will never await
             while (counter + change > MAX_NUM_OF_READERS) {
                 if (shouldWait) {
@@ -76,7 +80,8 @@ public class Database {
 
     /**
      * simulates writing to a database (a dictionary)
-     * @param key the key to write to in the dictionary
+     *
+     * @param key   the key to write to in the dictionary
      * @param value the value to be written
      */
     public void put(String key, String value) {
@@ -85,6 +90,7 @@ public class Database {
 
     /**
      * simulates reading from a database (a dictionary)
+     *
      * @param key the key to read from the dictionary
      * @return the value in the key given
      */
@@ -95,6 +101,7 @@ public class Database {
     /**
      * used before reading from the database, it makes sure that there are not too many
      * threads reading / writing at the moment
+     *
      * @return true if the thread calling is able to read. false if not
      */
     public boolean readTryAcquire() {
@@ -105,7 +112,7 @@ public class Database {
      * used before reading from the database, it makes sure that there are not too many
      * threads reading / writing at the moment. waits until there is space / permission
      * for it to access the database
-      */
+     */
     public void readAcquire() {
         addToCounter(1, AccessStatus.READING, true);
     }
@@ -120,8 +127,8 @@ public class Database {
 
     /**
      * used before writing from the database, it makes sure that there are not too many
-     *  threads reading / writing at the moment. waits until there is space / permission
-     *  for it to access the database
+     * threads reading / writing at the moment. waits until there is space / permission
+     * for it to access the database
      */
     public void writeAcquire() {
         addToCounter(MAX_NUM_OF_READERS, AccessStatus.WRITING, true);
@@ -130,6 +137,7 @@ public class Database {
     /**
      * used before writing to the database, it makes sure that there are not too many
      * threads reading / writing at the moment
+     *
      * @return true if the thread calling is able to write. false if not
      */
     public boolean writeTryAcquire() {

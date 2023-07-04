@@ -1,10 +1,18 @@
 package HW4;
 
-import HW1.Node;
-
 import java.util.ArrayDeque;
 
+/**
+ * A class containing a method that receives a binary tree and returns the level with the largest sum in the tree.
+ */
 public class LevelLargestSum {
+    /**
+     * A method that finds the level of a binary tree that has the largest sum.
+     *
+     * @param root the root of the binary tree
+     * @return returns the level in the tree with the largest sum. If two levels have the same sum it returns the
+     * first of the two. If the tree is empty it returns -1.
+     */
     public static int getLevelWithLargestSum(BinNode<Integer> root) {
         if (root == null)
             return -1;
